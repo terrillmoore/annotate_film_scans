@@ -31,8 +31,8 @@ def main_inner() -> int:
     # create an app object
     try:
         gApp = app.App()
-    except:
-        print("app creation failed!")
+    except Exception as e:
+        print("app creation failed:", e)
         raise
 
     gApp.log.debug("launching app")

@@ -139,6 +139,12 @@ class App():
             help="process used for image"
         )
         parser.add_argument(
+            "--author",
+            default=list(settings["author"])[0],
+            choices=settings['author'],
+            help="author/rights for image (default: %(default)s)"
+        )
+        parser.add_argument(
             "--roll",
             help="Roll ID"
         )
@@ -165,9 +171,11 @@ class App():
         """ this is the Exception thrown for application errors """
         pass
 
+    #################################
+    # Run the app and return status #
+    #################################
     def run(self) -> int:
         args = self.args
-        verbose = args.verbose
         input_files = sorted(args.input_files, reverse=not args.forward)
         self.log.debug(f"{input_files=}")
         self.log.debug(f"{len(input_files)=}")

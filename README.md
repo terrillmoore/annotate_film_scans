@@ -30,3 +30,18 @@ exiftool '-DateTimeDigitized=2023:05:15 12:00:00-04:00' '-SubSecCreateDate=2023:
 ```
 
 Now you can import into Lightroom (or whatever).
+
+## Notes on EXIF tags and AnalogExif
+
+The schema used by AnalogExif:
+
+http://sites.google.com/site/c41bytes/analogexif/ns
+
+Special tags:
+
+| Name                   | Comment
+|------------------------|---------------
+`XMP:CameraSerialNumber` | Also copied to `EXIF:CameraSerialNumber`
+`EXIF:FNumber`           | Also copied to `Composite:Aperture`?
+`EXIF:ExposureTime`      | Also copied to `Composite:ShutterSpeed`?
+

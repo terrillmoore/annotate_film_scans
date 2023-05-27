@@ -21,3 +21,15 @@ import uuid
 class Constants:
         __slots__ = ()  # prevent changes
 
+        shot_fields = {
+                "frame",
+                "frame2",
+                "exposure",
+                "aperture",
+                "filter",
+                "date",
+                "time",
+                "lens",
+                "focallength",
+                "comment"
+        }

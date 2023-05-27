@@ -1,163 +1,170 @@
 {
     "camera": {
         "Autocord": {
-            "Make": "Minolta",
-            "Model": "Autocord",
-            "FilmType": 120,
-            "CameraSerialNumber": 156310,
-            "LensManufacturer": "Chiyoko",
-            "LensModel": "Rokkor",
-            "LensSerial": 2003040,
-            "FocalLength": "75.0 mm",
-            "FocalLength35efl": "41.25 mm",
-            "MaxApertureValue": 3.5
+            "XMP:Make": "Minolta",
+            "XMP:Model": "Autocord",
+            "XMP:FilmType": 120,
+            "XMP:CameraSerialNumber": 156310,
+            "XMP:LensManufacturer": "Chiyoko",
+            "XMP:LensModel": "Rokkor",
+            "XMP:LensSerial": 2003040,
+            "EXIF:FocalLength": "75.0 mm",
+            "Composite:FocalLength35efl": "41.25 mm",
+            "EXIF:MaxApertureValue": 3.5
         },
-        "Canonflex": {   
-            "Make": "Canon",
-            "Model": "Canonflex",
-            "FilmType": 135,
-            "CameraSerialNumber": 17887
+        "Canonflex": {
+            "XMP:Make": "Canon",
+            "XMP:Model": "Canonflex",
+            "XMP:FilmType": 135,
+            "XMP:CameraSerialNumber": 17887
         },
         "Canon FTb": {
-            "Make": "Canon",
-            "Model": "FTb",
-            "FilmType": 135,
-            "CameraSerialNumber": "M1212"
+            "XMP:Make": "Canon",
+            "XMP:Model": "FTb",
+            "XMP:FilmType": 135,
+            "XMP:CameraSerialNumber": "M1212"
         },
         "Baldalux": {
-            "Make": "Balda Camera Works",
-            "Model": "Baldalux",
-            "FilmType": 120,
-            "LensManufacturer": "Schneider-Kreuznach",
-            "LensModel": "Radionar",
-            "LensSerial": 4389791,
-            "FocalLength": "105.00 mm",
-            "FocalLength35efl": "45.15 mm",
-            "MaxApertureValue": 4.5
+            "XMP:Make": "Balda Camera Works",
+            "XMP:Model": "Baldalux",
+            "XMP:FilmType": 120,
+            "XMP:LensManufacturer": "Schneider-Kreuznach",
+            "XMP:LensModel": "Radionar",
+            "XMP:LensSerial": 4389791,
+            "EXIF:FocalLength": "105.00 mm",
+            "Composite:FocalLength35efl": "45.15 mm",
+            "EXIF:MaxApertureValue": 4.5
         },
         "Semi Leotax R #1": {
-            "Make": "Showa Optical Works, Ltc.",
-            "Model": "Semi Leotax R",
-            "FilmType": 120,
-            "LensManufacturer": "Tokyo Optical Co.",
-            "LensModel": "Toko",
-            "LensSerial": 117481,
-            "FocalLength": "75.00 mm",
-            "FocalLength35efl": "46.50 mm",
-            "MaxApertureValue": 3.5
+            "XMP:Make": "Showa Optical Works, Ltc.",
+            "XMP:Model": "Semi Leotax R",
+            "XMP:FilmType": 120,
+            "XMP:LensManufacturer": "Tokyo Optical Co.",
+            "XMP:LensModel": "Toko",
+            "XMP:LensSerial": 117481,
+            "EXIF:FocalLength": "75.00 mm",
+            "Composite:FocalLength35efl": "46.50 mm",
+            "EXIF:MaxApertureValue": 3.5
         },
         "Pentax ME Super (Judy)": {
-            "Make": "Asahi Optical Co.",
-            "Model": "Pentax ME Super",
-            "FilmType": 135,
-            "CameraSerialNumber": 2982175
+            "XMP:Make": "Asahi Optical Co.",
+            "XMP:Model": "Pentax ME Super",
+            "XMP:FilmType": 135,
+            "XMP:CameraSerialNumber": 2982175
         }
     },
     "lens": {
         "fixed": {},
         "R 58mm f/1.2": {
-            "LensManufacturer": "Canon",
-            "LensModel": "Super Canonmatic R",
-            "LensSerial": 12104,
-            "FocalLength": "58.0 mm",
-            "FocalLength35efl": "58.0 mm",
-            "MaxApertureValue": 1.2
+            "XMP:LensManufacturer": "Canon",
+            "XMP:LensModel": "Super Canonmatic R",
+            "XMP:LensSerial": 12104,
+            "EXIF:FocalLength": "58.0 mm",
+            "Composite:FocalLength35efl": "58.0 mm",
+            "EXIF:MaxApertureValue": 1.2
         },
         "R 35mm f/2.5": {
-            "LensManufacturer": "Canon",
-            "LensModel": "Super Canonmatic R",
-            "LensSerial": 14993,
-            "FocalLength": "35.0 mm",
-            "FocalLength35efl": "35.0 mm",
-            "MaxApertureValue": 2.5
+            "XMP:LensManufacturer": "Canon",
+            "XMP:LensModel": "Super Canonmatic R",
+            "XMP:LensSerial": 14993,
+            "EXIF:FocalLength": "35.0 mm",
+            "Composite:FocalLength35efl": "35.0 mm",
+            "EXIF:MaxApertureValue": 2.5
         },
         "Macro FL 50mm f/3.5": {
-            "LensManufacturer": "Canon",
-            "LensModel": "Macro FL",
-            "LensSerial": 28198,
-            "FocalLength": "50.0 mm",
-            "FocalLength35efl": "50.0 mm",
-            "MaxApertureValue": 3.5     
+            "XMP:LensManufacturer": "Canon",
+            "XMP:LensModel": "Macro FL",
+            "XMP:LensSerial": 28198,
+            "EXIF:FocalLength": "50.0 mm",
+            "Composite:FocalLength35efl": "50.0 mm",
+            "EXIF:MaxApertureValue": 3.5
         },
         "FL 35mm f/2.5": {
-            "LensManufacturer": "Canon",
-            "LensModel": "FL",
-            "LensSerial": 70117,
-            "FocalLength": "35.0 mm",
-            "FocalLength35efl": "35.0 mm",
-            "MaxApertureValue": 2.5
+            "XMP:LensManufacturer": "Canon",
+            "XMP:LensModel": "FL",
+            "XMP:LensSerial": 70117,
+            "EXIF:FocalLength": "35.0 mm",
+            "Composite:FocalLength35efl": "35.0 mm",
+            "EXIF:MaxApertureValue": 2.5
         },
         "FL 55-135mm f/3.5": {
-            "LensManufacturer": "Canon",
-            "LensModel": "FL",
-            "LensSerial": 24253,
-            "FocalLength": "55.0 mm - 135.0 mm",
-            "FocalLength35efl": "55.0 mm - 135.0 mm",
-            "MaxApertureValue": 3.5
+            "XMP:LensManufacturer": "Canon",
+            "XMP:LensModel": "FL",
+            "XMP:LensSerial": 24253,
+            "EXIF:FocalLength": "55.0 mm - 135.0 mm",
+            "Composite:FocalLength35efl": "55.0 mm - 135.0 mm",
+            "EXIF:MaxApertureValue": 3.5
         },
         "SMC Pentax 50 mm f/1.7": {
-            "LensManufacturer": "Asahi Optical Co.",
-            "LensModel": "SMC Pentax-M",
-            "LensSerial": 7363819,
-            "FocalLength": "50.0 mm",
-            "FocalLength35efl": "50.0 mm",
-            "MaxApertureValue": 1.7
+            "XMP:LensManufacturer": "Asahi Optical Co.",
+            "XMP:LensModel": "SMC Pentax-M",
+            "XMP:LensSerial": 7363819,
+            "EXIF:FocalLength": "50.0 mm",
+            "Composite:FocalLength35efl": "50.0 mm",
+            "EXIF:MaxApertureValue": 1.7
         },
         "SMC Pentax 28 mm f/2.8": {
-            "LensManufacturer": "Asahi Optical Co.",
-            "LensModel": "SMC Pentax-M",
-            "LensSerial": 7157466,
-            "FocalLength": "28.0 mm",
-            "FocalLength35efl": "28.0 mm",
-            "MaxApertureValue": 2.8
+            "XMP:LensManufacturer": "Asahi Optical Co.",
+            "XMP:LensModel": "SMC Pentax-M",
+            "XMP:LensSerial": 7157466,
+            "EXIF:FocalLength": "28.0 mm",
+            "Composite:FocalLength35efl": "28.0 mm",
+            "EXIF:MaxApertureValue": 2.8
         }
     },
     "film": {
         "CineStill 400": {
-            "FilmMaker": "CineStill",
-            "Film": "CineStill 400D",
-            "ISO": 400
+            "XMP:FilmMaker": "CineStill",
+            "XMP:Film": "CineStill 400D",
+            "EXIF:ISO": 400
         },
         "Delta 100": {
-            "FilmMaker": "Ilford",
-            "Film": "Delta 100",
-            "ISO": 100
+            "XMP:FilmMaker": "Ilford",
+            "XMP:Film": "Ilford Delta 100",
+            "EXIF:ISO": 100
         },
         "Delta 400": {
-            "FilmMaker": "Ilford",
-            "Film": "Delta 400",
-            "ISO": 400
+            "XMP:FilmMaker": "Ilford",
+            "XMP:Film": "Ilford Delta 400",
+            "EXIF:ISO": 400
         },
         "Portra 160": {
-            "FilmMaker": "Kodak",
-            "Film": "Portra 160",
-            "ISO": 160
+            "XMP:FilmMaker": "Kodak",
+            "XMP:Film": "Kodak Portra 160",
+            "EXIF:ISO": 160
         },
         "Portra 800": {
-            "FilmMaker": "Kodak",
-            "Film": "Portra 800",
-            "ISO": 800
+            "XMP:FilmMaker": "Kodak",
+            "XMP:Film": "Kodak Portra 800",
+            "EXIF:ISO": 800
         }
     },
     "lab": {
         "Praus": {
-            "Lab": "Praus Productions",
-            "LabAddress": "Rochester, NY"
+            "XMP:Lab": "Praus Productions",
+            "XMP:LabAddress": "Rochester, NY"
         },
         "The Darkroom": {
-            "Lab": "The Darkroom Lab",
-            "LabAddress": "San Clemente, CA"
+            "XMP:Lab": "The Darkroom Lab",
+            "XMP:LabAddress": "San Clemente, CA"
         }
     },
     "process": {
         "C-41": {
-            "DevelopProcess": "C-41"
+            "XMP:DevelopProcess": "C-41"
         },
         "E-6": {
-            "DevelopProcess": "E-6"
+            "XMP:DevelopProcess": "E-6"
         },
         "B&W": {
-            "DevelopProcess": "Black & White"
+            "XMP:DevelopProcess": "Black & White"
+        }
+    },
+    "author": {
+        "Terrill Moore": {
+            "XMP:Creator": "Terrill Moore",
+            "EXIF:Copyright": "Copyright Terrill Moore",
+            "XMP:Rights": "All rights reserved"
         }
     }
 }
