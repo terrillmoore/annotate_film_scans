@@ -26,13 +26,7 @@ import subprocess
 from typing import Union
 
 from .constants import Constants
-
-##############################################################################
-#
-# The argument parser
-#
-##############################################################################
-
+from .shotinfo import ShotInfoFile
 
 ##############################################################################
 #
@@ -180,15 +174,20 @@ class App():
         self.log.debug(f"{input_files=}")
         self.log.debug(f"{len(input_files)=}")
 
+        # read the shot-info file
+        info = []
+        shot_info_object = ShotInfoFile(self)
+        info = shot_info_object.read_path(args.shot_info_file)
+
         # copy files, renaming
         for i in range(len(input_files)):
             inpath = input_files[i]
             base_inpath = inpath.name
             outpath = self.outputDir / f"{(i + 1):03d}-{base_inpath}"
-            self.log.debug("%d: %s -> %s", [ i, str(inpath), str(outpath) ])
+            self.log.debug("%d: %s -> %s", i, str(inpath), str(outpath) )
 
             # copy the file
-            self.log.verbose("/bin/cp -p %s %s", [str(inpath), str(outpath) ])
+            self.log.info("/bin/cp -p %s %s", str(inpath), str(outpath) )
             # subprocess.run([ "/bin/cp", "-p", str(inpath), str(outpath)], check=True)
 
         return 0
