@@ -30,20 +30,20 @@ class ShotInfoFile:
         """ this is the Exception thrown for ShotInfo errors """
         pass
 
-    def read_path(self, ipath: Union[ pathlib.Path, str ] ) -> list:
+    def read_from_path(self, ipath: Union[ pathlib.Path, str ] ) -> list:
         path = pathlib.Path(ipath)
         if path.match("*.csv"):
-            return self.read_path_csv(path)
+            return self.read_csv_from_path(path)
         else:
             raise self.Error(f"Unknown file type: {path}")
 
-    def read_path_csv(self, ipath: pathlib.Path) -> list:
+    def read_csv_from_path(self, ipath: pathlib.Path) -> list:
         """ read a CSV file given path """
         # open the file and read it.
         with open(ipath, "r", newline='') as f:
-            return self.read_file_csv(f)
+            return self.read_csv_from_stream(f)
     
-    def read_file_csv(self, f: TextIOWrapper) -> list:
+    def read_csv_from_stream(self, f: TextIOWrapper) -> list:
         """ read a CSV stream: first line is header, rest are contents. Retuns a list of dicts """
 
         # create csv stream from stream -- use excel (default) delimiters

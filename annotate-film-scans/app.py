@@ -178,7 +178,7 @@ class App():
         # read the shot-info file
         info = []
         shot_info_object = ShotInfoFile(self)
-        info = shot_info_object.read_path(args.shot_info_file)
+        info = shot_info_object.read_from_path(args.shot_info_file)
 
         # build the attributes
         attributes = dict()
