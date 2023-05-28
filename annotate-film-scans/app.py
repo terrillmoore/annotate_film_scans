@@ -226,15 +226,16 @@ class App():
         if frame_settings != None:
             settings.update(frame_settings)
         
-        #settings["File:FileName"] = str(outpath.parent)
-        #settings["File:FileDir"] = str(outpath.name)
-        
+        scanner_json = self._read_make_model(inpath)
+        settings["XMP-AnalogExif:ScannerMaker"] = scanner_json["Make"]
+        settings["XMP-AnalogExif:Scanner"] = scanner_json["Model"]
+
+        self._analogexif_to_comment(settings)
+
         json_settings_str = json.dumps(settings, indent=2)
         args = [ 
                 "exiftool",
                 "-unsafe",
-                "-XMP-AnalogExif:ScannerMaker<Make",
-                "-XMP-AnalogExif:Scanner<Model",
                 "-XMP-exif:DateTimeDigitized<XMP:CreateDate",
                 "-json=-",
                 "-o", str(outpath),
@@ -244,3 +245,27 @@ class App():
         self.log.info(" ".join(args))
         self.log.debug("_copy: json_settings: %s", json_settings_str)
         subprocess.run(args, input=json_settings_str, check=True, text=True)
+
+    def _analogexif_to_comment(self, settings: dict) -> dict:
+        pattern = re.compile(r"XMP-AnalogExif:(.*)", flags=re.IGNORECASE)
+        comment = None
+        for item in settings.items():
+            key = item[0]
+            match = re.fullmatch(pattern, key)
+            if match != None:
+                # add to the comment
+                if comment == None:
+                    comment = "Photo information: \n"
+                comment += f"\t{match.group(1)}: {item[1]}. \n"
+        settings["IFD0:XPComment"] = comment
+        settings["ExifIFD:UserComment"] = comment
+        return settings
+
+    def _read_make_model(self, inpath):
+        args = [ "exiftool", "-json", "-s", "-make", "-model", str(inpath) ]
+
+        self.log.info(" ".join(args))
+        subprocess_result = subprocess.run(args, capture_output=True, check=True, text=True)
+        result = json.loads(subprocess_result.stdout)[0]
+        self.log.debug("_read_make_model: %s", result)
+        return result
