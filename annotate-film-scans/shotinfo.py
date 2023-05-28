@@ -96,7 +96,7 @@ class ShotInfoFile:
                 if column[1] == None or column[1].strip() == "" or column[1].strip() == "-":
                     row_result[name] = None
                 else:
-                    row_result[name] = column[1]
+                    row_result[name] = column[1].strip()
             self.app.log.debug(f"_read_body: line %d: %s", thisline, row_result )
             row_result["line_num"] = thisline
             thisline = filereader.line_num + 1
