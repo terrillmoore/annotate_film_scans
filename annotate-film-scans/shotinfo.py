@@ -110,6 +110,8 @@ class ShotInfoFile:
     def _extend_datetime(self, rows: list) -> list:
         def datetime_fromiso(row: dict, field: str):
             result = None
+            if row[field] == None:
+                return result
             try:
                 result = datetime.fromisoformat(row[field])
             except Exception as e:
@@ -118,6 +120,8 @@ class ShotInfoFile:
 
         def time_fromiso(row: dict, field: str):
             result = None
+            if row[field] == None:
+                return result
             try:
                 result = time.fromisoformat(row[field])
             except Exception as e:
@@ -130,7 +134,7 @@ class ShotInfoFile:
             thistime = basedate.time()
 
         for row in rows:
-            if "time" in row and not ("date" in row and row["date"] != None):
+            if ("time" in row and row["time"] != None) and not ("date" in row and row["date"] != None):
                 if basedate == None:
                     raise self.Error(f"Time set, but base date not knowns: {row['time']}")
                 # make the datetime from the basedate
@@ -189,22 +193,27 @@ class ShotInfoFile:
     #
     def _expand_attrs(self, row: dict) -> dict:
         def get_fnumber(row, field):
+            if row[field] == None:
+                return None
             result = re.fullmatch(self.app.constants.re_fstop, row[field], flags=re.IGNORECASE)
             if result == None:
                     return None
-            return int(result.group(1))
+            return float(result.group(1))
 
         result = {}
         def put_value(name: str, value):
             if value != None:
                 result[name] = value
 
-
-        put_value("ExifIFD:ExposureTime", row["exposure"])
-        put_value("ExifIFD:FNumber", get_fnumber(row, "aperture"))
-        put_value("XMP-AnalogExif:Filter", row["filter"])
-        if row["datetime"] != None:
-            put_value("Composite:SubSecDateTimeOriginal", row["datetime"].isoformat(sep=' ').replace('-', ':'))
+        if row["exposure"] == "skip":
+            put_value(self.app.constants.TAG_SKIP, True)
+        else:
+            put_value("ExifIFD:ExposureTime", row["exposure"])
+            put_value("ExifIFD:FNumber", get_fnumber(row, "aperture"))
+            put_value("XMP-AnalogExif:Filter", row["filter"])
+            if row["datetime"] != None:
+                datestring = row["datetime"].isoformat(sep=' ').replace('-', ':', 2)
+                put_value("Composite:SubSecDateTimeOriginal", datestring)
 
         self.app.log.debug("_expand_attrs: row=%s result=%s", row, result)
         return result

@@ -35,3 +35,5 @@ class Constants:
         }
 
         re_fstop = r"f/(\d+(\.\d*)?)"
+
+        TAG_SKIP = "XMP-AnnotateFilmScans:Skip"

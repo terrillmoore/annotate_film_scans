@@ -208,17 +208,30 @@ class App():
 
         self.log.debug("attributes: %s", attributes)
 
-        # copy files, renaming
+        # copy files, renaming. manually index through the shots
+        iShot = 0
         for i in range(len(input_files)):
+            frame_info = None
+            # skipping shots requires an expllicit entry
+            # where exposure is "skip".
+            while True:
+                iShot = iShot + 1
+                if iShot in info:
+                    frame_info = info[iShot]
+                    self.log.debug("info[%d]=%s", iShot, frame_info)
+                    if not (self.constants.TAG_SKIP in frame_info):
+                        break
+                else:
+                    # in case we were looping
+                    frame_info = None
+                    break
+
             inpath = input_files[i]
             base_inpath = inpath.name
-            outpath = self.outputDir / f"{(i + 1):03d}-{base_inpath}"
+            outpath = self.outputDir / f"{(iShot):03d}-{base_inpath}"
             self.log.debug("%d: %s -> %s", i, str(inpath), str(outpath) )
 
             # copy the file
-            frame_info = None
-            if i + 1 in info:
-                frame_info = info[i + 1]
 
             self._copy(inpath, outpath, copy.copy(attributes), frame_info)
             # self.log.info("/bin/cp -p %s %s", str(inpath), str(outpath) )
