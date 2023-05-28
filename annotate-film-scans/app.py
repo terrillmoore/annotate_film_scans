@@ -162,7 +162,11 @@ class App():
             nargs="+",
             help="Name of an input file, generally a pattern ending in .jpg"
             )
-
+        parser.add_argument(
+            "--dry-run", "-n",
+            action="store_true",
+            help="go through the motions, but don't write files"
+        )
         # parse the args, and return
         args = parser.parse_args()
         args.input_files = [ pathlib.Path(iArg).expanduser() for iArg in args.input_files ]
@@ -241,10 +245,13 @@ class App():
                 "-o", str(outpath),
                 str(inpath)
                 ]
-        
+
         self.log.info(" ".join(args))
         self.log.debug("_copy: json_settings: %s", json_settings_str)
-        subprocess.run(args, input=json_settings_str, check=True, text=True)
+        if not self.args.dry_run:
+            subprocess.run(args, input=json_settings_str, check=True, text=True)
+        else:
+            self.log.info("(skipping copy due to --dry-run)")
 
     def _analogexif_to_comment(self, settings: dict) -> dict:
         pattern = re.compile(r"XMP-AnalogExif:(.*)", flags=re.IGNORECASE)
