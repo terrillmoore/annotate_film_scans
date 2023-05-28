@@ -15,6 +15,7 @@
 
 #### imports ####
 import argparse
+import copy
 from datetime import datetime, timezone
 from importlib.resources import files as importlib_files
 import itertools
@@ -211,7 +212,35 @@ class App():
             self.log.debug("%d: %s -> %s", i, str(inpath), str(outpath) )
 
             # copy the file
-            self.log.info("/bin/cp -p %s %s", str(inpath), str(outpath) )
+            frame_info = None
+            if i + 1 in info:
+                frame_info = info[i + 1]
+
+            self._copy(inpath, outpath, copy.copy(attributes), frame_info)
+            # self.log.info("/bin/cp -p %s %s", str(inpath), str(outpath) )
             # subprocess.run([ "/bin/cp", "-p", str(inpath), str(outpath)], check=True)
 
         return 0
+
+    def _copy(self, inpath: pathlib.Path, outpath: pathlib.Path, settings, frame_settings):
+        if frame_settings != None:
+            settings.update(frame_settings)
+        
+        #settings["File:FileName"] = str(outpath.parent)
+        #settings["File:FileDir"] = str(outpath.name)
+        
+        json_settings_str = json.dumps(settings, indent=2)
+        args = [ 
+                "exiftool",
+                "-unsafe",
+                "-XMP-AnalogExif:ScannerMaker<Make",
+                "-XMP-AnalogExif:Scanner<Model",
+                "-XMP-exif:DateTimeDigitized<XMP:CreateDate",
+                "-json=-",
+                "-o", str(outpath),
+                str(inpath)
+                ]
+        
+        self.log.info(" ".join(args))
+        self.log.debug("_copy: json_settings: %s", json_settings_str)
+        subprocess.run(args, input=json_settings_str, check=True, text=True)

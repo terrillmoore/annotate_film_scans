@@ -1,33 +1,33 @@
 {
     "camera": {
         "Autocord": {
-            "XMP:Make": "Minolta",
-            "XMP:Model": "Autocord",
-            "XMP:FilmType": 120,
+            "IFD0:Make": "Minolta",
+            "IFD0:Model": "Autocord",
+            "XMP-AnalogExif:FilmType": 120,
             "XMP:CameraSerialNumber": 156310,
             "XMP:LensManufacturer": "Chiyoko",
             "XMP:LensModel": "Rokkor",
             "XMP:LensSerial": 2003040,
             "EXIF:FocalLength": "75.0 mm",
-            "Composite:FocalLength35efl": "41.25 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "41.25 mm",
             "EXIF:MaxApertureValue": 3.5
         },
         "Canonflex": {
-            "XMP:Make": "Canon",
-            "XMP:Model": "Canonflex",
-            "XMP:FilmType": 135,
+            "IFD0:Make": "Canon",
+            "IFD0:Model": "Canonflex",
+            "XMP-AnalogExif:FilmType": 135,
             "XMP:CameraSerialNumber": 17887
         },
         "Canon FTb": {
-            "XMP:Make": "Canon",
-            "XMP:Model": "FTb",
-            "XMP:FilmType": 135,
+            "IFD0:Make": "Canon",
+            "IFD0:Model": "FTb",
+            "XMP-AnalogExif:FilmType": 135,
             "XMP:CameraSerialNumber": "M1212"
         },
         "Baldalux": {
-            "XMP:Make": "Balda Camera Works",
-            "XMP:Model": "Baldalux",
-            "XMP:FilmType": 120,
+            "IFD0:Make": "Balda Camera Works",
+            "IFD0:Model": "Baldalux",
+            "XMP-AnalogExif:FilmType": 120,
             "XMP:LensManufacturer": "Schneider-Kreuznach",
             "XMP:LensModel": "Radionar",
             "XMP:LensSerial": 4389791,
@@ -36,9 +36,9 @@
             "EXIF:MaxApertureValue": 4.5
         },
         "Semi Leotax R #1": {
-            "XMP:Make": "Showa Optical Works, Ltc.",
-            "XMP:Model": "Semi Leotax R",
-            "XMP:FilmType": 120,
+            "IFD0:Make": "Showa Optical Works, Ltc.",
+            "IFD0:Model": "Semi Leotax R",
+            "XMP-AnalogExif:FilmType": 120,
             "XMP:LensManufacturer": "Tokyo Optical Co.",
             "XMP:LensModel": "Toko",
             "XMP:LensSerial": 117481,
@@ -47,9 +47,9 @@
             "EXIF:MaxApertureValue": 3.5
         },
         "Pentax ME Super (Judy)": {
-            "XMP:Make": "Asahi Optical Co.",
-            "XMP:Model": "Pentax ME Super",
-            "XMP:FilmType": 135,
+            "IFD0:Make": "Asahi Optical Co.",
+            "IFD0:Model": "Pentax ME Super",
+            "XMP-AnalogExif:FilmType": 135,
             "XMP:CameraSerialNumber": 2982175
         }
     },
@@ -114,50 +114,50 @@
     },
     "film": {
         "CineStill 400": {
-            "XMP:FilmMaker": "CineStill",
-            "XMP:Film": "CineStill 400D",
+            "XMP-AnalogExif:FilmMaker": "CineStill",
+            "XMP-AnalogExif:Film": "CineStill 400D",
             "EXIF:ISO": 400
         },
         "Delta 100": {
-            "XMP:FilmMaker": "Ilford",
-            "XMP:Film": "Ilford Delta 100",
+            "XMP-AnalogExif:FilmMaker": "Ilford",
+            "XMP-AnalogExif:Film": "Ilford Delta 100",
             "EXIF:ISO": 100
         },
         "Delta 400": {
-            "XMP:FilmMaker": "Ilford",
-            "XMP:Film": "Ilford Delta 400",
+            "XMP-AnalogExif:FilmMaker": "Ilford",
+            "XMP-AnalogExif:Film": "Ilford Delta 400",
             "EXIF:ISO": 400
         },
         "Portra 160": {
-            "XMP:FilmMaker": "Kodak",
-            "XMP:Film": "Kodak Portra 160",
+            "XMP-AnalogExif:FilmMaker": "Kodak",
+            "XMP-AnalogExif:Film": "Kodak Portra 160",
             "EXIF:ISO": 160
         },
         "Portra 800": {
-            "XMP:FilmMaker": "Kodak",
-            "XMP:Film": "Kodak Portra 800",
+            "XMP-AnalogExif:FilmMaker": "Kodak",
+            "XMP-AnalogExif:Film": "Kodak Portra 800",
             "EXIF:ISO": 800
         }
     },
     "lab": {
         "Praus": {
-            "XMP:Lab": "Praus Productions",
-            "XMP:LabAddress": "Rochester, NY"
+            "XMP-AnalogExif:Lab": "Praus Productions",
+            "XMP-AnalogExif:LabAddress": "Rochester, NY"
         },
         "The Darkroom": {
-            "XMP:Lab": "The Darkroom Lab",
-            "XMP:LabAddress": "San Clemente, CA"
+            "XMP-AnalogExif:Lab": "The Darkroom Lab",
+            "XMP-AnalogExif:LabAddress": "San Clemente, CA"
         }
     },
     "process": {
         "C-41": {
-            "XMP:DevelopProcess": "C-41"
+            "XMP-AnalogExif:DevelopProcess": "C-41"
         },
         "E-6": {
-            "XMP:DevelopProcess": "E-6"
+            "XMP-AnalogExif:DevelopProcess": "E-6"
         },
         "B&W": {
-            "XMP:DevelopProcess": "Black & White"
+            "XMP-AnalogExif:DevelopProcess": "Black & White"
         }
     },
     "author": {

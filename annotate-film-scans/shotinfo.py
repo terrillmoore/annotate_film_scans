@@ -200,9 +200,9 @@ class ShotInfoFile:
                 result[name] = value
 
 
-        put_value("EXIF:ExposureTime", row["exposure"])
-        put_value("EXIF:FNumber", get_fnumber(row, "aperture"))
-        put_value("XMP:Filter", row["filter"])
+        put_value("ExifIFD:ExposureTime", row["exposure"])
+        put_value("ExifIFD:FNumber", get_fnumber(row, "aperture"))
+        put_value("XMP-AnalogExif:Filter", row["filter"])
         if row["datetime"] != None:
             put_value("Composite:SubSecDateTimeOriginal", row["datetime"].isoformat(sep=' ').replace('-', ':'))
 
