@@ -14,6 +14,7 @@
 ##############################################################################
 
 import csv
+from datetime import date, datetime, time, timezone
 from io import TextIOWrapper
 import itertools
 import pathlib
@@ -42,7 +43,7 @@ class ShotInfoFile:
         # open the file and read it.
         with open(ipath, "r", newline='') as f:
             return self.read_csv_from_stream(f)
-    
+
     def read_csv_from_stream(self, f: TextIOWrapper) -> list:
         """ read a CSV stream: first line is header, rest are contents. Retuns a list of dicts """
 
@@ -55,8 +56,9 @@ class ShotInfoFile:
         # read list of dict entries
         result = self._read_body(filereader, csv_dict)
 
+        self._extend_datetime(result)
         return result
-    
+
     def _read_first_line(self, filereader) -> list:
         # read the first line and parse per CSV
         header = next(filereader)
@@ -75,12 +77,13 @@ class ShotInfoFile:
 
         self.app.log.debug("_read_first_line: result: %s", [ result ])
         return result
-    
+
     def _read_body(self, filereader, headers: list) -> list:
         # it's hard to switch back and forth from a normal reader to a dict reader,
         # so we just sort of duplicate dict reader
         result = []
 
+        thisline = filereader.line_num + 1
         for row in filereader:
             row_result = dict()
             for column in itertools.zip_longest(headers, row):
@@ -91,7 +94,58 @@ class ShotInfoFile:
                     row_result[name] = None
                 else:
                     row_result[name] = column[1]
-            self.app.log.debug(f"_read_body: line %d: %s", filereader.line_num, row_result )
-            result += row_result
+            self.app.log.debug(f"_read_body: line %d: %s", thisline, row_result )
+            row_result["line_num"] = thisline
+            thisline = filereader.line_num + 1
+            result.append(row_result)
 
         return result
+
+    #
+    # propagate date/time through the file; update in place
+    #
+    def _extend_datetime(self, rows: list) -> list:
+        def datetime_fromiso(row: dict, field: str):
+            result = None
+            try:
+                result = datetime.fromisoformat(row[field])
+            except Exception as e:
+                raise self.Error(f"error converting date({field}) at line {row['line_num']}: {row[field]}: {e}")
+            return result
+
+        def time_fromiso(row: dict, field: str):
+            result = None
+            try:
+                result = time.fromisoformat(row[field])
+            except Exception as e:
+                raise self.Error(f"error converting time({field}) at line {row['line_num']}: {row[field]}: {e}")
+            return result
+
+        basedate = self.app.args.date
+        thistime = None
+        if basedate != None:
+            thistime = basedate.time()
+
+        for row in rows:
+            if "time" in row and not ("date" in row and row["date"] != None):
+                if basedate == None:
+                    raise self.Error(f"Time set, but base date not knowns: {row['time']}")
+                # make the datetime from the basedate
+                basedate = datetime.combine(basedate, time_fromiso(row, "time"))
+                row["datetime"] = basedate
+                thistime = basedate.time()
+            else:
+                if "date" in row and row["date"] != None:
+                    basedate = datetime_fromiso(row, "date")
+                if "time" in row and row["time"] != None:
+                    thistime = time_fromiso(row, "time")
+
+                if basedate == None:
+                    raise self.Error(f"Time set, but base date not knowns: {row['time']}")
+
+                if thistime != None:
+                    basedate = datetime.combine(basedate, thistime)
+                row["datetime"] = basedate
+
+        self.app.log.debug("_extend_datetime: result: %s", rows)
+        return rows

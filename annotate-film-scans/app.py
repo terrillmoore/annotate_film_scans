@@ -150,6 +150,12 @@ class App():
             help="name of per-shot info file (as a .csv or .txt file; first line is header)"
         )
         parser.add_argument(
+            "--date",
+            metavar="{date-iso-8601}",
+            type=datetime.fromisoformat,
+            help="base capture date/time for all images in this run; can be overridden on a shot-by-shot bases in the shot info file"
+        )
+        parser.add_argument(
             "input_files",
             metavar="{InputFile}",
             nargs="+",
