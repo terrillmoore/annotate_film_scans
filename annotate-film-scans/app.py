@@ -17,6 +17,7 @@
 import argparse
 from datetime import datetime, timezone
 from importlib.resources import files as importlib_files
+import itertools
 import json
 import jsons
 import logging
@@ -178,6 +179,23 @@ class App():
         info = []
         shot_info_object = ShotInfoFile(self)
         info = shot_info_object.read_path(args.shot_info_file)
+
+        # build the attributes
+        attributes = dict()
+        for item in {
+                        "camera": args.camera,
+                        "lens": args.lens,
+                        "film": args.film,
+                        "process": args.process,
+                        "lab": args.lab,
+                        "author": args.author
+                    }.items():
+            if item[1] != None:
+                setting = self.settings[item[0]][item[1]]
+                self.log.debug("update: %s -> %s: %s", item[0], item[1], setting)
+                attributes.update(setting)
+
+        self.log.debug("attributes: %s", attributes)
 
         # copy files, renaming
         for i in range(len(input_files)):
