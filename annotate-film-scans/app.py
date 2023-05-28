@@ -242,7 +242,7 @@ class App():
     def _copy(self, inpath: pathlib.Path, outpath: pathlib.Path, settings, frame_settings):
         if frame_settings != None:
             settings.update(frame_settings)
-        
+
         scanner_json = self._read_make_model(inpath)
         settings["XMP-AnalogExif:ScannerMaker"] = scanner_json["Make"]
         settings["XMP-AnalogExif:Scanner"] = scanner_json["Model"]
@@ -250,7 +250,7 @@ class App():
         self._analogexif_to_comment(settings)
 
         json_settings_str = json.dumps(settings, indent=2)
-        args = [ 
+        args = [
                 "exiftool",
                 "-unsafe",
                 "-XMP-exif:DateTimeDigitized<XMP:CreateDate",
