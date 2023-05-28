@@ -33,3 +33,5 @@ class Constants:
                 "focallength",
                 "comment"
         }
+
+        re_fstop = r"f/(\d+(\.\d*)?)"

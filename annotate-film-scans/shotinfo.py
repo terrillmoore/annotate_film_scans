@@ -18,6 +18,7 @@ from datetime import date, datetime, time, timezone
 from io import TextIOWrapper
 import itertools
 import pathlib
+import re
 from typing import Union, List
 
 #### The ShotInfoFile class
@@ -57,6 +58,8 @@ class ShotInfoFile:
         result = self._read_body(filereader, csv_dict)
 
         self._extend_datetime(result)
+        result = self._flatten_and_expand(result)
+        self.app.log.debug("read_csv_from_stream: result=%s", result)
         return result
 
     def _read_first_line(self, filereader) -> list:
@@ -149,3 +152,59 @@ class ShotInfoFile:
 
         self.app.log.debug("_extend_datetime: result: %s", rows)
         return rows
+
+    #
+    # flatten ranges and create per-image attributes
+    #
+    def _flatten_and_expand(self, rows: list) -> dict:
+        def to_int(row: dict, field: str) -> int:
+            result = None
+            try:
+                result = int(row[field])
+            except Exception as e:
+                raise self.Error(f"Not an int: {field=} line={row['line_num']}: {e}")
+            return result
+
+        result = dict()
+
+        for row in rows:
+            firstrow = to_int(row, "frame")
+            lastrow = firstrow
+            if row["frame2"] != None:
+                lastrow = to_int(row, "frame2")
+            rowseq = range(firstrow, lastrow+1)
+
+            for iFrame in rowseq:
+                attrs = self._expand_attrs(row)
+                if iFrame in result:
+                    result[iFrame].update(attrs)
+                else:
+                    result[iFrame] = attrs
+
+        self.app.log.debug("_flatten_and_expand: result=%s", result)
+        return result
+
+    #
+    # convert key elements of a shot info row into equivalent attribute fields
+    #
+    def _expand_attrs(self, row: dict) -> dict:
+        def get_fnumber(row, field):
+            result = re.fullmatch(self.app.constants.re_fstop, row[field], flags=re.IGNORECASE)
+            if result == None:
+                    return None
+            return int(result.group(1))
+
+        result = {}
+        def put_value(name: str, value):
+            if value != None:
+                result[name] = value
+
+
+        put_value("EXIF:ExposureTime", row["exposure"])
+        put_value("EXIF:FNumber", get_fnumber(row, "aperture"))
+        put_value("XMP:Filter", row["filter"])
+        if row["datetime"] != None:
+            put_value("Composite:SubSecDateTimeOriginal", row["datetime"].isoformat(sep=' ').replace('-', ':'))
+
+        self.app.log.debug("_expand_attrs: row=%s result=%s", row, result)
+        return result
