@@ -32,7 +32,7 @@
             "XMP:LensModel": "Radionar",
             "XMP:LensSerial": 4389791,
             "EXIF:FocalLength": "105.00 mm",
-            "Composite:FocalLength35efl": "45.15 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "45.15 mm",
             "EXIF:MaxApertureValue": 4.5
         },
         "Leotax": {
@@ -43,7 +43,7 @@
             "XMP:LensModel": "Toko",
             "XMP:LensSerial": 117481,
             "EXIF:FocalLength": "75.00 mm",
-            "Composite:FocalLength35efl": "46.50 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "46.50 mm",
             "EXIF:MaxApertureValue": 3.5
         },
         "Pentax ME Super (Judy)": {
@@ -60,7 +60,7 @@
             "XMP:LensModel": "Super Canonmatic R",
             "XMP:LensSerial": 12104,
             "EXIF:FocalLength": "58.0 mm",
-            "Composite:FocalLength35efl": "58.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "58.0 mm",
             "EXIF:MaxApertureValue": 1.2
         },
         "R 35mm f/2.5": {
@@ -68,7 +68,7 @@
             "XMP:LensModel": "Super Canonmatic R",
             "XMP:LensSerial": 14993,
             "EXIF:FocalLength": "35.0 mm",
-            "Composite:FocalLength35efl": "35.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "35.0 mm",
             "EXIF:MaxApertureValue": 2.5
         },
         "Macro FL 50mm f/3.5": {
@@ -76,7 +76,7 @@
             "XMP:LensModel": "Macro FL",
             "XMP:LensSerial": 28198,
             "EXIF:FocalLength": "50.0 mm",
-            "Composite:FocalLength35efl": "50.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "50.0 mm",
             "EXIF:MaxApertureValue": 3.5
         },
         "FL 35mm f/2.5": {
@@ -84,7 +84,7 @@
             "XMP:LensModel": "FL",
             "XMP:LensSerial": 70117,
             "EXIF:FocalLength": "35.0 mm",
-            "Composite:FocalLength35efl": "35.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "35.0 mm",
             "EXIF:MaxApertureValue": 2.5
         },
         "FL 55-135mm f/3.5": {
@@ -92,7 +92,7 @@
             "XMP:LensModel": "FL",
             "XMP:LensSerial": 24253,
             "EXIF:FocalLength": "55.0 mm - 135.0 mm",
-            "Composite:FocalLength35efl": "55.0 mm - 135.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "55.0 mm - 135.0 mm",
             "EXIF:MaxApertureValue": 3.5
         },
         "SMC Pentax 50 mm f/1.7": {
@@ -100,7 +100,7 @@
             "XMP:LensModel": "SMC Pentax-M",
             "XMP:LensSerial": 7363819,
             "EXIF:FocalLength": "50.0 mm",
-            "Composite:FocalLength35efl": "50.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "50.0 mm",
             "EXIF:MaxApertureValue": 1.7
         },
         "SMC Pentax 28 mm f/2.8": {
@@ -108,7 +108,7 @@
             "XMP:LensModel": "SMC Pentax-M",
             "XMP:LensSerial": 7157466,
             "EXIF:FocalLength": "28.0 mm",
-            "Composite:FocalLength35efl": "28.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "28.0 mm",
             "EXIF:MaxApertureValue": 2.8
         }
     },
