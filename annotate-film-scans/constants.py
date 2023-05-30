@@ -31,9 +31,14 @@ class Constants:
                 "time",
                 "lens",
                 "focallength",
-                "comment"
+                "comment",
+                "camera",
+                "film",
+                "lab",
+                "process"
         }
 
         re_fstop = r"f/(\d+(\.\d*)?)"
 
         TAG_SKIP = "XMP-AnnotateFilmScans:Skip"
+        TAG_CROP_FACTOR = "XMP-AnnocateFilmScans:CropFactor"

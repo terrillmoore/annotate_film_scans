@@ -58,6 +58,8 @@ class ShotInfoFile:
         result = self._read_body(filereader, csv_dict)
 
         self._extend_datetime(result)
+        self._extend_simple_properties(result)
+        self._extend_camera_and_lens_info(result)
         result = self._flatten_and_expand(result)
         self.app.log.debug("read_csv_from_stream: result=%s", result)
         return result
@@ -158,6 +160,68 @@ class ShotInfoFile:
         return rows
 
     #
+    # helper for extending a setting, used several places
+    #
+    def _extend_setting(self, row, fieldname: str, currentvalue, setting):
+        if fieldname in row and row[fieldname] != None:
+            currentvalue = row[fieldname]
+            if not currentvalue in self.app.settings[setting]:
+                raise self.Error(f"Not a known {setting}: {currentvalue} line={row['line_num']}")
+        row[fieldname] = currentvalue
+        return currentvalue
+
+    #
+    # propagate camera, lens and focallength
+    #
+    def _extend_camera_and_lens_info(self, rows: list) -> list:
+        def to_float(row: dict, field: str) -> float:
+            result = None
+            try:
+                result = float(row[field])
+            except Exception as e:
+                raise self.Error(f"Not an float: {field=} line={row['line_num']}: {e}")
+            return result
+
+        currentlens = self.app.args.lens
+        currentfocal = None
+        currentcamera = self.app.args.camera
+    
+        for row in rows:
+            newcamera = self._extend_setting(row, "camera", currentcamera, "camera")
+            if newcamera != currentcamera:
+                currentcamera = newcamera
+                currentlens = None
+                currentfocal = None
+
+            newlens = self._extend_setting(row, "lens", currentlens, "lens")
+            if newlens != currentlens:
+                currentlens = newlens
+                currentfocal = None
+
+            if "focallength" in row and row["focallength"] != None:
+                currentfocal = to_float(row, "focallength")
+            else:
+                row["focallength"] = currentfocal
+
+        return rows
+
+    #
+    # propagate lab, film, process
+    #
+    def _extend_simple_properties(self, rows: list) -> list:
+        currentlab = self.app.args.lab
+        currentfilm = self.app.args.film
+        currentprocess = self.app.args.process
+    
+        for row in rows:
+            currentlab = self._extend_setting(row, "lab", currentlab, "lab")
+            currentfilm = self._extend_setting(row, "film", currentfilm, "film")
+            currentprocess = self._extend_setting(row, "process", currentprocess, "process")
+
+        return rows
+
+
+    #
     # flatten ranges and create per-image attributes
     #
     def _flatten_and_expand(self, rows: list) -> dict:
@@ -204,6 +268,10 @@ class ShotInfoFile:
         def put_value(name: str, value):
             if value != None:
                 result[name] = value
+        def update_from_settings(result: dict, row: dict, fieldname: str, setting: str):
+            if row[fieldname] != None:
+                result.update(self.app.settings[setting][row[fieldname]])
+            return result
 
         if row["exposure"] == "skip":
             put_value(self.app.constants.TAG_SKIP, True)
@@ -214,6 +282,20 @@ class ShotInfoFile:
             if row["datetime"] != None:
                 datestring = row["datetime"].isoformat(sep=' ').replace('-', ':', 2)
                 put_value("Composite:SubSecDateTimeOriginal", datestring)
+            update_from_settings(result, row, "lens", "lens")
+            update_from_settings(result, row, "camera", "camera")
+            update_from_settings(result, row, "lab", "lab")
+            update_from_settings(result, row, "process", "process")
+
+            if row["focallength"] != None:
+                focallength = row["focallength"]
+                TAG_CROP_FACTOR = self.app.constants.TAG_CROP_FACTOR
+                crop_factor = 1.0
+                if TAG_CROP_FACTOR in result:
+                    crop_factor = result[TAG_CROP_FACTOR]
+                focallength_35mm = focallength * crop_factor
+                put_value("ExifIFD:FocalLength", f"{focallength} mm")
+                put_value("ExifIFD:FocalLengthIn35mmFormat", f"{focallength_35mm} mm")
 
         self.app.log.debug("_expand_attrs: row=%s result=%s", row, result)
         return result

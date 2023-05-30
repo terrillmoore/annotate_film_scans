@@ -10,7 +10,8 @@
             "XMP:LensSerial": 2003040,
             "EXIF:FocalLength": "75.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "41.25 mm",
-            "EXIF:MaxApertureValue": 3.5
+            "EXIF:MaxApertureValue": 3.5,
+            "XMP-AnalogExif:CropFactor": 0.55
         },
         "Canonflex": {
             "IFD0:Make": "Canon",
@@ -33,7 +34,8 @@
             "XMP:LensSerial": 4389791,
             "EXIF:FocalLength": "105.00 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "45.15 mm",
-            "EXIF:MaxApertureValue": 4.5
+            "EXIF:MaxApertureValue": 4.5,
+            "XMP-AnalogExif:CropFactor": 0.43
         },
         "Leotax": {
             "IFD0:Make": "Showa Optical Works, Ltd.",
@@ -44,7 +46,8 @@
             "XMP:LensSerial": 117481,
             "EXIF:FocalLength": "75.00 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "46.50 mm",
-            "EXIF:MaxApertureValue": 3.5
+            "EXIF:MaxApertureValue": 3.5,
+            "XMP-AnalogExif:CropFactor": 0.62
         },
         "Pentax ME Super (Judy)": {
             "IFD0:Make": "Asahi Optical Co.",
@@ -89,10 +92,8 @@
         },
         "FL 55-135mm f/3.5": {
             "XMP:LensManufacturer": "Canon",
-            "XMP:LensModel": "FL",
+            "XMP:LensModel": "FL 55~135mm",
             "XMP:LensSerial": 24253,
-            "EXIF:FocalLength": "55.0 mm - 135.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "55.0 mm - 135.0 mm",
             "EXIF:MaxApertureValue": 3.5
         },
         "SMC Pentax 50 mm f/1.7": {

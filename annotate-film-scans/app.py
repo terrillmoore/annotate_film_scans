@@ -192,13 +192,15 @@ class App():
         info = shot_info_object.read_from_path(args.shot_info_file)
 
         # build the attributes
+        # some of these are built up in the ShotInfoFile processing, so
+        # we don't repeat them here.
         attributes = dict()
         for item in {
-                        "camera": args.camera,
-                        "lens": args.lens,
-                        "film": args.film,
-                        "process": args.process,
-                        "lab": args.lab,
+                        # "camera": args.camera,
+                        # "lens": args.lens,
+                        # "film": args.film,
+                        # "process": args.process,
+                        # "lab": args.lab,
                         "author": args.author
                     }.items():
             if item[1] != None:
@@ -212,7 +214,7 @@ class App():
         iShot = 0
         for i in range(len(input_files)):
             frame_info = None
-            # skipping shots requires an expllicit entry
+            # skipping shots requires an explicit entry
             # where exposure is "skip".
             while True:
                 iShot = iShot + 1
