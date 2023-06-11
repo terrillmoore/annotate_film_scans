@@ -25,6 +25,12 @@
             "XMP-AnalogExif:FilmType": 135,
             "XMP:CameraSerialNumber": "M1212"
         },
+        "Canon FTbQL-N": {
+            "IFD0:Make": "Canon",
+            "IFD0:Model": "FTbQL (New)",
+            "XMP-AnalogExif:FilmType": 135,
+            "XMP:CameraSerialNumber": "P1109"
+        },
         "Baldalux": {
             "IFD0:Make": "Balda Camera Works",
             "IFD0:Model": "Baldalux",
