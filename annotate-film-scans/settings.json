@@ -56,6 +56,19 @@
             "EXIF:MaxApertureValue": 3.5,
             "XMP-AnalogExif:CropFactor": 0.62
         },
+        "Leotax #2": {
+            "IFD0:Make": "Showa Optical Works, Ltd.",
+            "IFD0:Model": "Semi Leotax R",
+            "XMP:CameraSerialNumber": 14041,
+            "XMP-AnalogExif:FilmType": 120,
+            "XMP:LensManufacturer": "Nitto Kogaku Co.",
+            "XMP:LensModel": "Kominar",
+            "XMP:LensSerial": 29378,
+            "EXIF:FocalLength": "75.00 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "46.50 mm",
+            "EXIF:MaxApertureValue": 3.5,
+            "XMP-AnalogExif:CropFactor": 0.62
+        },
         "Pentax ME Super (Judy)": {
             "IFD0:Make": "Asahi Optical Co.",
             "IFD0:Model": "Pentax ME Super",
