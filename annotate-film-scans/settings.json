@@ -116,6 +116,22 @@
             "XMP:LensSerial": 24253,
             "EXIF:MaxApertureValue": 3.5
         },
+        "FD 50mm f/1.4": {
+            "XMP:LensManufacturer": "Canon",
+            "XMP:LensModel": "FD 50mm f/1.4 SSC",
+            "XMP:LensSerial": 671339,
+            "EXIF:FocalLength": "50.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "50.0 mm",
+            "EXIF:MaxApertureValue": 1.4
+        },
+        "FD 300mm f/4": {
+            "XMP:LensManufacturer": "Canon",
+            "XMP:LensModel": "FD 300mm f/4",
+            "XMP:LensSerial": 15994,
+            "EXIF:FocalLength": "300.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "300.0 mm",
+            "EXIF:MaxApertureValue": 4
+        },
         "SMC Pentax 50 mm f/1.7": {
             "XMP:LensManufacturer": "Asahi Optical Co.",
             "XMP:LensModel": "SMC Pentax-M",
