@@ -211,11 +211,13 @@ class ShotInfoFile:
     def _extend_simple_properties(self, rows: list) -> list:
         currentlab = self.app.args.lab
         currentfilm = self.app.args.film
+        self.app.log.debug("_extend_simple_properties: initial film: %s", currentfilm)
         currentprocess = self.app.args.process
     
         for row in rows:
             currentlab = self._extend_setting(row, "lab", currentlab, "lab")
             currentfilm = self._extend_setting(row, "film", currentfilm, "film")
+            self.app.log.debug("_extend_simple_properties: extend film: %s", currentfilm)
             currentprocess = self._extend_setting(row, "process", currentprocess, "process")
 
         return rows
@@ -286,6 +288,7 @@ class ShotInfoFile:
             update_from_settings(result, row, "camera", "camera")
             update_from_settings(result, row, "lab", "lab")
             update_from_settings(result, row, "process", "process")
+            update_from_settings(result, row, "film", "film")
 
             if row["focallength"] != None:
                 focallength = row["focallength"]
