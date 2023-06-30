@@ -184,6 +184,11 @@
             "XMP-AnalogExif:FilmMaker": "Kodak",
             "XMP-AnalogExif:Film": "Kodak Ektar 100",
             "EXIF:ISO": 100
+        },
+        "Kodak Gold 200": {
+            "XMP-AnalogExif:FilmMaker": "Kodak",
+            "XMP-AnalogExif:Film": "Kodak Gold 200",
+            "EXIF:ISO": 200
         }
     },
     "lab": {
