@@ -189,6 +189,11 @@
             "XMP-AnalogExif:FilmMaker": "Kodak",
             "XMP-AnalogExif:Film": "Kodak Gold 200",
             "EXIF:ISO": 200
+        },
+        "Pancro 400": {
+            "XMP-AnalogExif:FilmMaker": "Bergger",
+            "XMP-AnalogExif:Film": "Bergger Pancro 400",
+            "EXIF:ISO": 400
         }
     },
     "lab": {
