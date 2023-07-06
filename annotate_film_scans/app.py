@@ -42,7 +42,7 @@ class App():
         self.constants = Constants()
 
         # read the JSON settings file -- this is needed for arguments
-        settings_file = importlib_files("annotate-film-scans").joinpath("settings.json")
+        settings_file = importlib_files("annotate_film_scans").joinpath("settings.json")
         if not settings_file.is_file():
             raise self.Error(f"Can't find setup JSON file: {settings_file}")
 
@@ -83,7 +83,7 @@ class App():
         constants = self.constants
         settings = self.settings
         parser = argparse.ArgumentParser(
-            prog="annotate-film-scans",
+            prog="annotate_film_scans",
             description="Annotate film scans, coping and numbering appropriately",
             # do not allow abbreviations -- you might break batch files
             allow_abbrev=False
