@@ -2,13 +2,33 @@
 
 `annotate_film_scans` is used for batch annotation of collections of JPEG files created by commercial scanning of rolls of film.
 
+<!-- TOC depthFrom:2 updateOnSave:true -->
+
+- [Introduction](#introduction)
+- [Prerequisite](#prerequisite)
+- [Intended Work Flow](#intended-work-flow)
+- [Using the pogram](#using-the-pogram)
+- [Things you'll want to change before using the program](#things-youll-want-to-change-before-using-the-program)
+- [Building a release](#building-a-release)
+- [Notes on EXIF tags and AnalogExif](#notes-on-exif-tags-and-analogexif)
+- [Meta](#meta)
+    - [Author](#author)
+    - [Status](#status)
+    - [Future Directions](#future-directions)
+    - [Prerequisites](#prerequisites)
+    - [License](#license)
+
+<!-- /TOC -->
+
+## Introduction
+
 I keep notes (more or less carefully) about exposure, lens used, filters, etc. I use Lightroom, and I'd like the import function to put the images into my image library so that they coherently with the images that originate with my DSLRs or phone.  I'd like the imported images to show up in the right sequence within a given batch; however, scanning services sometimes return JPEGs sequenced in forward order, sometimes in reverse.
 
 I tried various manual approaches, but it was too tedious and error prone (and I don't have enough time).
 
 So I wrote `annotate_film_scans`, which can do all of these things. I confess that I did quite a bit of reverse engineering of existing tools, particularly AnalogExif, to find out how things were being tagged. I did not do deep research into the standards; I did just enough work to get something that works for me. It may work for you, but it's current state I anticipate that some aspects of my workflow are hard coded and may need further abstraction.
 
-One thing you'll definitely need to edit (and that I should refactor) is `settings.json`.  This file is incorporated into the program, effectively, if you run 
+One thing you'll definitely need to edit (and that I should refactor) is `settings.json`.  This file is incorporated into the program, effectively, if you [build a release](#building-a-release), so it is really a botch -- releases are not a good idea as there's no way to override settings with a local file.
 
 ## Prerequisite
 
@@ -17,7 +37,7 @@ You'll need to have `exiftool` installed on your system. On Linux, `apt-get inst
 ## Intended Work Flow
 
 1. Get your JPEGs from a given roll of film into a single directory.
-2. List the directory and sort by name. 
+2. List the directory and sort by name.
 3. Look at the shots with a previewer, and determine whether the order matches the order of exposure on the film or is reversed. My providers generally reverse rolls.
 4. Note whether there are any skipped negatives. For example, on one of my cameras, shot 1 is almost always skipped, because the film window is in the wrong place for modern film. My notes start with 2, and I don't want to have to worry about this; so there's a way to skip 1 (or any other shot index on a roll).
 5. Create a .csv file in the same directory that describes each shot. The .csv file describes at least shot per line. In the common case (for me) where several sequential shots are the same, there's an easy way to annotate this.  See the sample files below for examples of how to do this.
@@ -75,7 +95,7 @@ Shot 11 is skipped, meaning that there's no JPEG.  The program counts through JP
 Once the file is ready, do a dry run as follows:
 
 ```bash
-python3 -m annotate_film_scans -d /tmp/tagged --shot-info-file ~/Library/CloudStorage/Dropbox/Photos/Scans/TheDarkroom/2023-06-16/00046736/shots-minolta-portra800.csv ~/Library/CloudStorage/Dropbox/Photos/Scans/TheDarkroom/2023-06-16/00046736/*.jpg -vv --forward --dry-run 
+python3 -m annotate_film_scans -d /tmp/tagged --shot-info-file ~/Library/CloudStorage/Dropbox/Photos/Scans/TheDarkroom/2023-06-16/00046736/shots-minolta-portra800.csv ~/Library/CloudStorage/Dropbox/Photos/Scans/TheDarkroom/2023-06-16/00046736/*.jpg -vv --forward --dry-run
 ```
 
 (If you've installed the script from the `.whl` distribution, you can just run `annotate_film_scans`.)
@@ -91,6 +111,14 @@ python3 -m annotate_film_scans -d /tmp/tagged --shot-info-file ~/Library/CloudSt
 Then I move the `/tmp/tagged` directory (and the converted files) to Dropbox as a subdirectory of the scan directory. I do this so I know for sure that I've processed these files.
 
 Finally, I import the `tagged` directory into Lightroom.
+
+## Things you'll want to change before using the program
+
+The default author of all the scans is set to `Terrill Moore` -- you'll really want to fix this (see future directions). This is is `settings.json`.
+
+The serial number of the camera bodies is set in `settings.json`. Ditto.
+
+You'll need to add the films and labs you use in `settings.json`.
 
 ## Building a release
 
@@ -140,6 +168,8 @@ Terry Moore
 * Allow the user to specify the serial numbers of their own lenses and cameras without editing `settings.json`.
 * Add keywording and subject input, especially if we can validate.
 * Add json equivalent to the `.csv` input, so we can use JSON Schemas to pre-validate input in VS Code.
+* Add an option to output the settings in a file you can edit locally.
+* Add an option to generate a template for the CSV file.
 
 ### Prerequisites
 
