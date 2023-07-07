@@ -179,6 +179,8 @@ class App():
         )
         # parse the args, and return
         args = parser.parse_args()
+
+        # expand the args
         args.input_files = [ pathlib.Path(iArg).expanduser() for iArg in args.input_files ]
         args.dir = pathlib.Path(args.dir).expanduser()
         return args
