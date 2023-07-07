@@ -66,7 +66,10 @@ class App():
 
         logging.basicConfig(level=loglevel, format='%(relativeCreated)6d %(levelname)-6s %(message)s')
         self.log = logging.getLogger(__name__)
-        self.log.debug("Initializing App")
+
+        # verbose: report the version.
+        self.log.info("annotate_film_scans v%s", __version__)
+
         self._initialize()
         self.log.info("App is initialized")
         return
