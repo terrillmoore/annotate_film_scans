@@ -13,9 +13,15 @@
 #
 ##############################################################################
 
+# this must be first
 from __future__ import annotations
 
-__author__ = """Terry Moore, MCCI"""
+# then the locally defined things
+__author__ = """Terry Moore"""
 __email__ = "tmm@mcci.com"
 
+# get the version string
+from . __version__ import __version__
+
+# typing things
 from typing import TYPE_CHECKING, Awaitable, Callable, List, Literal, Optional, Type, Union

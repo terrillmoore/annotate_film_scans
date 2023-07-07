@@ -29,6 +29,7 @@ from typing import Union
 
 from .constants import Constants
 from .shotinfo import ShotInfoFile
+from .__version__ import __version__
 
 ##############################################################################
 #
@@ -92,6 +93,12 @@ class App():
             "--verbose", "-v",
             action='count', default=0,
             help="increase verbosity, once for each use"
+            )
+        parser.add_argument(
+            "--version",
+            action='version',
+            help="Print version and exit",
+            version="%(prog)s v"+__version__
             )
         parser.add_argument(
             "--dir", "-d",
