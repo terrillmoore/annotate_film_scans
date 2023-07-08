@@ -32,7 +32,7 @@ One thing you'll definitely need to edit (and that I should refactor) is `settin
 
 ## Prerequisite
 
-You'll need to have `exiftool` installed on your system. On Linux, `apt-get install exiftool` will work; on macOS, you can use Brew. On Windows, you may need to resort to google search to find a suitable `.exe`. I believe that `scoop.sh` includes a version in its library. (Happy to accept contributions clarifying tis.)
+You'll need to have `exiftool` installed on your system. On Linux, `apt-get install exiftool` will work; on macOS, you can use Brew. On Windows, you may need to resort to google search to find a suitable `.exe`. I believe that `scoop.sh` includes a version in its library. (Happy to accept contributions clarifying this.)
 
 ## Intended Work Flow
 
