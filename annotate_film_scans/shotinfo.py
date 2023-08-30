@@ -269,6 +269,17 @@ class ShotInfoFile:
                     raise self.Error(f"invalid f-stop: {value}")
             return float(result.group(1))
 
+        def get_exposure(row, field):
+            value = row[field].strip()
+            if value == None:
+                return None
+            if value == "":
+                return None
+            result = re.fullmatch(self.app.constants.re_exposure, value, flags=re.IGNORECASE)
+            if result == None:
+                raise self.Error(f"invalid exposure: {value}")
+            return value
+
         result = {}
         def put_value(name: str, value):
             if value != None:
@@ -281,7 +292,7 @@ class ShotInfoFile:
         if row["exposure"] == "skip":
             put_value(self.app.constants.TAG_SKIP, True)
         else:
-            put_value("ExifIFD:ExposureTime", row["exposure"])
+            put_value("ExifIFD:ExposureTime", get_exposure(row, "exposure"))
             put_value("ExifIFD:FNumber", get_fnumber(row, "aperture"))
             put_value("XMP-AnalogExif:Filter", row["filter"])
             if row["datetime"] != None:
