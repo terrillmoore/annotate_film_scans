@@ -185,7 +185,7 @@ class ShotInfoFile:
         currentlens = self.app.args.lens
         currentfocal = None
         currentcamera = self.app.args.camera
-    
+
         for row in rows:
             newcamera = self._extend_setting(row, "camera", currentcamera, "camera")
             if newcamera != currentcamera:
@@ -213,7 +213,7 @@ class ShotInfoFile:
         currentfilm = self.app.args.film
         self.app.log.debug("_extend_simple_properties: initial film: %s", currentfilm)
         currentprocess = self.app.args.process
-    
+
         for row in rows:
             currentlab = self._extend_setting(row, "lab", currentlab, "lab")
             currentfilm = self._extend_setting(row, "film", currentfilm, "film")
