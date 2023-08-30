@@ -259,11 +259,14 @@ class ShotInfoFile:
     #
     def _expand_attrs(self, row: dict) -> dict:
         def get_fnumber(row, field):
-            if row[field] == None:
+            value = row[field].strip()
+            if value == None:
                 return None
-            result = re.fullmatch(self.app.constants.re_fstop, row[field], flags=re.IGNORECASE)
+            if value == "":
+                return None
+            result = re.fullmatch(self.app.constants.re_fstop, value, flags=re.IGNORECASE)
             if result == None:
-                    return None
+                    raise self.Error(f"invalid f-stop: {value}")
             return float(result.group(1))
 
         result = {}
