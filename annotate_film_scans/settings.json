@@ -180,6 +180,11 @@
             "XMP-AnalogExif:Film": "Kodak Portra 800",
             "EXIF:ISO": 800
         },
+        "Portra 800+1": {
+            "XMP-AnalogExif:FilmMaker": "Kodak",
+            "XMP-AnalogExif:Film": "Kodak Portra 800 (+1)",
+            "EXIF:ISO": 1600
+        },
         "Superia 400": {
             "XMP-AnalogExif:FilmMaker": "Fujifilm",
             "XMP-AnalogExif:Film": "Fujifilm Superia X-tra 400",
