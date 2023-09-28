@@ -281,16 +281,16 @@ class App():
             self.log.info("(skipping copy due to --dry-run)")
 
     def _analogexif_to_comment(self, settings: dict) -> dict:
-        pattern = re.compile(r"XMP-AnalogExif:(.*)", flags=re.IGNORECASE)
+        pattern = re.compile(r"(XMP-AnalogExif|Exif|XMP|ExifIFD):(.*)", flags=re.IGNORECASE)
         comment = None
         for item in settings.items():
             key = item[0]
             match = re.fullmatch(pattern, key)
-            if match != None:
+            if match != None and match.group(2) != "UserComment":
                 # add to the comment
                 if comment == None:
                     comment = "Photo information: \n"
-                comment += f"\t{match.group(1)}: {item[1]}. \n"
+                comment += f"\t{match.group(2)}: {item[1]}. \n"
         settings["IFD0:XPComment"] = comment
         settings["ExifIFD:UserComment"] = comment
         return settings
