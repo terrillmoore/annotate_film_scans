@@ -74,6 +74,11 @@
             "IFD0:Model": "Pentax ME Super",
             "XMP-AnalogExif:FilmType": 135,
             "XMP:CameraSerialNumber": 2982175
+        },
+        "Pocket View 6x9": {
+            "IFD0:Make": "Peter Gowland",
+            "IFD0:Model": "Gowland Pocket View (Horseman 6x9 back)",
+            "XMP-AnalogExif:FilmType": 120
         }
     },
     "lens": {
@@ -147,6 +152,22 @@
             "EXIF:FocalLength": "28.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "28.0 mm",
             "EXIF:MaxApertureValue": 2.8
+        },
+        "Caltar II-N 90mm": {
+            "XMP:LensManufacturer": "Calumet",
+            "XMP:LensModel": "Caltar II-N",
+            "XMP:LensSerial": 10682409,
+            "EXIF:FocalLength": "90.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "24.3 mm",
+            "EXIF:MaxApertureValue": 4.5
+        },
+        "Caltar II-N 90mm 6x9": {
+            "XMP:LensManufacturer": "Calumet",
+            "XMP:LensModel": "Caltar II-N",
+            "XMP:LensSerial": 10682409,
+            "EXIF:FocalLength": "90.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "38.7 mm",
+            "EXIF:MaxApertureValue": 4.5
         }
     },
     "film": {
