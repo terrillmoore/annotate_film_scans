@@ -79,6 +79,11 @@
             "IFD0:Make": "Peter Gowland",
             "IFD0:Model": "Gowland Pocket View (Horseman 6x9 back)",
             "XMP-AnalogExif:FilmType": 120
+        },
+        "Pocket View": {
+            "IFD0:Make": "Peter Gowland",
+            "IFD0:Model": "Gowland Pocket View",
+            "XMP-AnalogExif:FilmType": "4x5"
         }
     },
     "lens": {
