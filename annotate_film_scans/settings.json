@@ -192,6 +192,14 @@
             "EXIF:FocalLength": "90.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "38.7 mm",
             "EXIF:MaxApertureValue": 4.5
+        },
+        "135mm Optar": {
+            "XMP:LensManufacturer": "Wollensack",
+            "XMP:LensModel": "Optar",
+            "XMP:LensSerial": 501833,
+            "EXIF:FocalLength": "135.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "45.6 mm",
+            "EXIF:MaxApertureValue": 4.7
         }
     },
     "film": {
