@@ -39,6 +39,6 @@ class Constants:
         }
 
         re_fstop = r"f/(\d+(\.\d*)?)"
-        re_exposure = r"(\d+)((/\d+)?)"
+        re_exposure = r"(\d+)(((/\d+)|(\.\d+))?)"
         TAG_SKIP = "XMP-AnnotateFilmScans:Skip"
         TAG_CROP_FACTOR = "XMP-AnnocateFilmScans:CropFactor"
