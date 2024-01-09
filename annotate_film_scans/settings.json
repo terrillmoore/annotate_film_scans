@@ -262,6 +262,11 @@
             "XMP-AnalogExif:FilmMaker": "Bergger",
             "XMP-AnalogExif:Film": "Bergger Pancro 400",
             "EXIF:ISO": 400
+        },
+        "Ektachrome 100": {
+            "XMP-AnalogExif:FilmMaker": "Kodak",
+            "XMP-AnalogExif:Film": "Kodak Ektachrome 100",
+            "EXIF:ISO": 100
         }
     },
     "lab": {
