@@ -223,6 +223,11 @@
             "XMP-AnalogExif:Film": "Ilford Delta 3200",
             "EXIF:ISO": 1600
         },
+        "Tri-X 400": {
+            "XMP-AnalogExif:FilmMaker": "Kodak",
+            "XMP-AnalogExif:Film": "Kodak Tri-X 400",
+            "EXIF:ISO": 400
+        },
         "Portra 160": {
             "XMP-AnalogExif:FilmMaker": "Kodak",
             "XMP-AnalogExif:Film": "Kodak Portra 160",
