@@ -277,6 +277,10 @@
         "The Darkroom": {
             "XMP-AnalogExif:Lab": "The Darkroom Lab",
             "XMP-AnalogExif:LabAddress": "San Clemente, CA"
+        },
+        "Scotts": {
+            "XMP-AnalogExif:Lab": "Scott's Photo by Rowe",
+            "XMP-AnalogExif:LabAddress": "Rochester, NY"
         }
     },
     "process": {
