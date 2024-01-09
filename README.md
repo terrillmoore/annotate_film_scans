@@ -51,7 +51,7 @@ You'll need to have `exiftool` installed on your system. On Linux, `apt-get inst
 7. Use the program, possibly several times.
 8. Move the tagged JPEGs to their final home.
 
-## Using the pogram
+## Using the Program
 
 Let's say that we have a roll of film that came back from the lab with folder name `00046736`, containing a number of JPEGs. And assume that this folder is in a Dropbox folder. This roll was taken on a Minolta Autocord, using Kodak Portra 800 film, so I name the `.csv` file `shots-minolta-portra800.csv`. As you'll see, I organize the Dropbox folder by lab and date, so the full path is `~/Library/CloudStorage/Dropbox/Photos/Scans/TheDarkroom/2023-06-16/00046736/shots-minolta-portra800.csv`.
 
