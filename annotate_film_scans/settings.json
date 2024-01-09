@@ -56,7 +56,20 @@
             "EXIF:MaxApertureValue": 3.5,
             "XMP-AnalogExif:CropFactor": 0.62
         },
-        "Leotax #2": {
+        "Leotax #1": {
+            "IFD0:Make": "Showa Optical Works, Ltd.",
+            "IFD0:Model": "Semi Leotax R",
+            "XMP:CameraSerialNumber": 11474,
+            "XMP-AnalogExif:FilmType": 120,
+            "XMP:LensManufacturer": "Tokyo Optical Co.",
+            "XMP:LensModel": "Toko",
+            "XMP:LensSerial": 117481,
+            "EXIF:FocalLength": "75.00 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "46.50 mm",
+            "EXIF:MaxApertureValue": 3.5,
+            "XMP-AnalogExif:CropFactor": 0.62
+        },
+      "Leotax #2": {
             "IFD0:Make": "Showa Optical Works, Ltd.",
             "IFD0:Model": "Semi Leotax R",
             "XMP:CameraSerialNumber": 14041,
