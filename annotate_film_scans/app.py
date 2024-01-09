@@ -258,8 +258,10 @@ class App():
             settings.update(frame_settings)
 
         scanner_json = self._read_make_model(inpath)
-        settings["XMP-AnalogExif:ScannerMaker"] = scanner_json["Make"]
-        settings["XMP-AnalogExif:Scanner"] = scanner_json["Model"]
+        if "Make" in scanner_json:
+            settings["XMP-AnalogExif:ScannerMaker"] = scanner_json["Make"]
+        if "Model" in scanner_json:
+            settings["XMP-AnalogExif:Scanner"] = scanner_json["Model"]
 
         self._analogexif_to_comment(settings)
 
