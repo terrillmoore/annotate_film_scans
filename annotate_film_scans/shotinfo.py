@@ -259,22 +259,26 @@ class ShotInfoFile:
     #
     def _expand_attrs(self, row: dict) -> dict:
         def get_fnumber(row, field):
-            value = row[field].strip()
-            if value == None:
+            if row[field] == None:
                 return None
+            value = row[field].strip()
             if value == "":
                 return None
+            if value == "?":
+                return "not recorded"
             result = re.fullmatch(self.app.constants.re_fstop, value, flags=re.IGNORECASE)
             if result == None:
                     raise self.Error(f"invalid f-stop: {value}")
             return float(result.group(1))
 
         def get_exposure(row, field):
-            value = row[field].strip()
-            if value == None:
+            if row[field] == None:
                 return None
+            value = row[field].strip()
             if value == "":
                 return None
+            if value == "?":
+                return "not recorded"
             result = re.fullmatch(self.app.constants.re_exposure, value, flags=re.IGNORECASE)
             if result == None:
                 raise self.Error(f"invalid exposure: {value}")
