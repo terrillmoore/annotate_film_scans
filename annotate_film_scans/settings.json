@@ -209,6 +209,14 @@
             "EXIF:FocalLength": "135.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "45.6 mm",
             "EXIF:MaxApertureValue": 4.7
+        },
+        "150mm Rodenstock": {
+            "XMP:LensManufacturer": "Rodenstock",
+            "XMP:LensModel": "Apo-Sironar-N",
+            "XMP:LensSerial": 11206443,
+            "EXIF:FocalLength": "150.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "50.7 mm",
+            "EXIF:MaxApertureValue": 5.6
         }
     },
     "film": {
