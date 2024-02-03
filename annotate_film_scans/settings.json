@@ -245,6 +245,11 @@
             "XMP-AnalogExif:Film": "Kodak Tri-X 400",
             "EXIF:ISO": 400
         },
+        "Tri-X 320": {
+            "XMP-AnalogExif:FilmMaker": "Kodak",
+            "XMP-AnalogExif:Film": "Kodak Tri-X 320",
+            "EXIF:ISO": 320
+        },
         "Portra 160": {
             "XMP-AnalogExif:FilmMaker": "Kodak",
             "XMP-AnalogExif:Film": "Kodak Portra 160",
