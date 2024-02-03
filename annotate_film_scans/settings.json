@@ -289,6 +289,11 @@
             "XMP-AnalogExif:FilmMaker": "Kodak",
             "XMP-AnalogExif:Film": "Kodak Ektachrome 100",
             "EXIF:ISO": 100
+        },
+        "Fomapan 100": {
+            "XMP-AnalogExif:FilmMaker": "Foma",
+            "XMP-AnalogExif:Film": "Foma Fomapan 100 Classic",
+            "EXIF:ISO": 100
         }
     },
     "lab": {
