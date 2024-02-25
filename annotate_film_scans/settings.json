@@ -170,6 +170,12 @@
             "ExifIFD:FocalLengthIn35mmFormat": "300.0 mm",
             "EXIF:MaxApertureValue": 4
         },
+        "FD 70~150 f/4.5": {
+            "XMP:LensManufacturer": "Canon",
+            "XMP:LensModel": "FD 70~150mm",
+            "XMP:LensSerial": 23555,
+            "EXIF:MaxApertureValue": 4.5
+        },
         "SMC Pentax 50 mm f/1.7": {
             "XMP:LensManufacturer": "Asahi Optical Co.",
             "XMP:LensModel": "SMC Pentax-M",
