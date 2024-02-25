@@ -309,7 +309,7 @@ class ShotInfoFile:
             update_from_settings(result, row, "film", "film")
 
             if row["focallength"] != None:
-                focallength = row["focallength"]
+                focallength = float(row["focallength"])
                 TAG_CROP_FACTOR = self.app.constants.TAG_CROP_FACTOR
                 crop_factor = 1.0
                 if TAG_CROP_FACTOR in result:
