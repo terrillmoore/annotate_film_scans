@@ -353,6 +353,10 @@ class ShotInfoFile:
             put_value("ExifIFD:ExposureTime", get_exposure(row, "exposure"))
             put_value("ExifIFD:FNumber", get_fnumber(row, "aperture"))
             put_value("XMP-AnalogExif:Filter", row["filter"])
+
+            if self.app.args.roll != None:
+                put_value("XMP-AnalogExif:RollId", self.app.args.roll)
+
             if row["datetime"] != None:
                 datestring = row["datetime"].isoformat(sep=' ').replace('-', ':', 2)
                 put_value("Composite:SubSecDateTimeOriginal", datestring)
