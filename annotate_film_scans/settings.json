@@ -318,6 +318,10 @@
         "Head's": {
             "XMP-AnalogExif:Lab": "Head's Camera Shop",
             "XMP-AnalogExif:LabAddress": "300 E. State Street, Ithaca, NY 14850"
+        },
+        "Icon": {
+            "XMP-AnalogExif:Lab": "The Icon",
+            "XMP-AnalogExif:LabAddress": "5450 Wilshire Blvd, Los Angeles, CA 90036"
         }
     },
     "process": {
