@@ -14,7 +14,7 @@
 ##############################################################################
 
 import csv
-from datetime import date, datetime, time, timezone
+from datetime import date, datetime, time, timezone, timedelta
 from io import TextIOWrapper
 import itertools
 import pathlib
@@ -120,41 +120,71 @@ class ShotInfoFile:
                 raise self.Error(f"error converting date({field}) at line {row['line_num']}: {row[field]}: {e}")
             return result
 
-        def time_fromiso(row: dict, field: str):
+        def time_fromiso(row: dict, field: str, baseTzInfo=None):
             result = None
-            if row[field] == None:
+            timestr = row[field]
+            if timestr == None:
                 return result
+
+            # fix up missing colon in timezone
+            timematch = re.fullmatch(self.app.constants.re_time_withtz, timestr)
+            if timematch.group(4) and not timematch.group(8):
+                # we have nnnn; convert to nn:nn
+                timestr = timematch.group(1) + "+" + timematch.group(6) + ":" + timematch.group(7)
+
             try:
                 result = time.fromisoformat(row[field])
             except Exception as e:
                 raise self.Error(f"error converting time({field}) at line {row['line_num']}: {row[field]}: {e}")
-            return result
+
+            # if timezone given, return
+            if result.tzinfo != None and result.tzinfo.utcoffset(None) != None:
+                return result
+
+            if baseTzInfo == None:
+                raise self.Error(f"no timezone in time({field}), and base timezone not known: at line {row['line_num']}: {row[field]}")
+            return result.replace(tzinfo=baseTzInfo)
 
         basedate = self.app.args.date
         thistime = None
         if basedate != None:
             thistime = basedate.time()
 
+        lasttime = None
+        lasttzinfo = None
+
         for row in rows:
             if ("time" in row and row["time"] != None) and not ("date" in row and row["date"] != None):
                 if basedate == None:
-                    raise self.Error(f"Time set, but base date not knowns: {row['time']}")
+                    raise self.Error(f"Time set, but base date not known: {row['time']}")
                 # make the datetime from the basedate
-                basedate = datetime.combine(basedate, time_fromiso(row, "time"))
+                thistime = time_fromiso(row, "time", lasttzinfo)
+                basedate = datetime.combine(basedate, thistime)
                 row["datetime"] = basedate
-                thistime = basedate.time()
             else:
+                delta = timedelta(seconds = 0)
                 if "date" in row and row["date"] != None:
                     basedate = datetime_fromiso(row, "date")
                 if "time" in row and row["time"] != None:
-                    thistime = time_fromiso(row, "time")
+                    thistime = time_fromiso(row, "time", lasttzinfo)
+                elif lasttime != None:
+                    thistime = lasttime
+                    delta = timedelta(seconds = 10)
+                else:
+                    raise self.Error(f"Base time is not set: at line {row['line_num']}: {row['time']}")
 
                 if basedate == None:
-                    raise self.Error(f"Time set, but base date not knowns: {row['time']}")
+                    raise self.Error(f"Time set, but base date not known: at line {row['line_num']}: {row['time']}")
 
                 if thistime != None:
-                    basedate = datetime.combine(basedate, thistime)
+                    basedate = datetime.combine(basedate, thistime) + delta
+                    thistime = basedate.timetz()
+
                 row["datetime"] = basedate
+
+            # now remember last time
+            lasttime = thistime
+            lasttzinfo = lasttime.tzinfo
 
         self.app.log.debug("_extend_datetime: result: %s", rows)
         return rows
