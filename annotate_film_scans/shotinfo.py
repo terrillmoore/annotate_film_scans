@@ -13,6 +13,7 @@
 #
 ##############################################################################
 
+import configparser
 import csv
 from datetime import date, datetime, time, timezone, timedelta
 from io import TextIOWrapper
@@ -47,6 +48,29 @@ class ShotInfoFile:
 
     def read_csv_from_stream(self, f: TextIOWrapper) -> list:
         """ read a CSV stream: first line is header, rest are contents. Retuns a list of dicts """
+
+        options = ""
+        firstline = f.readline().splitlines()[0]
+        if firstline == "--":
+            self.app.log.debug("_read_csv_from_stream: process '--' options")
+            for optionline in f:
+                self.app.log.debug("_read_csv_from_stream: option line: %s", optionline)
+                if optionline.splitlines()[0] == "--":
+                    break
+                options += optionline
+        else:
+            self.app.log.debug("_read_csv_from_stream: no option tag: %s", firstline)
+            f.seek(0)
+
+        if options != "":
+            p = configparser.ConfigParser()
+            p.read_string("[Options]\n" + options)
+            if p.has_option("Options", "roll"):
+                self.app.args.roll = p["Options"]["roll"]
+                self.app.log.debug("_read_csv_from_stream: set roll: %s", self.app.args.roll)
+            if p.has_option("Options", "forward"):
+                self.app.args.forward = p.getboolean("Options", "forward", raw=True)
+                self.app.log.debug("_read_csv_from_stream: set forward: %d", self.app.args.forward)
 
         # create csv stream from stream -- use excel (default) delimiters
         filereader = csv.reader(f, dialect='excel', skipinitialspace=True)
