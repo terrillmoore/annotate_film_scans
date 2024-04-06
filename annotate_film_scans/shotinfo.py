@@ -239,6 +239,8 @@ class ShotInfoFile:
         currentlens = self.app.args.lens
         currentfocal = None
         currentcamera = self.app.args.camera
+        currentaperture = None
+        currentexposure = None
 
         for row in rows:
             newcamera = self._extend_setting(row, "camera", currentcamera, "camera")
@@ -256,6 +258,24 @@ class ShotInfoFile:
                 currentfocal = to_float(row, "focallength")
             else:
                 row["focallength"] = currentfocal
+
+            if "aperture" in row and row["aperture"] != None:
+                if row["aperture"] == "-":
+                    currentaperture = None
+                    row["aperture"] = None
+                else:
+                    currentaperture = row["aperture"]
+            else:
+                row["aperture"] = currentaperture
+
+            if "exposure" in row and row["exposure"] != None:
+                if row["exposure"] == "-":
+                    currentexposure = None
+                    row["exposure"] = None
+                else:
+                    currentexposure = row["exposure"]
+            else:
+                row["exposure"] = currentexposure
 
         return rows
 
