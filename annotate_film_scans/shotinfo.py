@@ -306,7 +306,7 @@ class ShotInfoFile:
             try:
                 result = int(row[field])
             except Exception as e:
-                raise self.Error(f"Not an int: {field=} line={row['line_num']}: {e}")
+                raise self.Error(f"Not an int: {field=}[{row[field]}] line={row['line_num']}: {e}")
             return result
 
         result = dict()
