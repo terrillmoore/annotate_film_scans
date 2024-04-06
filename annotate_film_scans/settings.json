@@ -301,6 +301,11 @@
             "XMP-AnalogExif:Film": "Foma Fomapan 100 Classic",
             "EXIF:ISO": 100
         },
+        "Catlabs 100": {
+            "XMP-AnalogExif:FilmMaker": "CatLABS",
+            "XMP-AnalogExif:Film": "CatLABS X FILM 100 Color",
+            "EXIF:ISO": 100
+        },
         "Rollei Ortho 25": {
             "XMP-AnalogExif:FilmMaker": "Rollei Analog",
             "XMP-AnalogExif:Film": "Rollei Ortho 25 plus",
