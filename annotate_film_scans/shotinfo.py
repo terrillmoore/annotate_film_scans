@@ -157,9 +157,9 @@ class ShotInfoFile:
                 timestr = timematch.group(1) + "+" + timematch.group(6) + ":" + timematch.group(7)
 
             try:
-                result = time.fromisoformat(row[field])
+                result = time.fromisoformat(timestr)
             except Exception as e:
-                raise self.Error(f"error converting time({field}) at line {row['line_num']}: {row[field]}: {e}")
+                raise self.Error(f"error converting time({field}) at line {row['line_num']}: {row[field]} => {timestr}: {e}")
 
             # if timezone given, return
             if result.tzinfo != None and result.tzinfo.utcoffset(None) != None:
