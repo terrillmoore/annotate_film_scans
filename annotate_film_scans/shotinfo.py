@@ -320,6 +320,7 @@ class ShotInfoFile:
 
             for iFrame in rowseq:
                 attrs = self._expand_attrs(row)
+
                 if iFrame in result:
                     result[iFrame].update(attrs)
                 else:
