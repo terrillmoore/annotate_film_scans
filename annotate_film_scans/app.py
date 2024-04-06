@@ -194,14 +194,15 @@ class App():
     #################################
     def run(self) -> int:
         args = self.args
-        input_files = sorted(args.input_files, reverse=not args.forward)
-        self.log.debug(f"{input_files=}")
-        self.log.debug(f"{len(input_files)=}")
 
         # read the shot-info file
         info = []
         shot_info_object = ShotInfoFile(self)
         info = shot_info_object.read_from_path(pathlib.Path(args.shot_info_file).expanduser())
+
+        input_files = sorted(args.input_files, reverse=not args.forward)
+        self.log.debug(f"{input_files=}")
+        self.log.debug(f"{len(input_files)=}")
 
         # build the attributes
         # some of these are built up in the ShotInfoFile processing, so
