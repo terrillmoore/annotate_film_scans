@@ -390,7 +390,9 @@ class ShotInfoFile:
         else:
             put_value("ExifIFD:ExposureTime", get_exposure(row, "exposure"))
             put_value("ExifIFD:FNumber", get_fnumber(row, "aperture"))
-            put_value("XMP-AnalogExif:Filter", row["filter"])
+
+            if "filter" in row:
+                put_value("XMP-AnalogExif:Filter", row["filter"])
 
             if self.app.args.roll != None:
                 put_value("XMP-AnalogExif:RollId", self.app.args.roll)
