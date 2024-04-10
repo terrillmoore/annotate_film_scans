@@ -284,7 +284,7 @@ class App():
             self.log.info("(skipping copy due to --dry-run)")
 
     def _analogexif_to_comment(self, settings: dict) -> dict:
-        pattern = re.compile(r"(XMP-AnalogExif|Exif|XMP|ExifIFD):(.*)", flags=re.IGNORECASE)
+        pattern = re.compile(r"(XMP-AnalogExif|Exif|XMP|ExifIFD|XMP-AnnotateFilmScans):(.*)", flags=re.IGNORECASE)
         comment = None
         for item in settings.items():
             key = item[0]
