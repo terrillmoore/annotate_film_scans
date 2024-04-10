@@ -119,6 +119,7 @@ class ShotInfoFile:
 
         thisline = filereader.line_num + 1
         for row in filereader:
+            self.app.log.debug("_read_next_line: row %d: %s", thisline, row)
             row_result = dict()
             for column in itertools.zip_longest(headers, row):
                 name = column[0]
