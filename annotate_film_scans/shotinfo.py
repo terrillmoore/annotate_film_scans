@@ -119,7 +119,7 @@ class ShotInfoFile:
             for column in itertools.zip_longest(headers, row):
                 name = column[0]
                 if name == None:
-                    raise self.Error(f"Extra field value at line {filereader.line_num()}: {column[1]}")
+                    raise self.Error(f"Extra field value at line {filereader.line_num}: {column[1]}")
                 if column[1] == None or column[1].strip() == "" or column[1].strip() == "-":
                     row_result[name] = None
                 else:
