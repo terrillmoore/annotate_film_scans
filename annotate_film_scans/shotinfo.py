@@ -226,7 +226,7 @@ class ShotInfoFile:
         return currentvalue
 
     #
-    # propagate camera, lens and focallength
+    # propagate camera, lens, focallength, aperture, exposure, filter
     #
     def _extend_camera_and_lens_info(self, rows: list) -> list:
         def to_float(row: dict, field: str) -> float:
@@ -242,6 +242,7 @@ class ShotInfoFile:
         currentcamera = self.app.args.camera
         currentaperture = None
         currentexposure = None
+        currentfilter = None
 
         for row in rows:
             newcamera = self._extend_setting(row, "camera", currentcamera, "camera")
@@ -277,6 +278,17 @@ class ShotInfoFile:
                     currentexposure = row["exposure"]
             else:
                 row["exposure"] = currentexposure
+
+            # '-' cancels filter explicitly; empty inherits from default,
+            # other non-empty sets the default.
+            if "filter" in row and row["filter"] != None:
+                if row["filter"] == "-":
+                    currentfilter = None
+                    row["filter"] = None
+                else:
+                    currentfilter = row["filter"]
+            else:
+                row["filter"] = currentfilter
 
         return rows
 
