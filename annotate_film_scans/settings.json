@@ -310,6 +310,11 @@
             "XMP-AnalogExif:FilmMaker": "Rollei Analog",
             "XMP-AnalogExif:Film": "Rollei Ortho 25 plus",
             "EXIF:ISO": 25
+        },
+        "T-Max 100": {
+            "XMP-AnalogExif:FilmMaker": "Kodak",
+            "XMP-AnalogExif:Film": "Kodak T-Max 100",
+            "EXIF:ISO": 100
         }
     },
     "lab": {
