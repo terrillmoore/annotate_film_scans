@@ -49,6 +49,7 @@ class ShotInfoFile:
     def read_csv_from_stream(self, f: TextIOWrapper) -> list:
         """ read a CSV stream: first line is header, rest are contents. Retuns a list of dicts """
 
+        # scan options from front of file.
         options = ""
         firstline = f.readline().splitlines()[0]
         if firstline == "--":
