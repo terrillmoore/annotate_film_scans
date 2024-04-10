@@ -314,7 +314,6 @@ class ShotInfoFile:
 
         return rows
 
-
     #
     # flatten ranges and create per-image attributes
     #
