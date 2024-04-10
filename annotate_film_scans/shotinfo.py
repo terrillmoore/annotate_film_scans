@@ -16,7 +16,7 @@
 import configparser
 import csv
 from datetime import date, datetime, time, timezone, timedelta
-from io import TextIOWrapper
+from io import TextIOWrapper, StringIO
 import itertools
 import pathlib
 import re
@@ -73,8 +73,12 @@ class ShotInfoFile:
                 self.app.args.forward = p.getboolean("Options", "forward", raw=True)
                 self.app.log.debug("_read_csv_from_stream: set forward: %d", self.app.args.forward)
 
+        # read rest of file into a string object
+        sBody = f.read()
+        sBodyNoTabs = sBody.replace('\t', ' ')
+
         # create csv stream from stream -- use excel (default) delimiters
-        filereader = csv.reader(f, dialect='excel', skipinitialspace=True)
+        filereader = csv.reader(StringIO(sBodyNoTabs), dialect='excel', skipinitialspace=True)
 
         # read the header and confirm it
         csv_dict = self._read_first_line(filereader)
