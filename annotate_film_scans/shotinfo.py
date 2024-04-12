@@ -248,6 +248,7 @@ class ShotInfoFile:
         currentaperture = None
         currentexposure = None
         currentfilter = None
+        currentroll = self.app.args.roll
 
         for row in rows:
             newcamera = self._extend_setting(row, "camera", currentcamera, "camera")
@@ -294,6 +295,18 @@ class ShotInfoFile:
                     currentfilter = row["filter"]
             else:
                 row["filter"] = currentfilter
+
+            # '-' cancels roll explicitly; empty inherits from default,
+            # other non-empty sets the default.
+            if "roll" in row and row["roll"] != None:
+                if row["roll"] == "-":
+                    currentroll = None
+                    row["roll"] = None
+                else:
+                    currentroll = row["roll"]
+            else:
+                row["roll"] = currentroll
+
 
         return rows
 
@@ -394,8 +407,8 @@ class ShotInfoFile:
             if "filter" in row:
                 put_value("XMP-AnalogExif:Filter", row["filter"])
 
-            if self.app.args.roll != None:
-                put_value("XMP-AnalogExif:RollId", self.app.args.roll)
+            if "roll" in row:
+                put_value("XMP-AnalogExif:RollId", row["roll"])
 
             if row["datetime"] != None:
                 datestring = row["datetime"].isoformat(sep=' ').replace('-', ':', 2)
