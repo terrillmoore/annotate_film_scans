@@ -21,6 +21,7 @@ import itertools
 import pathlib
 import re
 from typing import Union, List
+from .__version__ import __version__
 
 #### The ShotInfoFile class
 class ShotInfoFile:
@@ -432,5 +433,6 @@ class ShotInfoFile:
             if "comment" in row and row["comment"] != None:
                 put_value("XMP-AnnotateFilmScans:ImageNote", row["comment"])
 
+            put_value("XMP-AnnotateFilmScans:AnnotateFilmScansVersion", __version__)
         self.app.log.debug("_expand_attrs: row=%s result=%s", row, result)
         return result
