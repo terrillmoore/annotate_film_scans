@@ -315,6 +315,11 @@
             "XMP-AnalogExif:FilmMaker": "Kodak",
             "XMP-AnalogExif:Film": "Kodak T-Max 100",
             "EXIF:ISO": 100
+        },
+        "Arista EDU 400": {
+            "XMP-AnalogExif:FilmMaker": "Arista",
+            "XMP-AnalogExif:Film": "Arista EDU 400",
+            "EXIF:ISO": 400
         }
     },
     "lab": {
