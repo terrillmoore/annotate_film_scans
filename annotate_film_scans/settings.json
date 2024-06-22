@@ -368,6 +368,10 @@
         "Icon": {
             "XMP-AnalogExif:Lab": "The Icon",
             "XMP-AnalogExif:LabAddress": "5450 Wilshire Blvd, Los Angeles, CA 90036"
+        },
+        "Gowanus": {
+            "XMP-AnalogExif:Lab": "Gowanus Darkroom",
+            "XMP-AnalogExif:LabAddress": "119 8th St # 212, Brooklyn, NY 11215"
         }
     },
     "process": {
