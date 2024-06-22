@@ -223,6 +223,14 @@
             "EXIF:FocalLength": "150.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "50.7 mm",
             "EXIF:MaxApertureValue": 5.6
+        },
+        "270mm Tele-Arton": {
+            "XMP:LensManufacturer": "Schneider-Kreuznach",
+            "XMP:LensModel": "Tele-Arton",
+            "XMP:LensSerial": 14486883,
+            "EXIF:FocalLength": "270.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "91.3 mm",
+            "EXIF:MaxApertureValue": 5.5
         }
     },
     "film": {
