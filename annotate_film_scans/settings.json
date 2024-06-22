@@ -336,6 +336,11 @@
             "XMP-AnalogExif:FilmMaker": "Arista",
             "XMP-AnalogExif:Film": "Arista EDU 400",
             "EXIF:ISO": 400
+        },
+        "Portra 400": {
+            "XMP-AnalogExif:FilmMaker": "Kodak",
+            "XMP-AnalogExif:Film": "Kodak Portra 400",
+            "EXIF:ISO": 400
         }
     },
     "lab": {
