@@ -159,7 +159,7 @@ class ShotInfoFile:
 
             # fix up missing colon in timezone
             timematch = re.fullmatch(self.app.constants.re_time_withtz, timestr)
-            if timematch.group(4) and not timematch.group(8):
+            if timematch and timematch.group(4) and not timematch.group(8):
                 # we have nnnn; convert to nn:nn
                 timestr = timematch.group(1) + "+" + timematch.group(6) + ":" + timematch.group(7)
 
