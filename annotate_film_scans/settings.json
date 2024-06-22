@@ -231,6 +231,14 @@
             "EXIF:FocalLength": "270.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "91.3 mm",
             "EXIF:MaxApertureValue": 5.5
+        },
+        "75mm Fujinon": {
+            "XMP:LensManufacturer": "Fuji Photo Optical Company",
+            "XMP:LensModel": "Fujinon-SWD",
+            "XMP:LensSerial": 562861,
+            "EXIF:FocalLength": "75.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "25.4 mm",
+            "EXIF:MaxApertureValue": 5.6
         }
     },
     "film": {
