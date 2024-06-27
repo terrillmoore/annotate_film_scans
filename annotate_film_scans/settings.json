@@ -102,6 +102,11 @@
             "IFD0:Make": "Graflex",
             "IFD0:Model": "Pacemaker Crown Graphic",
             "XMP-AnalogExif:FilmType": "4x5"
+        },
+        "Gowland 8x10": {
+            "IFD0:Make": "Peter Gowland",
+            "IFD0:Model": "Gowland 8x10",
+            "XMP-AnalogExif:FilmType": "8x10"
         }
 
     },
