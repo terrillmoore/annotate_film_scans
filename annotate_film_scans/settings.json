@@ -243,6 +243,14 @@
             "EXIF:FocalLength": "75.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "25.4 mm",
             "EXIF:MaxApertureValue": 5.6
+        },
+        "210mm Fujinon": {
+            "XMP:LensManufacturer": "Fuji Photo Optical Company",
+            "XMP:LensModel": "Fujinon-W S 1:5.6/210",
+            "XMP:LensSerial": 214998,
+            "EXIF:FocalLength": "210.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "35.5 mm",
+            "EXIF:MaxApertureValue": 5.6
         }
     },
     "film": {
