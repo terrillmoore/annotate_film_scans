@@ -36,7 +36,8 @@ class Constants:
                 "film",
                 "lab",
                 "process",
-                "roll"
+                "roll",
+                "file"
         }
 
         re_fstop = r"f/(\d+(\.\d*)?)"
