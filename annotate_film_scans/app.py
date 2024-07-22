@@ -193,6 +193,14 @@ class App():
     # Run the app and return status #
     #################################
     def run(self) -> int:
+        def to_int(row: dict, field: str) -> int:
+            result = None
+            try:
+                result = int(row[field])
+            except Exception as e:
+                raise self.Error(f"Not an int: {field=}[{row[field]}] line={row['line_num']}: {e}")
+            return result
+
         args = self.args
 
         # read the shot-info file
@@ -200,7 +208,7 @@ class App():
         shot_info_object = ShotInfoFile(self)
         info = shot_info_object.read_from_path(pathlib.Path(args.shot_info_file).expanduser())
 
-        input_files = sorted(args.input_files, reverse=not args.forward)
+        input_files = args.input_files
         self.log.debug(f"{input_files=}")
         self.log.debug(f"{len(input_files)=}")
 
@@ -241,7 +249,22 @@ class App():
                     frame_info = None
                     break
 
-            inpath = input_files[i]
+            #
+            # input_files[] is the list of input files from the commenad line, in the order
+            # they appear on the command line.
+            #
+            # If frame_info == info[iShot] has a Files column, use that to get the input file.
+            # If not, if forward use `i`; if reverse use len(input_files) - i - 1.
+            #
+            iFile = None
+            if "file" in frame_info:
+                iFile = to_int(frame_info, "file") - 1
+            elif not self.args.forward:
+                iFile = len(input_files) - 1 - i
+            else:
+                iFile = i
+
+            inpath = input_files[iFile]
             base_inpath = inpath.name
             outpath = self.outputDir / f"{(iShot):03d}-{base_inpath}"
             self.log.debug("%d: %s -> %s", i, str(inpath), str(outpath) )

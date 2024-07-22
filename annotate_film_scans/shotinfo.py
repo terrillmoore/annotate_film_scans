@@ -349,8 +349,19 @@ class ShotInfoFile:
                 lastrow = to_int(row, "frame2")
             rowseq = range(firstrow, lastrow+1)
 
+            firstfile = None
+            if "file" in row:
+                firstfile = to_int(row, "file")
+
+            thisfile = firstfile
             for iFrame in rowseq:
-                attrs = self._expand_attrs(row)
+                attrs = self._expand_attrs(row, thisfile)
+
+                if thisfile != None:
+                    if not self.app.args.forward:
+                        --thisfile
+                    else:
+                        ++thisfile
 
                 if iFrame in result:
                     result[iFrame].update(attrs)
@@ -363,7 +374,7 @@ class ShotInfoFile:
     #
     # convert key elements of a shot info row into equivalent attribute fields
     #
-    def _expand_attrs(self, row: dict) -> dict:
+    def _expand_attrs(self, row: dict, file) -> dict:
         def get_fnumber(row, field):
             if row[field] == None:
                 return None
@@ -398,6 +409,10 @@ class ShotInfoFile:
             if row[fieldname] != None:
                 result.update(self.app.settings[setting][row[fieldname]])
             return result
+
+        # annotate the file number if provided.
+        if file != None:
+            result["file"] = file
 
         if row["exposure"] == "skip":
             put_value(self.app.constants.TAG_SKIP, True)
