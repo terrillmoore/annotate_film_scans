@@ -2,12 +2,12 @@
 
 `annotate_film_scans` is used for batch annotation of collections of JPEG files created by commercial scanning of rolls of film.
 
-<!-- TOC depthFrom:2 updateOnSave:true -->
+<!-- TOC depthfrom:2 updateonsave:true -->
 
 - [Introduction](#introduction)
 - [Prerequisite](#prerequisite)
 - [Intended Work Flow](#intended-work-flow)
-- [Using the pogram](#using-the-pogram)
+- [Using the Program](#using-the-program)
 - [Things you'll want to change before using the program](#things-youll-want-to-change-before-using-the-program)
 - [Building a release](#building-a-release)
 - [Notes on EXIF tags and AnalogExif](#notes-on-exif-tags-and-analogexif)
