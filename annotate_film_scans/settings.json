@@ -251,6 +251,14 @@
             "EXIF:FocalLength": "210.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "35.5 mm",
             "EXIF:MaxApertureValue": 5.6
+        },
+        "159mm Wollensak": {
+            "XMP:LensManufacturer": "Wollensak USA",
+            "XMP:LensModel": "Wollensak 8x10 Series IIIA Extra Wide Angle f/12 6 1/4",
+            "XMP:LensSerial": 14177,
+            "EXIF:FocalLength": "159.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "26.5 mm",
+            "EXIF:MaxApertureValue": 12
         }
     },
     "film": {
