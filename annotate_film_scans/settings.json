@@ -362,6 +362,11 @@
             "XMP-AnalogExif:Film": "Kodak Portra 400",
             "EXIF:ISO": 400
         },
+        "BWXX": {
+            "XMP-AnalogExif:FilmMaker": "CineStill",
+            "XMP-AnalogExif:Film": "CineStill BWXX",
+            "EXIF:ISO": 250
+        },
         "BWXX @ 260": {
             "XMP-AnalogExif:FilmMaker": "CineStill",
             "XMP-AnalogExif:Film": "CineStill BWXX at ISO 260",
