@@ -103,6 +103,11 @@
             "IFD0:Model": "Pacemaker Crown Graphic",
             "XMP-AnalogExif:FilmType": "4x5"
         },
+        "Calumet CC-400": {
+            "IFD0:Make": "Calumet",
+            "IFD0:Model": "CC-400",
+            "XMP-AnalogExif:FilmType": "4x5"
+        },
         "Gowland 8x10": {
             "IFD0:Make": "Peter Gowland",
             "IFD0:Model": "Gowland 8x10",
