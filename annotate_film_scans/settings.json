@@ -280,6 +280,24 @@
             "ExifIFD:FocalLengthIn35mmFormat": "19 mm",
             "XMP-AnalogExif:CropFactor": 0.122,
             "EXIF:MaxApertureValue": 12
+        },
+        "300mm Fujinon C": {
+            "XMP:LensManufacturer": "Fuji Photo Optical Company",
+            "XMP:LensModel": "Fujinon-C 1:8.5/300",
+            "XMP:LensSerial": 633075,
+            "EXIF:FocalLength": "300.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "37 mm",
+            "XMP-AnalogExif:CropFactor": 0.122,
+            "EXIF:MaxApertureValue": 8.5
+        },
+        "300mm Fujinon C on 4x5": {
+            "XMP:LensManufacturer": "Fuji Photo Optical Company",
+            "XMP:LensModel": "Fujinon-C 1:8.5/300",
+            "XMP:LensSerial": 633075,
+            "EXIF:FocalLength": "300.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "76 mm",
+            "XMP-AnalogExif:CropFactor": 0.252,
+            "EXIF:MaxApertureValue": 8.5
         }
     },
     "film": {
