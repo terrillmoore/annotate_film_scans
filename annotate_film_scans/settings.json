@@ -116,10 +116,18 @@
     },
     "lens": {
         "fixed": {},
-        "R 50mm f/1.8": {
+        "R 50mm f/1.8 #30119": {
             "XMP:LensManufacturer": "Canon",
             "XMP:LensModel": "Super Canonmatic R",
             "XMP:LensSerial": 30119,
+            "EXIF:FocalLength": "50.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "50.0 mm",
+            "EXIF:MaxApertureValue": 1.8
+        },
+        "R 50mm f/1.8": {
+            "XMP:LensManufacturer": "Canon",
+            "XMP:LensModel": "Super Canonmatic R",
+            "XMP:LensSerial": 120450,
             "EXIF:FocalLength": "50.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "50.0 mm",
             "EXIF:MaxApertureValue": 1.8
