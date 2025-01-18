@@ -73,6 +73,9 @@ class ShotInfoFile:
             if p.has_option("Options", "forward"):
                 self.app.args.forward = p.getboolean("Options", "forward", raw=True)
                 self.app.log.debug("_read_csv_from_stream: set forward: %d", self.app.args.forward)
+            if p.has_option("Options", "timedelta"):
+                self.app.args.timedelta = p.getint("Options", "timedelta",raw=True)
+                self.app.log.debug("_read_csv_from_stream: set timedelta: %d", self.app.args.timedelta)
 
         # read rest of file into a string object
         sBody = f.read()
@@ -355,7 +358,7 @@ class ShotInfoFile:
 
             thisfile = firstfile
             for iFrame in rowseq:
-                attrs = self._expand_attrs(row, thisfile)
+                attrs = self._expand_attrs(row, thisfile, iFrame - firstrow)
 
                 if thisfile != None:
                     if not self.app.args.forward:
@@ -374,7 +377,7 @@ class ShotInfoFile:
     #
     # convert key elements of a shot info row into equivalent attribute fields
     #
-    def _expand_attrs(self, row: dict, file) -> dict:
+    def _expand_attrs(self, row: dict, file, duplicateIndex: int) -> dict:
         def get_fnumber(row, field):
             if row[field] == None:
                 return None
@@ -426,8 +429,19 @@ class ShotInfoFile:
             if "roll" in row:
                 put_value("XMP-AnalogExif:RollId", row["roll"])
 
+            if "timedelta" in row:
+                try:
+                    deltaTime = int(row["timedelta"])
+                except Exception as e:
+                    raise self.Error(f'invalid timedelta: {row["timedelta"]}: {e}')
+            else:
+                deltaTime = self.app.args.timedelta
+
+            deltaTime = deltaTime * duplicateIndex
             if row["datetime"] != None:
-                datestring = row["datetime"].isoformat(sep=' ').replace('-', ':', 2)
+                datevalue = row["datetime"]
+                datevalue += timedelta(seconds = deltaTime)
+                datestring = datevalue.isoformat(sep=' ').replace('-', ':', 2)
                 put_value("Composite:SubSecDateTimeOriginal", datestring)
             update_from_settings(result, row, "lens", "lens")
             update_from_settings(result, row, "camera", "camera")

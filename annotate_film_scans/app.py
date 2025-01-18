@@ -155,6 +155,14 @@ class App():
             help="Roll ID"
         )
         parser.add_argument(
+            "--time-delta", "-T",
+            metavar="{time-delta}",
+            dest = "timedelta",
+            help="Assumed interval between shots in frame sequences (in seconds) (default %(default)d)",
+            default=30,
+            type=int
+            )
+        parser.add_argument(
             "--shot-info-file", "-s",
             metavar="{shot-info-csv}",
             type=pathlib.Path,
