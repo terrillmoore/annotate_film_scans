@@ -1,6 +1,6 @@
 # Annotate Film Scans
 
-`annotate_film_scans` is used for batch annotation of collections of JPEG files created by commercial scanning of rolls of film.
+`annotate_film_scans` is used for batch annotation of collections of JPEG, TFF, PSD, etc. files created by commercial scanning of rolls of film.
 
 <!-- TOC depthFrom:2 updateOnSave:true -->
 
@@ -26,9 +26,9 @@
 
 ## Introduction
 
-I keep notes (more or less carefully) about exposure, lens used, filters, etc. I use Lightroom, and I'd like the import function to put the images into my image library so that they coherently with the images that originate with my DSLRs or phone.  I'd like the imported images to show up in the right sequence within a given batch; however, scanning services sometimes return JPEGs sequenced in forward order, sometimes in reverse.
+I keep notes (more or less carefully) about exposure, lens used, filters, etc. I use Lightroom, and I'd like the import function to put the images into my image library so that they coherently with the images that originate with my DSLRs or phone. Lightroom is time sensitive. The capture time in the image must be the time of *capture*, not the time of *scan*. To further complicate things, scanning services sometimes return JPEGs with file names that are sequenced in forward order, sometimes in reverse. (When scanning sheet film, filename order is generally scrambled, compared to the order that they were shot.)  In addition, I'd like the shot information (exposure, etc.) to be put into the image files at the same time that I set the date and time.
 
-I tried various manual approaches, but it was too tedious and error prone (and I don't have enough time).
+I tried various manual approaches, but it was too tedious and error prone (and I don't have enough time to deal with the error-prone part, nor for waiting for mouse clicks).
 
 So I wrote `annotate_film_scans`, which can do all of these things. I confess that I did quite a bit of reverse engineering of existing tools, particularly AnalogExif, to find out how things were being tagged. I did not do deep research into the standards; I did just enough work to get something that works for me. It may work for you, but it's current state I anticipate that some aspects of my workflow are hard coded and may need further abstraction.
 
