@@ -249,6 +249,15 @@
             "XMP-AnalogExif:CropFactor": 0.252,
             "EXIF:MaxApertureValue": 5.6
         },
+        "150mm Rodenstock 6x9": {
+            "XMP:LensManufacturer": "Rodenstock",
+            "XMP:LensModel": "Apo-Sironar-N",
+            "XMP:LensSerial": 11206443,
+            "EXIF:FocalLength": "150.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "64 mm",
+            "XMP-AnalogExif:CropFactor": 0.429,
+            "EXIF:MaxApertureValue": 5.6
+        },
         "180mm Rodenstock": {
             "XMP:LensManufacturer": "Rodenstock",
             "XMP:LensModel": "Sironar-N 180mm f/5.6",
