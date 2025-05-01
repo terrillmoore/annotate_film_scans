@@ -103,6 +103,11 @@
             "IFD0:Model": "Pacemaker Crown Graphic",
             "XMP-AnalogExif:FilmType": "4x5"
         },
+        "Crown Graphic 6x9": {
+            "IFD0:Make": "Graflex",
+            "IFD0:Model": "Pacemaker Crown Graphic",
+            "XMP-AnalogExif:FilmType": "120"
+        },
         "Calumet CC-400": {
             "IFD0:Make": "Calumet",
             "IFD0:Model": "CC-400",
