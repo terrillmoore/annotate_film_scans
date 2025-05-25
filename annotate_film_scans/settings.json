@@ -501,6 +501,9 @@
         },
         "B&W + 20%": {
             "XMP-AnalogExif:DevelopProcess": "Black & White, dev time +20%"
+        },
+        "B&W N+2": {
+            "XMP-AnalogExif:DevelopProcess": "Black & White, N+2 development"
         }
     },
     "author": {
