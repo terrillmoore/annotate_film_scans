@@ -487,6 +487,9 @@ class ShotInfoFile:
                 datevalue += timedelta(seconds = deltaTime)
                 datestring = datevalue.isoformat(sep=' ').replace('-', ':', 2)
                 put_value("Composite:SubSecDateTimeOriginal", datestring)
+                # set the CreateDate from the everything but the timezone.
+                put_value("ExifIFD:CreateDate", datestring[0:19])
+                put_value("System:FileModifyDate", datestring)
             update_from_settings(result, row, "lens", "lens")
             update_from_settings(result, row, "camera", "camera")
             update_from_settings(result, row, "lab", "lab")
