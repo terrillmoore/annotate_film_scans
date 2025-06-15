@@ -289,11 +289,20 @@ class App():
         if frame_settings != None:
             settings.update(frame_settings)
 
+        # unfortunately, for Sony ARW files, we need to keep make/model unchanged.
+        # luckily, this is only true for negatives
         scanner_json = self._read_make_model(inpath)
-        if "Make" in scanner_json:
-            settings["XMP-AnalogExif:ScannerMaker"] = scanner_json["Make"]
-        if "Model" in scanner_json:
-            settings["XMP-AnalogExif:Scanner"] = scanner_json["Model"]
+
+        if inpath.suffix != ".ARW":
+            if "Make" in scanner_json:
+                settings["XMP-AnalogExif:ScannerMaker"] = scanner_json["Make"]
+            if "Model" in scanner_json:
+                settings["XMP-AnalogExif:Scanner"] = scanner_json["Model"]
+        else:
+            settings["XMP-AnnotateFilmScans:Make"] = settings["IFD0:Make"]
+            settings["XMP-AnnotateFilmScans:Model"] = settings["IFD0:Model"]
+            del settings["IFD0:Make"]
+            del settings["IFD0:Model"]
 
         self._analogexif_to_comment(settings)
 
