@@ -515,7 +515,7 @@ class ShotInfoFile:
                 put_value("ExifIFD:FocalLengthIn35mmFormat", f"{focallength_35mm} mm")
 
             if "comment" in row and row["comment"] != None:
-                put_value("XMP-AnnotateFilmScans:ImageNote", row["comment"])
+                put_value("XMP-AnnotateFilmScans:ImageNote", row["comment"].strip())
 
             put_value("XMP-AnnotateFilmScans:AnnotateFilmScansVersion", __version__)
         self.app.log.debug("_expand_attrs: row=%s result=%s", row, result)
