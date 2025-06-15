@@ -455,6 +455,9 @@
         }
     },
     "lab": {
+        "Home": {
+            "XMP-AnalogExif:Lab": "Terry Moore"
+        },
         "Praus": {
             "XMP-AnalogExif:Lab": "Praus Productions",
             "XMP-AnalogExif:LabAddress": "Rochester, NY"
