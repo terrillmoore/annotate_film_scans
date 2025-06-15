@@ -22,6 +22,7 @@ import pathlib
 import re
 from typing import Union, List
 from .__version__ import __version__
+from .constants import Constants
 
 #### The ShotInfoFile class
 class ShotInfoFile:
@@ -253,6 +254,8 @@ class ShotInfoFile:
         currentexposure = None
         currentfilter = None
         currentroll = self.app.args.roll
+        currentdevtime = None
+        currentdevtemp = None
 
         for row in rows:
             newcamera = self._extend_setting(row, "camera", currentcamera, "camera")
@@ -311,6 +314,15 @@ class ShotInfoFile:
             else:
                 row["roll"] = currentroll
 
+            if "devtime" in row and row["devtime"] != None:
+                currentdevtime = row["devtime"]
+            else:
+                row["devtime"] = currentdevtime
+
+            if "devtemp" in row and row["devtemp"] != None:
+                currentdevtemp = row["devtemp"]
+            else:
+                row["devtemp"] = currentdevtemp
 
         return rows
 
@@ -322,13 +334,14 @@ class ShotInfoFile:
         currentfilm = self.app.args.film
         self.app.log.debug("_extend_simple_properties: initial film: %s", currentfilm)
         currentprocess = self.app.args.process
+        currentdeveloper = None
 
         for row in rows:
             currentlab = self._extend_setting(row, "lab", currentlab, "lab")
             currentfilm = self._extend_setting(row, "film", currentfilm, "film")
             self.app.log.debug("_extend_simple_properties: extend film: %s", currentfilm)
             currentprocess = self._extend_setting(row, "process", currentprocess, "process")
-
+            currentdeveloper = self._extend_setting(row, "developer", currentdeveloper, "developer")
         return rows
 
     #
@@ -378,6 +391,8 @@ class ShotInfoFile:
     # convert key elements of a shot info row into equivalent attribute fields
     #
     def _expand_attrs(self, row: dict, file, duplicateIndex: int) -> dict:
+        constants : Constants = self.app.constants
+
         def get_fnumber(row, field):
             if row[field] == None:
                 return None
@@ -399,10 +414,39 @@ class ShotInfoFile:
                 return None
             if value == "?":
                 return "not recorded"
-            result = re.fullmatch(self.app.constants.re_exposure, value, flags=re.IGNORECASE)
+            result = re.fullmatch(constants.re_exposure, value, flags=re.IGNORECASE)
             if result == None:
                 raise self.Error(f"invalid exposure: {value}")
             return value
+
+        def get_time_minutes(row, field):
+            if row[field] == None:
+                return None
+            value = row[field].strip()
+            if value == "":
+                return None
+            if value == "?":
+                return "not recorded"
+            result = re.fullmatch(constants.re_time_minutes, value, flags=re.IGNORECASE)
+            if result == None:
+                raise self.Error(f"invalid time duration (minutes): {value}")
+            return value
+
+        def get_temperature_c(row, field):
+            if row[field] == None:
+                return None
+            value = row[field].strip()
+            if value == "":
+                return None
+            if value == "?":
+                return "not recorded"
+            result = re.fullmatch(constants.re_temperature_c, value, flags=re.IGNORECASE)
+            if result == None:
+                raise self.Error(f"invalid temperature (minutes): {value}")
+            if result.group(2) != None:
+                return float(result.group(1) + result.group(2))
+            else:
+                return float(result.group(1))
 
         result = {}
         def put_value(name: str, value):
@@ -418,7 +462,7 @@ class ShotInfoFile:
             result["file"] = file
 
         if row["exposure"] == "skip":
-            put_value(self.app.constants.TAG_SKIP, True)
+            put_value(constants.TAG_SKIP, True)
         else:
             put_value("ExifIFD:ExposureTime", get_exposure(row, "exposure"))
             put_value("ExifIFD:FNumber", get_fnumber(row, "aperture"))
@@ -448,10 +492,18 @@ class ShotInfoFile:
             update_from_settings(result, row, "lab", "lab")
             update_from_settings(result, row, "process", "process")
             update_from_settings(result, row, "film", "film")
+            update_from_settings(result, row, "developer", "developer")
+
+            put_value(constants.TAG_DEVELOP_TIME, get_time_minutes(row, "devtime"))
+
+            put_value(constants.TAG_DEVELOP_TEMP, get_temperature_c(row, "devtemp"))
+
+            if "devnotes" in row:
+                put_value(constants.TAG_DEVELOP_NOTES, row["devnotes"].strip())
 
             if row["focallength"] != None:
                 focallength = float(row["focallength"])
-                TAG_CROP_FACTOR = self.app.constants.TAG_CROP_FACTOR
+                TAG_CROP_FACTOR = constants.TAG_CROP_FACTOR
                 crop_factor = 1.0
                 if TAG_CROP_FACTOR in result:
                     crop_factor = result[TAG_CROP_FACTOR]

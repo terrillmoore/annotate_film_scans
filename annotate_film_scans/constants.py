@@ -37,11 +37,21 @@ class Constants:
                 "lab",
                 "process",
                 "roll",
-                "file"
+                "file",
+                "developer",
+                "devtime",
+                "devtemp",
+                "devnotes"
         }
 
         re_fstop = r"f/(\d+(\.\d*)?)"
         re_exposure = r"(\d+)(((/\d+)|(\.\d+))?)"
         re_time_withtz = r"((\d\d?:\d\d)(:\d\d)?)(\+((\d\d)(\d\d)|(\d\d:\d\d)))?"
+        re_time_minutes = r"(\d+)(:\d\d)?"
+        re_temperature_c = r"(\d+)(\.\d*)?(c?)"
         TAG_SKIP = "XMP-AnnotateFilmScans:Skip"
-        TAG_CROP_FACTOR = "XMP-AnnocateFilmScans:CropFactor"
+        TAG_CROP_FACTOR = "XMP-AnnotateFilmScans:CropFactor"
+        TAG_DEVELOPER = "XMP=AnnotateFilmScans:Developer"
+        TAG_DEVELOP_TIME = "XMP-AnnotateFilmScans:DevelopmentTime"
+        TAG_DEVELOP_TEMP = "XMP-AnnotateFilmScans:DevelopmentTemperature"
+        TAG_DEVELOP_NOTES = "XMP-AnnotateFilmScans:DevelopmentNotes"
