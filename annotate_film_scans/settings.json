@@ -518,5 +518,13 @@
             "EXIF:Copyright": "Copyright Terrill Moore",
             "XMP:Rights": "All rights reserved"
         }
+    },
+    "developer": {
+        "HC-110 1+31": {
+            "XMP-AnnotateFilmScans:Developer": "Kodak HC-110 diluted 1+31"
+        },
+        "HC-110 1+119": {
+            "XMP-AnnotateFilmScans:Developer": "Kodak HC-110 diluted 1+119"
+        }
     }
 }
