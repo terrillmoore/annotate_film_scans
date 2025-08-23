@@ -14,4 +14,4 @@
 ##############################################################################
 
 # this is the version -- setup.cfg uses it, as does __init__.
-__version__ = "2.8.0-pre4"
+__version__ = "2.8.0-pre5"
