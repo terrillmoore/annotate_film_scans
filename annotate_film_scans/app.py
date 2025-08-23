@@ -293,7 +293,7 @@ class App():
         # luckily, this is only true for negatives
         scanner_json = self._read_make_model(inpath)
 
-        if inpath.suffix != ".ARW":
+        if inpath.suffix.lower() != ".arw":
             if "Make" in scanner_json:
                 settings["XMP-AnalogExif:ScannerMaker"] = scanner_json["Make"]
             if "Model" in scanner_json:
