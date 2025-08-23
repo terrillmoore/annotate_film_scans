@@ -333,6 +333,11 @@
             "XMP-AnalogExif:Film": "Ilford Delta 100",
             "EXIF:ISO": 100
         },
+        "Delta 100+2": {
+            "XMP-AnalogExif:FilmMaker": "Ilford",
+            "XMP-AnalogExif:Film": "Ilford Delta 100 (N+2)",
+            "EXIF:ISO": 400
+        },
         "Delta 400": {
             "XMP-AnalogExif:FilmMaker": "Ilford",
             "XMP-AnalogExif:Film": "Ilford Delta 400",
