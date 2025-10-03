@@ -261,7 +261,7 @@ class App():
                     break
 
             #
-            # input_files[] is the list of input files from the commenad line, in the order
+            # input_files[] is the list of input files from the command line, in the order
             # they appear on the command line.
             #
             # If frame_info == info[iShot] has a Files column, use that to get the input file.
