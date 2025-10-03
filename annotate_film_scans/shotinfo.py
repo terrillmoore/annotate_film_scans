@@ -157,24 +157,25 @@ class ShotInfoFile:
         return result
 
     #
-    # propagate date/time through the file; update in place
+    # Propagate date/time through the file; update in place
+    # This runs before flattening.
     #
     def _extend_datetime(self, rows: list) -> list:
-        def datetime_fromiso(row: dict, field: str):
+        def datetime_fromiso(row: dict, field: str) -> datetime:
             result = None
-            if row[field] == None:
-                return result
+            if row.get(field) == None:
+                raise self.Error("datetime_fromiso: no '%s' in row", field)
             try:
                 result = datetime.fromisoformat(row[field])
             except Exception as e:
                 raise self.Error(f"error converting date({field}) at line {row['line_num']}: {row[field]}: {e}")
             return result
 
-        def time_fromiso(row: dict, field: str, baseTzInfo=None):
+        def time_fromiso(row: dict, field: str, baseTzInfo=None) -> time:
             result = None
-            timestr = row[field]
+            timestr = row.get(field)
             if timestr == None:
-                return result
+                raise self.Error("time_fromiso: no '%s' in row", field)
 
             # fix up missing colon in timezone
             timematch = re.fullmatch(self.app.constants.re_time_withtz, timestr)
@@ -195,46 +196,57 @@ class ShotInfoFile:
                 raise self.Error(f"no timezone in time({field}), and base timezone not known: at line {row['line_num']}: {row[field]}")
             return result.replace(tzinfo=baseTzInfo)
 
-        basedate = self.app.args.date
-        thistime = None
-        if basedate != None:
-            thistime = basedate.time()
+        basedatetime = self.app.args.date
 
-        lasttime = None
+        nextdatetime = None
         lasttzinfo = None
+        delta = timedelta(seconds = self.app.args.timedelta)
 
         for row in rows:
-            if ("time" in row and row["time"] != None) and not ("date" in row and row["date"] != None):
-                if basedate == None:
-                    raise self.Error(f"Time set, but base date not known: {row['time']}")
-                # make the datetime from the basedate
-                thistime = time_fromiso(row, "time", lasttzinfo)
-                basedate = datetime.combine(basedate, thistime)
-                row["datetime"] = basedate
-            else:
-                delta = timedelta(seconds = 0)
-                if "date" in row and row["date"] != None:
-                    basedate = datetime_fromiso(row, "date")
-                if "time" in row and row["time"] != None:
+            if ("time" in row and row["time"] != None):
+                if not ("date" in row and row["date"] != None):
+                    # time set without date.
+                    if basedatetime == None:
+                        raise self.Error(f"Time set, but base date not known: {row['time']}")
+                    # make the datetime from the basedate
                     thistime = time_fromiso(row, "time", lasttzinfo)
-                elif lasttime != None:
-                    thistime = lasttime
-                    delta = timedelta(seconds = 10)
+                    # overwrite the time part
+                    basedatetime = datetime.combine(basedatetime, thistime)
+                    row["datetime"] = basedatetime
+                else:
+                    # time and date set
+                    basedatetime = datetime.combine(
+                                        datetime_fromiso(row, "date"),
+                                        time_fromiso(row, "time", lasttzinfo)
+                                        )
+                    row["datetime"] = basedatetime
+            else:
+                # time is blank
+
+                # if date was set, update the base date/time from that.
+                if "date" in row and row["date"] != None:
+                    raise self.Error("it makes no sense to have date and not time")
+
+                if nextdatetime != None:
+                    # time not specified, so we compute based on last frame in prev row.
+                    basedatetime = nextdatetime
                 else:
                     raise self.Error(f"Base time is not set: at line {row['line_num']}: {row['time']}")
 
-                if basedate == None:
-                    raise self.Error(f"Time set, but base date not known: at line {row['line_num']}: {row['time']}")
+                thistime = basedatetime.timetz()
 
-                if thistime != None:
-                    basedate = datetime.combine(basedate, thistime) + delta
-                    thistime = basedate.timetz()
+                row["datetime"] = basedatetime
 
-                row["datetime"] = basedate
-
-            # now remember last time
-            lasttime = thistime
-            lasttzinfo = lasttime.tzinfo
+            # now remember last time, which must be the time of the *last*
+            # shot in the row.
+            if row.get("frame2") != None and row.get("frame") != None:
+                try:
+                    nextdatetime = basedatetime + (int(row["frame2"]) - int(row["frame"]) + 1) * delta
+                except Exception as e:
+                    raise self.Error("frame and frame2 not ints: %s", e)
+            else:
+                nextdatetime = basedatetime + delta
+            lasttzinfo = nextdatetime.tzinfo
 
         self.app.log.debug("_extend_datetime: result: %s", rows)
         return rows
