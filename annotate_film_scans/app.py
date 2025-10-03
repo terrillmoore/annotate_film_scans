@@ -239,8 +239,11 @@ class App():
 
         self.log.debug("attributes: %s", attributes)
 
+        # we need to know the first index in the table!
+        iFirstFrame,_ = sorted(info.items())[0]
+        iShot = iFirstFrame - 1
+
         # copy files, renaming. manually index through the shots
-        iShot = 0
         for i in range(len(input_files)):
             frame_info = None
             # skipping shots requires an explicit entry
