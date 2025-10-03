@@ -77,6 +77,21 @@ class ShotInfoFile:
             if p.has_option("Options", "timedelta"):
                 self.app.args.timedelta = p.getint("Options", "timedelta",raw=True)
                 self.app.log.debug("_read_csv_from_stream: set timedelta: %d", self.app.args.timedelta)
+            if p.has_option("Options", "camera"):
+                self.app.args.camera = p.get("Options", "camera", raw=True)
+                self.app.log.debug("_read_csv_from_stream: set camera: %s", self.app.args.camera)
+            if p.has_option("Options", "lens"):
+                self.app.args.lens = p.get("Options", "lens", raw=True)
+                self.app.log.debug("_read_csv_from_stream: set lens: %s", self.app.args.lens)
+            if p.has_option("Options", "film"):
+                self.app.args.film = p.get("Options", "film", raw=True)
+                self.app.log.debug("_read_csv_from_stream: set film: %s", self.app.args.film)
+            if p.has_option("Options", "process"):
+                self.app.args.process = p.get("Options", "process", raw=True)
+                self.app.log.debug("_read_csv_from_stream: set process: %s", self.app.args.process)
+            if p.has_option("Options", "lab"):
+                self.app.args.lab = p.get("Options", "lab", raw=True)
+                self.app.log.debug("_read_csv_from_stream: set lab: %s", self.app.args.lab)
 
         # read rest of file into a string object
         sBody = f.read()
