@@ -117,6 +117,12 @@
             "IFD0:Make": "Peter Gowland",
             "IFD0:Model": "Gowland 8x10",
             "XMP-AnalogExif:FilmType": "8x10"
+        },
+        "Canon F-1": {
+            "IFD0:Make": "Canon",
+            "IFD0:Model": "F-1",
+            "XMP-AnalogExif:FilmType": 135,
+            "XMP:CameraSerialNumber": "155736"
         }
     },
     "lens": {
