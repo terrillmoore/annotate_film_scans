@@ -534,6 +534,9 @@
         "HC-110 1+31": {
             "XMP-AnnotateFilmScans:Developer": "Kodak HC-110 diluted 1+31"
         },
+        "HC-110 1+47": {
+            "XMP-AnnotateFilmScans:Developer": "Kodak HC-110 diluted 1+47 (dilution E)"
+        },
         "HC-110 1+119": {
             "XMP-AnnotateFilmScans:Developer": "Kodak HC-110 diluted 1+119"
         }
