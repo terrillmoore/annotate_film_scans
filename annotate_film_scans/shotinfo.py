@@ -295,6 +295,7 @@ class ShotInfoFile:
         currentroll = self.app.args.roll
         currentdevtime = None
         currentdevtemp = None
+        currentcomment = None
 
         for row in rows:
             newcamera = self._extend_setting(row, "camera", currentcamera, "camera")
@@ -352,6 +353,17 @@ class ShotInfoFile:
                     currentroll = row["roll"]
             else:
                 row["roll"] = currentroll
+
+            # '-' copies previous comment; empty,
+            # other non-empty sets the default.
+            if "comment" in row and row["comment"] != None:
+                if row["comment"] == "-":
+                    row["comment"] = currentcomment
+                else:
+                    currentcomment = row["comment"]
+            else:
+                currentcomment = None
+                row["comment"] = None
 
             if "devtime" in row and row["devtime"] != None:
                 currentdevtime = row["devtime"]
