@@ -185,6 +185,30 @@ class App():
             action="store_true",
             help="go through the motions, but don't write files"
         )
+        parser.add_argument(
+            "--developer",
+            metavar="{developer_name}",
+            help="developer (if known)"
+        )
+        parser.add_argument(
+            "--development_time",
+            dest="devtime",
+            metavar="{devtime}",
+            help="development time in minutes:seconds"
+        )
+        parser.add_argument(
+            "--development_temperature",
+            dest="devtemp",
+            metavar="{devtemp}",
+            help="development temperature, degrees C"
+        )
+        parser.add_argument(
+            "--development_notes",
+            dest="devnotes",
+            metavar="{notes}",
+            help="Any development notes"
+        )
+
         # parse the args, and return
         args = parser.parse_args()
 

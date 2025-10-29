@@ -92,6 +92,18 @@ class ShotInfoFile:
             if p.has_option("Options", "lab"):
                 self.app.args.lab = p.get("Options", "lab", raw=True)
                 self.app.log.debug("_read_csv_from_stream: set lab: %s", self.app.args.lab)
+            if p.has_option("Options", "developer"):
+                self.app.args.developer = p.get("Options", "developer", raw=True)
+                self.app.log.debug("_read_csv_from_stream: set developer: %s", self.app.args.developer)
+            if p.has_option("Options", "devtime"):
+                self.app.args.devtime = p.get("Options", "devtime", raw=True)
+                self.app.log.debug("_read_csv_from_stream: set devtime: %s", self.app.args.devtime)
+            if p.has_option("Options", "devtemp"):
+                self.app.args.devtemp = p.get("Options", "devtemp", raw=True)
+                self.app.log.debug("_read_csv_from_stream: set devtemp: %s", self.app.args.devtemp)
+            if p.has_option("Options", "devnotes"):
+                self.app.args.devnotes = p.get("Options", "devnotes", raw=True)
+                self.app.log.debug("_read_csv_from_stream: set devnotes: %s", self.app.args.devnotes)
 
         # read rest of file into a string object
         sBody = f.read()
@@ -362,6 +374,9 @@ class ShotInfoFile:
         self.app.log.debug("_extend_simple_properties: initial film: %s", currentfilm)
         currentprocess = self.app.args.process
         currentdeveloper = None
+        currentdevtime = None
+        currentdevtemp = None
+        currentdevnotes = None
 
         for row in rows:
             currentlab = self._extend_setting(row, "lab", currentlab, "lab")
@@ -369,6 +384,9 @@ class ShotInfoFile:
             self.app.log.debug("_extend_simple_properties: extend film: %s", currentfilm)
             currentprocess = self._extend_setting(row, "process", currentprocess, "process")
             currentdeveloper = self._extend_setting(row, "developer", currentdeveloper, "developer")
+            currentdevtime = self._extend_setting(row, "devtime", currentdevtime, "devtime")
+            currentdevtemp = self._extend_setting(row, "devtemp", currentdevtemp, "devtemp")
+            currentdevnotes = self._extend_setting(row, "devnotes", currentdevnotes, "devnotes")
         return rows
 
     #
@@ -523,12 +541,14 @@ class ShotInfoFile:
             update_from_settings(result, row, "process", "process")
             update_from_settings(result, row, "film", "film")
             update_from_settings(result, row, "developer", "developer")
+            update_from_settings(result, row, "devtime", "devtime")
+            update_from_settings(result, row, "devtemp", "devtemp")
+            update_from_settings(result, row, "devnotes", "devnotes")
 
             put_value(constants.TAG_DEVELOP_TIME, get_time_minutes(row, "devtime"))
-
             put_value(constants.TAG_DEVELOP_TEMP, get_temperature_c(row, "devtemp"))
 
-            if "devnotes" in row:
+            if row.get("devnotes") != None:
                 put_value(constants.TAG_DEVELOP_NOTES, row["devnotes"].strip())
 
             if row["focallength"] != None:
