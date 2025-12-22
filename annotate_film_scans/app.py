@@ -324,6 +324,9 @@ class App():
         match inpath.suffix.lower():
             case ".arw":
                 keepMake = True
+            case ".dng":
+                if settings["IFD0:Make"] == "SONY":
+                    keepMake = True
 
         if keepMake:
             settings["XMP-AnnotateFilmScans:Make"] = settings["IFD0:Make"]
