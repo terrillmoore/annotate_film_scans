@@ -531,7 +531,10 @@
     "author": {
         "Terrill Moore": {
             "XMP:Creator": "Terrill Moore",
+            "IFD0:Artist": "Terrill Moore",
             "EXIF:Copyright": "Copyright Terrill Moore",
+            "XMP-dc:Creator": "Terrill Moore",
+            "XMP-dc:Rights": "Terrill Moore",
             "XMP:Rights": "All rights reserved"
         }
     },
