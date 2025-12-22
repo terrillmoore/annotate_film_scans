@@ -261,6 +261,10 @@ class App():
                 self.log.debug("update: %s -> %s: %s", item[0], item[1], setting)
                 attributes.update(setting)
 
+        # fix author attributes
+        self._fix_author(attributes)
+
+        # display what we've done.
         self.log.debug("attributes: %s", attributes)
 
         # we need to know the first index in the table!
@@ -311,6 +315,28 @@ class App():
             # subprocess.run([ "/bin/cp", "-p", str(inpath), str(outpath)], check=True)
 
         return 0
+
+    # propogate author attributes as needed
+    def _fix_author(self, attributes: dict) -> None:
+        def copy_value(key: str, value: str) -> None:
+            if key in attributes:
+                pass
+            else:
+                attributes[key] = value
+
+        name = attributes.get("XMP:Creator")
+        if name == None:
+            raise self.Error('Settings "author" must contain XMP:Creator as author name')
+        rights = attributes.get("XMP:Rights")
+        if rights == None:
+            raise self.Error('Settings "author" must contain XMP:Rights')
+
+        if not "EXIF:Copyright" in attributes:
+            attributes["EXIF:Copyright"] = f"Copyright {name}".strip()
+
+        copy_value("IFD0:Artist", name)
+        copy_value("XMP-dc:Creator", name)
+        copy_value("XMP-dc:Rights", name)
 
     def _copy(self, inpath: pathlib.Path, outpath: pathlib.Path, settings, frame_settings):
         def _replace_settings(name: str, value: str | None = None) -> None:
