@@ -18,6 +18,9 @@
 #
 ##############################################################################
 
+# find the address of this makefile
+THIS_MAKEFILE_PATH := $(realpath $(dir $(lastword $(MAKEFILE_LIST))))
+
 # figure out where Python virtual env executable artifacts live on this system
 ifeq ($(OS),Windows_NT)
  VENV_SCRIPTS=Scripts
@@ -34,12 +37,12 @@ PYTHON=python3
 # the python for VENVs
 PYTHON_VENV=python
 
-# name of the uv executable, in case we need to override.
+# names of the uv executable, in case we need to override.
 UV=uv
+UVX=uvx
 
 # figure out our project name
-THIS_PROJECT_AND_VERSION := $(shell $(UV) version)
-THIS_PROJECT := $(firstword ${THIS_PROJECT_AND_VERSION})
+THIS_PROJECT != $(UVX) --from toml-cli toml.exe get --toml-path ${THIS_MAKEFILE_PATH}/pyproject.toml project.name
 
 #
 # Default target: print help.
