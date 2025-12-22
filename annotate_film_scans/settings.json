@@ -463,6 +463,11 @@
             "XMP-AnalogExif:FilmMaker": "CineStill",
             "XMP-AnalogExif:Film": "CineStill BWXX at ISO 400",
             "EXIF:ISO": 400
+        },
+        "JCH Streetpan 400": {
+            "XMP-AnalogExif:FilmMaker": "Japan Camera Hunter",
+            "XMP-AnalogExif:Film": "JCH StreetPan 400",
+            "EXIF:ISO": 400
         }
     },
     "lab": {
