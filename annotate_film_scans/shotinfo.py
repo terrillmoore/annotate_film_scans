@@ -385,10 +385,10 @@ class ShotInfoFile:
         currentfilm = self.app.args.film
         self.app.log.debug("_extend_simple_properties: initial film: %s", currentfilm)
         currentprocess = self.app.args.process
-        currentdeveloper = None
-        currentdevtime = None
-        currentdevtemp = None
-        currentdevnotes = None
+        currentdeveloper = self.app.args.developer
+        currentdevtime = self.app.args.devtime
+        currentdevtemp = self.app.args.devtemp
+        currentdevnotes = self.app.args.devnotes
 
         for row in rows:
             currentlab = self._extend_setting(row, "lab", currentlab, "lab")
