@@ -79,7 +79,7 @@ build:
 #    We're using uv, so this is all optional.
 #
 .venv:
-	$(UV) -m venv .venv
+	$(UV) venv .venv
 
 venv:	.venv
 	@printf "%s\n" \
