@@ -13,5 +13,6 @@
 #
 ##############################################################################
 
-# this is the version -- setup.cfg uses it, as does __init__.
-__version__ = "2.8.0-pre11"
+# use the version from pyproject.toml:
+from importlib.metadata import version as _version
+__version__ = _version("annotate_film_scans")
