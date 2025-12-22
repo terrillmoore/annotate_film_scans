@@ -320,16 +320,21 @@ class App():
         # luckily, this is only true for negatives
         scanner_json = self._read_make_model(inpath)
 
-        if inpath.suffix.lower() != ".arw":
-            if "Make" in scanner_json:
-                settings["XMP-AnalogExif:ScannerMaker"] = scanner_json["Make"]
-            if "Model" in scanner_json:
-                settings["XMP-AnalogExif:Scanner"] = scanner_json["Model"]
-        else:
+        keepMake = False
+        match inpath.suffix.lower():
+            case ".arw":
+                keepMake = True
+
+        if keepMake:
             settings["XMP-AnnotateFilmScans:Make"] = settings["IFD0:Make"]
             settings["XMP-AnnotateFilmScans:Model"] = settings["IFD0:Model"]
             del settings["IFD0:Make"]
             del settings["IFD0:Model"]
+        else:
+            if "Make" in scanner_json:
+                settings["XMP-AnalogExif:ScannerMaker"] = scanner_json["Make"]
+            if "Model" in scanner_json:
+                settings["XMP-AnalogExif:Scanner"] = scanner_json["Model"]
 
         self._analogexif_to_comment(settings)
 
