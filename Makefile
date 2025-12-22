@@ -1,15 +1,20 @@
 ##############################################################################
 #
-# Module: Makefile
+# File: Makefile
 #
 # Purpose:
-#	Procedures for this directory
+#	Various automated procedures for this directory
 #
 # Copyright notice and license:
-#   See LICENSE.md in this directory.
+#	See LICENSE.md in this directory.
 #
 # Author:
-#   Terry Moore, MCCI Corporation   July 2024
+#	Terry Moore, MCCI Corporation   July 2024
+#
+# Notes:
+#	This makefile is written for Gnu Make, and has been tested on
+#	macOS and on Windows (using git bash and Gnu Make installed using
+#	scoop.sh).
 #
 ##############################################################################
 
@@ -29,33 +34,38 @@ PYTHON=python3
 # the python for VENVs
 PYTHON_VENV=python
 
+# name of the uv executable, in case we need to override.
+UV=uv
+
+# figure out our project name
+THIS_PROJECT_AND_VERSION := $(shell $(UV) version)
+THIS_PROJECT := $(firstword ${THIS_PROJECT_AND_VERSION})
+
 #
 # Default target: print help.
 #
 help:
 	@printf "%s\n" \
-		"This Makefile contains the following targets" \
+		"This Makefile contains the following targets for ${THIS_PROJECT}:" \
 		"" \
-		"* make help -- prints this message" \
-		"* make build -- builds the app (in dist)" \
-		"* make venv -- sets up the virtual env for development" \
-		"* make clean -- get rid of build artifacts" \
+		"* make help      -- prints this message" \
+		"* make build     -- builds the app (in dist) using uv" \
+		"* make venv      -- sets up the virtual env for development (optional)" \
+		"* make clean     -- get rid of build artifacts" \
 		"* make distclean -- like clean, but also removes distribution directory" \
 		"" \
-		"On this system, virtual env scripts are in {envpath}/${VENV_SCRIPTS}"
+		"On this system, virtual env scripts are in {envpath}/${VENV_SCRIPTS}" \
+		"" \
+		"We are using uv, so you don't need to activate a venv to run the tool:" \
+		"   ${UV} run ${THIS_PROJECT} {args}" \
+		"or (original style):" \
+		"   ${UV} run python ${subst -,_,${THIS_PROJECT}} {args}" \
+		"will do the job."
 
-#
-# targets for building releases:
-#    .buildenv creates the first stage build environment (where we can install build)
-#    build actually creates release files.
-#
-.buildenv:
-	$(PYTHON) -m venv .buildenv
-	source .buildenv/$(ACTIVATE) && \
-		$(PYTHON_VENV) -m pip install build
-
-build:	.buildenv
-	source .buildenv/$(ACTIVATE) && $(PYTHON_VENV) -m build
+build:
+	$(UV) build
+	@# deliberately don't add `|| true` at the end because printf and ls failures
+	@# indicate a serious problem.
 	@printf "%s\n" "distribution files are in the dist directory:" && ls dist
 
 #
@@ -63,9 +73,10 @@ build:	.buildenv
 #    .venv creates the virtual environment and installs requirements
 #    venv does the same, but tells you how to use the venv.
 #
+#    We're using uv, so this is all optional.
+#
 .venv:
-	$(PYTHON) -m venv .venv
-	source .venv/$(ACTIVATE) && $(PYTHON_VENV) -m pip install -r requirements.txt
+	$(UV) -m venv .venv
 
 venv:	.venv
 	@printf "%s\n" \
@@ -73,16 +84,18 @@ venv:	.venv
 		"" \
 		"To activate in bash, say:" \
 		"    source .venv/${ACTIVATE}" \
-		""
+		"" \
+		"Or simply run without activation:" \
+		"    $(UV) run ${THIS_PROJECT} {args}"
 	@if [ "${PYTHON_VENV}" != "${PYTHON}" ]; then \
 		printf "%s\n" \
-			"Then be sure to run the app using ${PYTHON_VENV} (not ${PYTHON})" \
+			"If running without ${UV}, be sure to run the app using ${PYTHON_VENV} (not ${PYTHON})" \
 			"" \
 		; \
 	fi
 
 clean:
-	rm -rf .buildenv .venv *.egg-info */__pycache__
+	rm -rf .venv *.egg-info */__pycache__
 
 distclean:	clean
 	rm -rf dist

@@ -1,0 +1,34 @@
+version = 1
+revision = 3
+requires-python = ">=3.13"
+
+[[package]]
+name = "annotate-film-scans"
+version = "3.0.0b1"
+source = { editable = "." }
+dependencies = [
+    { name = "jsons" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "jsons", specifier = "==1.*,>=1.6.3" }]
+
+[[package]]
+name = "jsons"
+version = "1.6.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "typish" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/ef/38/c1c4e06725568c21b2cdab96f95450caa257b73aac90f8041af18756f3bf/jsons-1.6.3.tar.gz", hash = "sha256:cd5815c7c6790ae11c70ad9978e0aa850d0d08a643a5105cc604eac8b29a30d7", size = 39884, upload-time = "2022-06-09T19:52:01.861Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/9a/22/e18585ccbf9f8c42f8c26435df0e551a924aae33488227eb686876d0bffd/jsons-1.6.3-py3-none-any.whl", hash = "sha256:f07f8919316f72a3843c7ca6cc6c900513089f10092626934d1bfe4b5cf15401", size = 60701, upload-time = "2022-06-09T19:51:59.266Z" },
+]
+
+[[package]]
+name = "typish"
+version = "1.9.3"
+source = { registry = "https://pypi.org/simple" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/9d/d6/3f56c9c0c12adf61dfcf4ed5c8ffd2c431db8dd85592067a57e8e1968565/typish-1.9.3-py3-none-any.whl", hash = "sha256:03cfee5e6eb856dbf90244e18f4e4c41044c8790d5779f4e775f63f982e2f896", size = 45063, upload-time = "2021-08-05T20:36:28.702Z" },
+]
