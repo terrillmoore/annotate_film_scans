@@ -316,7 +316,13 @@ class App():
 
         return 0
 
-    # propogate author attributes as needed
+    #
+    # Supply missing author attributes as needed.
+    #
+    # Sort of unsurprisingly, all kinds of odd fields are treated as the author
+    # name, depending on the whim of the photo tool. It's tedious to remember
+    # all the places, so we supply them here.
+    #
     def _fix_author(self, attributes: dict) -> None:
         def copy_value(key: str, value: str) -> None:
             if key in attributes:
