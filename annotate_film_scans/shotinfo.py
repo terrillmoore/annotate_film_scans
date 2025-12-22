@@ -553,9 +553,9 @@ class ShotInfoFile:
             update_from_settings(result, row, "process", "process")
             update_from_settings(result, row, "film", "film")
             update_from_settings(result, row, "developer", "developer")
-            update_from_settings(result, row, "devtime", "devtime")
-            update_from_settings(result, row, "devtemp", "devtemp")
-            update_from_settings(result, row, "devnotes", "devnotes")
+            #update_from_settings(result, row, "devtime", "devtime")
+            #update_from_settings(result, row, "devtemp", "devtemp")
+            #update_from_settings(result, row, "devnotes", "devnotes")
 
             put_value(constants.TAG_DEVELOP_TIME, get_time_minutes(row, "devtime"))
             put_value(constants.TAG_DEVELOP_TEMP, get_temperature_c(row, "devtemp"))
