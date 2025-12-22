@@ -313,6 +313,13 @@ class App():
         return 0
 
     def _copy(self, inpath: pathlib.Path, outpath: pathlib.Path, settings, frame_settings):
+        def _replace_settings(name: str, value: str | None = None) -> None:
+            if name in settings:
+                settings["XMP-AnnotateFilmScans-Scanner-" + name] = settings[name]
+                del settings[name]
+            if value != None:
+                settings[name] = value
+
         if frame_settings != None:
             settings.update(frame_settings)
 
@@ -338,6 +345,19 @@ class App():
                 settings["XMP-AnalogExif:ScannerMaker"] = scanner_json["Make"]
             if "Model" in scanner_json:
                 settings["XMP-AnalogExif:Scanner"] = scanner_json["Model"]
+
+        # now, set other settings
+        _replace_settings("XMP-aux:LensInfo",
+                          f"{settings["EXIF:FocalLength"].removesuffix("mm").strip().removesuffix(".00")}mm f/{settings["EXIF:MaxApertureValue"]}"
+                          )
+        _replace_settings("XMP-aux:Lens",
+                          f"{settings["XMP:LensManufacturer"]} {settings["XMP:LensModel"]}"
+                          )
+        _replace_settings("ExifIFD:LensInfo",
+                          settings["XMP-aux:LensInfo"]
+                          )
+        _replace_settings("ExifIFD:LensModel",
+                          settings["XMP-aux:Lens"])
 
         self._analogexif_to_comment(settings)
 
