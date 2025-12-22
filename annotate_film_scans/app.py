@@ -380,15 +380,18 @@ class App():
 
     def _analogexif_to_comment(self, settings: dict) -> dict:
         pattern = re.compile(r"(XMP-AnalogExif|Exif|XMP|ExifIFD|XMP-AnnotateFilmScans):(.*)", flags=re.IGNORECASE)
-        comment = None
+        comment_dict = dict()
         for item in settings.items():
             key = item[0]
             match = re.fullmatch(pattern, key)
             if match != None and match.group(2) != "UserComment":
                 # add to the comment
-                if comment == None:
-                    comment = "Photo information: \n"
-                comment += f"\t{match.group(2)}: {item[1]}. \n"
+                comment_dict[match.group(2)] = str(item[1]).strip()
+
+        comment = "Photo information: \n"
+        for key in sorted(comment_dict):
+            comment += f"\t{key}: {comment_dict[key]}. \n"
+
         settings["IFD0:XPComment"] = comment
         settings["ExifIFD:UserComment"] = comment
         return settings
