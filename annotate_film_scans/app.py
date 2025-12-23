@@ -355,8 +355,10 @@ class App():
         if frame_settings != None:
             settings.update(frame_settings)
 
-        # unfortunately, for Sony ARW files, we need to keep make/model unchanged.
-        # luckily, this is only true for negatives
+        # Unfortunately, for Sony ARW files, we need to keep make/model unchanged.
+        # This seems to be true for Panasonic RW2 files.
+        #
+        # Luckily, this is only true for negatives
         scanner_json = self._read_make_model(inpath)
 
         keepMake = False
@@ -366,6 +368,8 @@ class App():
             case ".rw2":
                 keepMake = True
             case ".dng":
+                # Sony DNGs get squirrely if the Make doesn't say "SONY"
+                # This might also be true for Panasonic, haven't tried yet.
                 if settings["IFD0:Make"] == "SONY":
                     keepMake = True
 
