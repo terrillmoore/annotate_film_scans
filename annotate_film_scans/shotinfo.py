@@ -415,6 +415,8 @@ class ShotInfoFile:
 
         result = dict()
 
+        files_used = bytearray(len(self.app.args.input_files))
+
         for row in rows:
             firstrow = to_int(row, "frame")
             lastrow = firstrow
@@ -428,18 +430,36 @@ class ShotInfoFile:
 
             thisfile = firstfile
             for iFrame in rowseq:
+                if iFrame > len(files_used):
+                    raise self.Error(f"too many effective frames: out of files at frame {iFrame}")
+
                 attrs = self._expand_attrs(row, thisfile, iFrame - firstrow)
 
                 if thisfile != None:
+                    file_index = thisfile
                     if not self.app.args.forward:
-                        --thisfile
+                        thisfile -= 1
                     else:
-                        ++thisfile
+                        thisfile += 1
+                else:
+                    if self.app.args.forward:
+                        file_index = iFrame
+                    else:
+                        file_index = len(files_used) - iFrame + 1
+
+                if files_used[file_index - 1]:
+                    raise self.Error(f"frame {iFrame} tries to reuse file {file_index}")
+
+                files_used[file_index - 1] = True
 
                 if iFrame in result:
                     result[iFrame].update(attrs)
                 else:
                     result[iFrame] = attrs
+
+        # check that all files were used
+        if sum(files_used) != len(files_used):
+            raise self.Error(f"{len(files_used) - sum(files_used)} input files were not used")
 
         self.app.log.debug("_flatten_and_expand: result=%s", result)
         return result
