@@ -20,7 +20,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "annotate-film-scans"
-version = "3.0.0b1"	# uv won't accepet 3.0.0-pre1, makes it 3.0.0rc1; so use a for Alpha, b for Beta, or rc.
+version = "3.0.0b2"	# uv won't accepet 3.0.0-pre1, makes it 3.0.0rc1; so use a for Alpha, b for Beta, or rc.
 description = "Batch film-scan annotator"
 readme = "README.md"
 requires-python = ">=3.13"
