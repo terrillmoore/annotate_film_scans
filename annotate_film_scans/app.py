@@ -363,6 +363,8 @@ class App():
         match inpath.suffix.lower():
             case ".arw":
                 keepMake = True
+            case ".rw2":
+                keepMake = True
             case ".dng":
                 if settings["IFD0:Make"] == "SONY":
                     keepMake = True
