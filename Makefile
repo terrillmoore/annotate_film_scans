@@ -28,6 +28,13 @@ else
  VENV_SCRIPTS=bin
 endif
 
+# figure out name of TOML exe
+ifeq ($(OS),Windows_NT)
+ TOML_EXE=toml.exe
+else
+ TOML_EXE=toml
+endif
+
 # based on this, set the path to the bash activate script.
 ACTIVATE=${VENV_SCRIPTS}/activate
 
@@ -52,7 +59,7 @@ ifneq (4.4.1, $(firstword $(sort ${MAKE_VERSION} 4.4.1)))
 endif
 
 # figure out our project name
-THIS_PROJECT != $(UVX) --from toml-cli toml.exe get --toml-path ${THIS_MAKEFILE_PATH}/pyproject.toml project.name
+THIS_PROJECT != $(UVX) --from toml-cli ${TOML_EXE} get --toml-path ${THIS_MAKEFILE_PATH}/pyproject.toml project.name
 
 #
 # Default target: print help.
