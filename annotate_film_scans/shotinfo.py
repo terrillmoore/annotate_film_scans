@@ -422,7 +422,10 @@ class ShotInfoFile:
             lastrow = firstrow
             if row["frame2"] != None:
                 lastrow = to_int(row, "frame2")
-            rowseq = range(firstrow, lastrow+1)
+            if lastrow >= firstrow:
+                rowseq = range(firstrow, lastrow+1)
+            else:
+                rowseq = range(firstrow, lastrow-1)
 
             firstfile = None
             if "file" in row:
