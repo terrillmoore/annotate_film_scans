@@ -41,6 +41,16 @@ PYTHON_VENV=python
 UV=uv
 UVX=uvx
 
+ifeq ($(MAKE_VERSION),)
+ $(error This makefile requires GNU make v4.4.1 or later)
+endif
+
+ifneq (4.4.1, $(firstword $(sort ${MAKE_VERSION} 4.4.1)))
+ $(error $(shell printf "%s\n" 'This makefile requires a newer version of GNU make than ${MAKE_VERSION}.' \
+						'If using macOS, the default make is quite old, and should be ugraded using' \
+						'"brew install make", which will install a newer make as "gmake"' | fmt))
+endif
+
 # figure out our project name
 THIS_PROJECT != $(UVX) --from toml-cli toml.exe get --toml-path ${THIS_MAKEFILE_PATH}/pyproject.toml project.name
 
