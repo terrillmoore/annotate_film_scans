@@ -405,6 +405,7 @@ class ShotInfoFile:
     # flatten ranges and create per-image attributes
     #
     def _flatten_and_expand(self, rows: list) -> dict:
+        constants : Constants = self.app.constants
         def to_int(row: dict, field: str) -> int:
             result = None
             try:
@@ -433,27 +434,28 @@ class ShotInfoFile:
 
             thisfile = firstfile
             for iFrame in rowseq:
-                if iFrame > len(files_used):
-                    raise self.Error(f"too many effective frames: out of files at frame {iFrame}")
-
                 attrs = self._expand_attrs(row, thisfile, iFrame - firstrow)
 
-                if thisfile != None:
-                    file_index = thisfile
-                    if not self.app.args.forward:
-                        thisfile -= 1
+                if attrs.get(constants.TAG_SKIP) != True:
+                    if thisfile != None:
+                        file_index = thisfile
+                        if not self.app.args.forward:
+                            thisfile -= 1
+                        else:
+                            thisfile += 1
                     else:
-                        thisfile += 1
-                else:
-                    if self.app.args.forward:
-                        file_index = iFrame
-                    else:
-                        file_index = len(files_used) - iFrame + 1
+                        if self.app.args.forward:
+                            file_index = iFrame
+                        else:
+                            file_index = len(files_used) - iFrame + 1
 
-                if files_used[file_index - 1]:
-                    raise self.Error(f"frame {iFrame} tries to reuse file {file_index}")
+                    if file_index > len(files_used):
+                        raise self.Error(f"too many effective frames: {file_index=} at frame {iFrame}")
 
-                files_used[file_index - 1] = True
+                    if files_used[file_index - 1]:
+                        raise self.Error(f"frame {iFrame} tries to reuse file {file_index}")
+
+                    files_used[file_index - 1] = True
 
                 if iFrame in result:
                     result[iFrame].update(attrs)
