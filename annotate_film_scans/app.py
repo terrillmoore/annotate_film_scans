@@ -241,6 +241,9 @@ class App():
         info = shot_info_object.read_from_path(pathlib.Path(args.shot_info_file).expanduser())
 
         input_files = args.input_files
+        if not args.forward:
+            list.reverse(input_files)
+
         self.log.debug(f"{input_files=}")
         self.log.debug(f"{len(input_files)=}")
 
@@ -295,13 +298,8 @@ class App():
             # If frame_info == info[iShot] has a Files column, use that to get the input file.
             # If not, if forward use `i`; if reverse use len(input_files) - i - 1.
             #
-            iFile = None
-            if "file" in frame_info:
-                iFile = to_int(frame_info, "file") - 1
-            elif not self.args.forward:
-                iFile = len(input_files) - 1 - i
-            else:
-                iFile = i
+            assert "file" in frame_info
+            iFile = to_int(frame_info, "file") - 1
 
             inpath = input_files[iFile]
             base_inpath = inpath.name

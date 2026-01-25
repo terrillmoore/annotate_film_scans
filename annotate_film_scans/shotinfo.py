@@ -404,6 +404,8 @@ class ShotInfoFile:
     #
     # flatten ranges and create per-image attributes
     #
+    # This also processes the SKIP attributes and assigns files
+    #
     def _flatten_and_expand(self, rows: list) -> dict:
         constants : Constants = self.app.constants
         def to_int(row: dict, field: str) -> int:
@@ -418,45 +420,48 @@ class ShotInfoFile:
 
         files_used = bytearray(len(self.app.args.input_files))
 
+        thisfile = 1
+
         for row in rows:
+            # rows may express a range of frames
+            # set rowseq to the range of frames to be output.
             firstrow = to_int(row, "frame")
             lastrow = firstrow
             if row["frame2"] != None:
                 lastrow = to_int(row, "frame2")
             if lastrow >= firstrow:
-                rowseq = range(firstrow, lastrow+1)
+                frameseq = range(firstrow, lastrow+1)
             else:
-                rowseq = range(firstrow, lastrow-1)
+                frameseq = range(firstrow, lastrow-1)
 
-            firstfile = None
-            if "file" in row:
-                firstfile = to_int(row, "file")
+            # if they want to set the file number of the row,
+            # allow it, and change the sequence number
+            if row.get("file") != None:
+                thisfile = to_int(row, "file")
 
-            thisfile = firstfile
-            for iFrame in rowseq:
+            # put one entry in result for each frame to be generated for the row.
+            for iFrame in frameseq:
+                # generate the value for the result, and (critically) set
+                # attrs["file"] to thisfile.
                 attrs = self._expand_attrs(row, thisfile, iFrame - firstrow)
 
-                if attrs.get(constants.TAG_SKIP) != True:
-                    if thisfile != None:
-                        file_index = thisfile
-                        if not self.app.args.forward:
-                            thisfile -= 1
-                        else:
-                            thisfile += 1
-                    else:
-                        if self.app.args.forward:
-                            file_index = iFrame
-                        else:
-                            file_index = len(files_used) - iFrame + 1
+                # if it's a skip, we leave thisfile alone. Otherwise, we have consumed
+                # a file, so advance, and check that the file is in the input list
+                if attrs.get(constants.TAG_SKIP):
+                    pass
+                else:
+                    file_index = thisfile
+                    thisfile = thisfile + 1
 
                     if file_index > len(files_used):
-                        raise self.Error(f"too many effective frames: {file_index=} at frame {iFrame}")
+                        raise self.Error(f"too many effective frames: {file_index=} at frame {iFrame}, max {len(files_used)}")
 
                     if files_used[file_index - 1]:
                         raise self.Error(f"frame {iFrame} tries to reuse file {file_index}")
 
                     files_used[file_index - 1] = True
 
+                # just in case, merge things rather than overwriting
                 if iFrame in result:
                     result[iFrame].update(attrs)
                 else:
@@ -472,7 +477,7 @@ class ShotInfoFile:
     #
     # convert key elements of a shot info row into equivalent attribute fields
     #
-    def _expand_attrs(self, row: dict, file, duplicateIndex: int) -> dict:
+    def _expand_attrs(self, row: dict, file : int | None, duplicateIndex: int) -> dict:
         constants : Constants = self.app.constants
 
         def get_fnumber(row, field):
