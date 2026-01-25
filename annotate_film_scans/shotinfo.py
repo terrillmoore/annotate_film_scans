@@ -601,7 +601,7 @@ class ShotInfoFile:
                 if TAG_CROP_FACTOR in result:
                     crop_factor = result[TAG_CROP_FACTOR]
                 focallength_35mm = focallength * crop_factor
-                put_value("ExifIFD:FocalLength", f"{focallength} mm")
+                put_value("EXIF:FocalLength", f"{focallength} mm")
                 put_value("ExifIFD:FocalLengthIn35mmFormat", f"{focallength_35mm} mm")
 
             if "comment" in row and row["comment"] != None:
