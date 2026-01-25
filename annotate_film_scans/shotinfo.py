@@ -275,7 +275,8 @@ class ShotInfoFile:
         return currentvalue
 
     #
-    # propagate camera, lens, focallength, aperture, exposure, filter
+    # propagate camera, lens, focallength, aperture, exposure, filter,
+    # devtime, devtemp, comment
     #
     def _extend_camera_and_lens_info(self, rows: list) -> list:
         def to_float(row: dict, field: str) -> float:
