@@ -529,6 +529,9 @@
         "B&W N+2": {
             "XMP-AnalogExif:DevelopProcess": "Black & White, N+2 development"
         },
+        "B&W N+3": {
+            "XMP-AnalogExif:DevelopProcess": "Black & White, N+3 development"
+        },
         "B&W SP-8x10": {
             "XMP-AnalogExif:DevelopProcess": "Black & White, Stearman Press SP-8x10 Daylight Tray"
         }
