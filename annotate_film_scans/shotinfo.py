@@ -276,7 +276,7 @@ class ShotInfoFile:
 
     #
     # propagate camera, lens, focallength, aperture, exposure, filter,
-    # devtime, devtemp, comment
+    # devtime, devtemp,devnotes, comment
     #
     def _extend_camera_and_lens_info(self, rows: list) -> list:
         def to_float(row: dict, field: str) -> float:
@@ -294,9 +294,9 @@ class ShotInfoFile:
         currentexposure = None
         currentfilter = None
         currentroll = self.app.args.roll
-        currentdevtime = None
-        currentdevtemp = None
-        currentcomment = None
+        currentdevtime = self.app.args.devtime
+        currentdevtemp = self.app.args.devtemp
+        currentdevnotes = self.app.args.devnotes
 
         for row in rows:
             newcamera = self._extend_setting(row, "camera", currentcamera, "camera")
@@ -376,6 +376,11 @@ class ShotInfoFile:
             else:
                 row["devtemp"] = currentdevtemp
 
+            if "devnotes" in row and row["devnotes"] != None:
+                currentnotes = row["devnotes"]
+            else:
+                row["devnotes"] = currentdevnotes
+
         return rows
 
     #
@@ -387,9 +392,6 @@ class ShotInfoFile:
         self.app.log.debug("_extend_simple_properties: initial film: %s", currentfilm)
         currentprocess = self.app.args.process
         currentdeveloper = self.app.args.developer
-        currentdevtime = self.app.args.devtime
-        currentdevtemp = self.app.args.devtemp
-        currentdevnotes = self.app.args.devnotes
 
         for row in rows:
             currentlab = self._extend_setting(row, "lab", currentlab, "lab")
@@ -397,9 +399,6 @@ class ShotInfoFile:
             self.app.log.debug("_extend_simple_properties: extend film: %s", currentfilm)
             currentprocess = self._extend_setting(row, "process", currentprocess, "process")
             currentdeveloper = self._extend_setting(row, "developer", currentdeveloper, "developer")
-            currentdevtime = self._extend_setting(row, "devtime", currentdevtime, "devtime")
-            currentdevtemp = self._extend_setting(row, "devtemp", currentdevtemp, "devtemp")
-            currentdevnotes = self._extend_setting(row, "devnotes", currentdevnotes, "devnotes")
         return rows
 
     #
