@@ -123,6 +123,11 @@
             "IFD0:Model": "F-1",
             "XMP-AnalogExif:FilmType": 135,
             "XMP:CameraSerialNumber": "155736"
+        },
+        "Fatif 8x10": {
+            "IFD0:Make": "fatif",
+            "IFD0:Model": "fatif DS 20x25",
+            "XMP-AnalogExif:FilmType": "8x10"
         }
     },
     "lens": {
