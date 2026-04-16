@@ -9,7 +9,7 @@
 #	See LICENSE.md in this directory.
 #
 # Author:
-#	Terry Moore, MCCI Corporation   July 2024
+#	Terry Moore   July 2024
 #
 # Notes:
 #	This makefile is written for Gnu Make, and has been tested on
