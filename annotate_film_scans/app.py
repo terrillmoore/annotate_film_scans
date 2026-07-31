@@ -383,15 +383,17 @@ class App():
                 settings["XMP-AnalogExif:Scanner"] = scanner_json["Model"]
 
         # now, set other settings
-        _replace_settings("XMP-aux:LensInfo",
-                          f"{settings["EXIF:FocalLength"].removesuffix("mm").strip().removesuffix(".00")}mm f/{settings["EXIF:MaxApertureValue"]}"
-                          )
+        if settings.get("EXIF:FocalLength") != None and settings.get("EXIF:MaxApertureValue") != None:
+            _replace_settings("XMP-aux:LensInfo",
+                            f"{settings["EXIF:FocalLength"].removesuffix("mm").strip().removesuffix(".00")}mm f/{settings["EXIF:MaxApertureValue"]}"
+                            )
         _replace_settings("XMP-aux:Lens",
                           f"{settings["XMP:LensManufacturer"]} {settings["XMP:LensModel"]}"
                           )
-        _replace_settings("ExifIFD:LensInfo",
-                          settings["XMP-aux:LensInfo"]
-                          )
+        if settings.get("XMP-aux:LensInfo") != None:
+            _replace_settings("ExifIFD:LensInfo",
+                            settings["XMP-aux:LensInfo"]
+                            )
         _replace_settings("ExifIFD:LensModel",
                           settings["XMP-aux:Lens"])
 
