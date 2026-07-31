@@ -502,6 +502,11 @@
             "XMP-AnalogExif:FilmMaker": "Eastman Kodak",
             "XMP-AnalogExif:Film": "Ektapan Pro 400",
             "EXIF:ISO": 400
+        },
+        "Ektacolor Pro 400": {
+            "XMP-AnalogExif:FilmMaker": "Kodak",
+            "XMP-AnalogExif:Film": "Kodak Ektacolor Pro 400",
+            "EXIF:ISO": 400
         }
     },
     "lab": {
