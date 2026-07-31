@@ -497,6 +497,11 @@
             "XMP-AnalogExif:FilmMaker": "Japan Camera Hunter",
             "XMP-AnalogExif:Film": "JCH StreetPan 400",
             "EXIF:ISO": 400
+        },
+        "Ektapan Pro 400": {
+            "XMP-AnalogExif:FilmMaker": "Eastman Kodak",
+            "XMP-AnalogExif:Film": "Ektapan Pro 400",
+            "EXIF:ISO": 400
         }
     },
     "lab": {
