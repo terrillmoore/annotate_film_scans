@@ -294,6 +294,7 @@ class ShotInfoFile:
         currentexposure = None
         currentfilter = None
         currentroll = self.app.args.roll
+        currentcomment = None
         currentdevtime = self.app.args.devtime
         currentdevtemp = self.app.args.devtemp
         currentdevnotes = self.app.args.devnotes
@@ -377,7 +378,7 @@ class ShotInfoFile:
                 row["devtemp"] = currentdevtemp
 
             if "devnotes" in row and row["devnotes"] != None:
-                currentnotes = row["devnotes"]
+                currentdevnotes = row["devnotes"]
             else:
                 row["devnotes"] = currentdevnotes
 
@@ -454,7 +455,12 @@ class ShotInfoFile:
                     thisfile = thisfile + 1
 
                     if file_index > len(files_used):
-                        raise self.Error(f"too many effective frames: {file_index=} at frame {iFrame}, max {len(files_used)}")
+                        raise self.Error(
+                            f"{self.app.args.shot_info_file}: line {row['line_num']}: "
+                            f"frame {iFrame} needs input file #{file_index}, but only "
+                            f"{len(files_used)} input file(s) were given on the command line; "
+                            "either name more files or add 'skip' rows to the shot info file"
+                            )
 
                     if files_used[file_index - 1]:
                         raise self.Error(f"frame {iFrame} tries to reuse file {file_index}")
@@ -467,9 +473,30 @@ class ShotInfoFile:
                 else:
                     result[iFrame] = attrs
 
-        # check that all files were used
+        # check that all files were used; if not, name the files, in the
+        # same order run() will consume them, so the report lines up with
+        # what was typed on the command line.
         if sum(files_used) != len(files_used):
-            raise self.Error(f"{len(files_used) - sum(files_used)} input files were not used")
+            ordered_files = list(self.app.args.input_files)
+            if not self.app.args.forward:
+                ordered_files.reverse()
+
+            unused = [ i + 1 for i in range(len(files_used)) if not files_used[i] ]
+            lines = [
+                f"{len(unused)} of {len(files_used)} input files were not used by "
+                f"{self.app.args.shot_info_file}:"
+                ]
+            for i in unused[:20]:
+                lines.append(f"  file #{i}: {ordered_files[i - 1]}")
+            if len(unused) > 20:
+                lines.append(f"  ... and {len(unused) - 20} more")
+            lines.append(
+                f"the shot info file accounts for {sum(files_used)} non-skipped frame(s); "
+                "either add rows/frames to it or drop files from the command line"
+                )
+            if not self.app.args.forward:
+                lines.append("(files are numbered in reverse command-line order; use --forward to change that)")
+            raise self.Error("\n".join(lines))
 
         self.app.log.debug("_flatten_and_expand: result=%s", result)
         return result

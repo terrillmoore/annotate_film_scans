@@ -79,6 +79,27 @@ class App():
         self.outputDir = self.args.dir
         if not self.outputDir.exists():
             raise self.Error("Output directory does not exist: " + str(self.outputDir) + " -- either create it or use the -d switch to select a different one")
+        self._check_input_files()
+
+    #
+    # Make sure every file named on the command line actually exists.
+    # This catches the common case of a shell glob that matched nothing:
+    # the shell hands us the pattern itself, and without this check the
+    # problem doesn't surface until frame-to-file assignment fails with
+    # a much less obvious complaint.
+    #
+    def _check_input_files(self):
+        missing = [ f for f in self.args.input_files if not f.exists() ]
+        if len(missing) == 0:
+            return
+
+        lines = [ f"{len(missing)} of {len(self.args.input_files)} input files do not exist:" ]
+        lines += [ f"  {f}" for f in missing ]
+        if any(c in str(f) for f in missing for c in "*?["):
+            lines.append("one or more names still contain shell wildcards, so the pattern")
+            lines.append("didn't match anything -- check the directory and the extension")
+            lines.append("(.tif vs .tiff, .jpg vs .jpeg, case) before rerunning")
+        raise self.Error("\n".join(lines))
 
     #######################
     # parse the arguments #
