@@ -346,6 +346,14 @@
             "ExifIFD:FocalLengthIn35mmFormat": "43 mm",
             "XMP-AnalogExif:CropFactor": 0.122,
             "EXIF:MaxApertureValue": 6.3
+        },
+        "W-Nikkor 35mm": {
+            "XMP:LensManufacturer": "Nippon Kogaku",
+            "XMP:LensModel": "W-Nikkor C 1:2.5 3.5cm",
+            "XMP:LensSerial": 255402,
+            "EXIF:FocalLength": "35.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "35.0 mm",
+            "EXIF:MaxApertureValue": 2.5
         }
     },
     "film": {
