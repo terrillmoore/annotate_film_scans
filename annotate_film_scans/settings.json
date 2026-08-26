@@ -128,6 +128,12 @@
             "IFD0:Make": "fatif",
             "IFD0:Model": "fatif DS 20x25",
             "XMP-AnalogExif:FilmType": "8x10"
+        },
+        "Contax": {
+            "IFD0:Make": "Zeiss Ikon",
+            "IFD0:Model": "Contax IIa",
+            "XMP-AnalogExif:FilmType": 135,
+            "XMP:CameraSerialNumber": "18932"
         }
     },
     "lens": {
