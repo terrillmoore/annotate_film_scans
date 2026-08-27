@@ -521,6 +521,11 @@
             "XMP-AnalogExif:FilmMaker": "Kodak",
             "XMP-AnalogExif:Film": "Kodak Ektacolor Pro 400",
             "EXIF:ISO": 400
+        },
+        "GP3 Pan 400": {
+            "XMP-AnalogExif:FilmMaker": "Shanghai Jiancheng Film",
+            "XMP-AnalogExif:Film": "GP3 Pan 400",
+            "EXIF:ISO": 400
         }
     },
     "lab": {
