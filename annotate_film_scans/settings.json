@@ -354,6 +354,14 @@
             "EXIF:FocalLength": "35.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "35.0 mm",
             "EXIF:MaxApertureValue": 2.5
+        },
+        "Helios 103": {
+            "XMP:LensManufacturer": "Arsenal",
+            "XMP:LensModel": "Helios 103 1.8/53nm",
+            "XMP:LensSerial": 851177771,
+            "EXIF:FocalLength": "53.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "53.0 mm",
+            "EXIF:MaxApertureValue": 1.8
         }
     },
     "film": {
