@@ -603,6 +603,10 @@ class ShotInfoFile:
                 put_value("Composite:SubSecDateTimeOriginal", datestring)
                 # set the CreateDate from the everything but the timezone.
                 put_value("ExifIFD:CreateDate", datestring[0:19])
+                # DNGs from Adobe tools carry XMP capture dates (set to the
+                # scan time), which Lightroom may prefer; overwrite them.
+                put_value("XMP-photoshop:DateCreated", datestring)
+                put_value("XMP-exif:DateTimeOriginal", datestring)
                 put_value("System:FileModifyDate", datestring)
             update_from_settings(result, row, "lens", "lens")
             update_from_settings(result, row, "camera", "camera")

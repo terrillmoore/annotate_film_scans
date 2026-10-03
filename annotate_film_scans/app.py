@@ -403,6 +403,13 @@ class App():
             if "Model" in scanner_json:
                 settings["XMP-AnalogExif:Scanner"] = scanner_json["Model"]
 
+        # Preserve the scan time as DateTimeDigitized. This used to be done
+        # with a "-XMP-exif:DateTimeDigitized<XMP:CreateDate" redirect, but
+        # exiftool 13.41 changed how tag arguments interact with -json=, so
+        # put the value in the JSON instead.
+        if "CreateDate" in scanner_json:
+            settings["XMP-exif:DateTimeDigitized"] = scanner_json["CreateDate"]
+
         # now, set other settings
         if settings.get("EXIF:FocalLength") != None and settings.get("EXIF:MaxApertureValue") != None:
             _replace_settings("XMP-aux:LensInfo",
@@ -423,8 +430,6 @@ class App():
         json_settings_str = json.dumps(settings, indent=2)
         args = [
                 "exiftool",
-                "-unsafe",
-                "-XMP-exif:DateTimeDigitized<XMP:CreateDate",
                 "-json=-",
                 "-o", str(outpath),
                 str(inpath)
@@ -456,7 +461,7 @@ class App():
         return settings
 
     def _read_make_model(self, inpath):
-        args = [ "exiftool", "-json", "-s", "-make", "-model", str(inpath) ]
+        args = [ "exiftool", "-json", "-s", "-make", "-model", "-XMP:CreateDate", str(inpath) ]
 
         self.log.info(" ".join(args))
         subprocess_result = subprocess.run(args, capture_output=True, check=True, text=True)
