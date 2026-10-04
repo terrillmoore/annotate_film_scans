@@ -606,19 +606,19 @@
     },
     "developer": {
         "HC-110 1+31": {
-            "XMP-AnnotateFilmScans:Developer": "Kodak HC-110 diluted 1+31 (dilution B)"
+            "XMP-AnalogExif:Developer": "Kodak HC-110 diluted 1+31 (dilution B)"
         },
         "HC-110 1+47": {
-            "XMP-AnnotateFilmScans:Developer": "Kodak HC-110 diluted 1+47 (dilution E)"
+            "XMP-AnalogExif:Developer": "Kodak HC-110 diluted 1+47 (dilution E)"
         },
         "HC-110 1+119": {
-            "XMP-AnnotateFilmScans:Developer": "Kodak HC-110 diluted 1+119 (dilution H)"
+            "XMP-AnalogExif:Developer": "Kodak HC-110 diluted 1+119 (dilution H)"
         },
         "ID-11 1+1": {
-            "XMP-AnnotateFilmScans:Developer": "Ilford ID-11 diluted 1+1"
+            "XMP-AnalogExif:Developer": "Ilford ID-11 diluted 1+1"
         },
         "DD-X 1+4": {
-            "XMP-AnnotateFilmScans:Developer": "Ilford Ilfotec DD-X diluted 1+4"
+            "XMP-AnalogExif:Developer": "Ilford Ilfotec DD-X diluted 1+4"
         }
     }
 }
