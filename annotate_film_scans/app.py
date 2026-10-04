@@ -572,15 +572,21 @@ class App():
             _replace_settings("XMP-aux:LensInfo",
                             f"{settings["EXIF:FocalLength"].removesuffix("mm").strip().removesuffix(".00")}mm f/{settings["EXIF:MaxApertureValue"]}"
                             )
-        _replace_settings("XMP-aux:Lens",
-                          f"{settings["XMP:LensManufacturer"]} {settings["XMP:LensModel"]}"
-                          )
+        # the lens name, if the camera or lens settings give one
+        lens_name = " ".join(
+                        str(settings[tag])
+                        for tag in ("XMP:LensManufacturer", "XMP:LensModel")
+                        if settings.get(tag) != None
+                        )
+        if lens_name != "":
+            _replace_settings("XMP-aux:Lens", lens_name)
         if settings.get("XMP-aux:LensInfo") != None:
             _replace_settings("ExifIFD:LensInfo",
                             settings["XMP-aux:LensInfo"]
                             )
-        _replace_settings("ExifIFD:LensModel",
-                          settings["XMP-aux:Lens"])
+        if settings.get("XMP-aux:Lens") != None:
+            _replace_settings("ExifIFD:LensModel",
+                              settings["XMP-aux:Lens"])
 
         self._analogexif_to_comment(settings)
 
