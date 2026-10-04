@@ -216,7 +216,8 @@ class ShotInfoFile:
         basedatetime = self.app.args.date
 
         nextdatetime = None
-        lasttzinfo = None
+        # --date may supply the timezone for times without one
+        lasttzinfo = basedatetime.tzinfo if basedatetime != None else None
         delta = timedelta(seconds = self.app.args.timedelta)
 
         for row in rows:
@@ -247,6 +248,9 @@ class ShotInfoFile:
                 if nextdatetime != None:
                     # time not specified, so we compute based on last frame in prev row.
                     basedatetime = nextdatetime
+                elif basedatetime != None:
+                    # first row, no time: use --date
+                    pass
                 else:
                     raise self.Error(f"Base time is not set: at line {row['line_num']}: {row['time']}")
 
@@ -258,7 +262,8 @@ class ShotInfoFile:
             # shot in the row.
             if row.get("frame2") != None and row.get("frame") != None:
                 try:
-                    nextdatetime = basedatetime + (int(row["frame2"]) - int(row["frame"]) + 1) * delta
+                    # ranges may be descending; time always moves forward
+                    nextdatetime = basedatetime + (abs(int(row["frame2"]) - int(row["frame"])) + 1) * delta
                 except Exception as e:
                     raise self.Error("frame and frame2 not ints: %s", e)
             else:
@@ -438,7 +443,7 @@ class ShotInfoFile:
             if lastrow >= firstrow:
                 frameseq = range(firstrow, lastrow+1)
             else:
-                frameseq = range(firstrow, lastrow-1)
+                frameseq = range(firstrow, lastrow-1, -1)
 
             # if they want to set the file number of the row,
             # allow it, and change the sequence number
@@ -449,7 +454,7 @@ class ShotInfoFile:
             for iFrame in frameseq:
                 # generate the value for the result, and (critically) set
                 # attrs["file"] to thisfile.
-                attrs = self._expand_attrs(row, thisfile, iFrame - firstrow)
+                attrs = self._expand_attrs(row, thisfile, abs(iFrame - firstrow))
 
                 # if it's a skip, we leave thisfile alone. Otherwise, we have consumed
                 # a file, so advance, and check that the file is in the input list
