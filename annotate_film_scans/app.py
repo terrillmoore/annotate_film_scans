@@ -55,6 +55,11 @@ class App():
 
         self.settings = jsons.loads(settings_text)
 
+        # exiftool needs this to know about our custom XMP namespaces
+        self.exiftool_config = importlib_files("annotate_film_scans").joinpath("exiftool.config")
+        if not self.exiftool_config.is_file():
+            raise self.Error(f"Can't find exiftool config file: {self.exiftool_config}")
+
         # now parse the args
         args = self._parse_arguments()
         self.args = args
@@ -359,9 +364,9 @@ class App():
         if not "EXIF:Copyright" in attributes:
             attributes["EXIF:Copyright"] = f"Copyright {name}".strip()
 
+        # XMP:Creator and XMP:Rights are already dc:creator and dc:rights;
+        # adding XMP-dc: copies duplicates the creator.
         copy_value("IFD0:Artist", name)
-        copy_value("XMP-dc:Creator", name)
-        copy_value("XMP-dc:Rights", name)
 
     def _copy(self, inpath: pathlib.Path, outpath: pathlib.Path, settings, frame_settings):
         def _replace_settings(name: str, value: str | None = None) -> None:
@@ -429,7 +434,7 @@ class App():
 
         json_settings_str = json.dumps(settings, indent=2)
         args = [
-                "exiftool",
+                *self._exiftool(),
                 "-json=-",
                 "-o", str(outpath),
                 str(inpath)
@@ -460,8 +465,12 @@ class App():
         settings["ExifIFD:UserComment"] = comment
         return settings
 
+    # exiftool command prefix; -config must be the first argument.
+    def _exiftool(self) -> list[str]:
+        return [ "exiftool", "-config", str(self.exiftool_config) ]
+
     def _read_make_model(self, inpath):
-        args = [ "exiftool", "-json", "-s", "-make", "-model", "-XMP:CreateDate", str(inpath) ]
+        args = [ *self._exiftool(), "-json", "-s", "-make", "-model", "-XMP:CreateDate", str(inpath) ]
 
         self.log.info(" ".join(args))
         subprocess_result = subprocess.run(args, capture_output=True, check=True, text=True)
