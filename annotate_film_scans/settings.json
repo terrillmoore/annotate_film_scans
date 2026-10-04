@@ -1,368 +1,7 @@
 {
-    "camera": {
-        "Autocord": {
-            "IFD0:Make": "Minolta",
-            "IFD0:Model": "Autocord",
-            "XMP-AnalogExif:FilmType": 120,
-            "XMP:CameraSerialNumber": 156310,
-            "XMP:LensManufacturer": "Chiyoko",
-            "XMP:LensModel": "Rokkor",
-            "XMP:LensSerial": 2003040,
-            "EXIF:FocalLength": "75.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "40 mm",
-            "EXIF:MaxApertureValue": 3.5,
-            "XMP-AnnotateFilmScans:CropFactor": 0.53
-        },
-        "Canonflex": {
-            "IFD0:Make": "Canon",
-            "IFD0:Model": "Canonflex",
-            "XMP-AnalogExif:FilmType": 135,
-            "XMP:CameraSerialNumber": 17887
-        },
-        "Canon FTb": {
-            "IFD0:Make": "Canon",
-            "IFD0:Model": "FTb",
-            "XMP-AnalogExif:FilmType": 135,
-            "XMP:CameraSerialNumber": "M1212"
-        },
-        "Canon FTbQL-N": {
-            "IFD0:Make": "Canon",
-            "IFD0:Model": "FTbQL (New)",
-            "XMP-AnalogExif:FilmType": 135,
-            "XMP:CameraSerialNumber": "P1109"
-        },
-        "Baldalux": {
-            "IFD0:Make": "Balda Camera Works",
-            "IFD0:Model": "Baldalux",
-            "XMP-AnalogExif:FilmType": 120,
-            "XMP:LensManufacturer": "Schneider-Kreuznach",
-            "XMP:LensModel": "Radionar",
-            "XMP:LensSerial": 4389791,
-            "EXIF:FocalLength": "105.00 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "45 mm",
-            "EXIF:MaxApertureValue": 4.5,
-            "XMP-AnnotateFilmScans:CropFactor": 0.43
-        },
-        "Leotax": {
-            "IFD0:Make": "Showa Optical Works, Ltd.",
-            "IFD0:Model": "Semi Leotax R",
-            "XMP:CameraSerialNumber": 11474,
-            "XMP-AnalogExif:FilmType": 120,
-            "XMP:LensManufacturer": "Tokyo Optical Co.",
-            "XMP:LensModel": "Toko",
-            "XMP:LensSerial": 117481,
-            "EXIF:FocalLength": "75.00 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "43 mm",
-            "EXIF:MaxApertureValue": 3.5,
-            "XMP-AnnotateFilmScans:CropFactor": 0.57
-        },
-        "Leotax #1": {
-            "IFD0:Make": "Showa Optical Works, Ltd.",
-            "IFD0:Model": "Semi Leotax R",
-            "XMP:CameraSerialNumber": 11474,
-            "XMP-AnalogExif:FilmType": 120,
-            "XMP:LensManufacturer": "Tokyo Optical Co.",
-            "XMP:LensModel": "Toko",
-            "XMP:LensSerial": 117481,
-            "EXIF:FocalLength": "75.00 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "43 mm",
-            "EXIF:MaxApertureValue": 3.5,
-            "XMP-AnnotateFilmScans:CropFactor": 0.57
-        },
-      "Leotax #2": {
-            "IFD0:Make": "Showa Optical Works, Ltd.",
-            "IFD0:Model": "Semi Leotax R",
-            "XMP:CameraSerialNumber": 14041,
-            "XMP-AnalogExif:FilmType": 120,
-            "XMP:LensManufacturer": "Nitto Kogaku Co.",
-            "XMP:LensModel": "Kominar",
-            "XMP:LensSerial": 29378,
-            "EXIF:FocalLength": "75.00 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "43 mm",
-            "EXIF:MaxApertureValue": 3.5,
-            "XMP-AnnotateFilmScans:CropFactor": 0.57
-        },
-        "Pentax ME Super (Judy)": {
-            "IFD0:Make": "Asahi Optical Co.",
-            "IFD0:Model": "Pentax ME Super",
-            "XMP-AnalogExif:FilmType": 135,
-            "XMP:CameraSerialNumber": 2982175
-        },
-        "Pocket View 6x9": {
-            "IFD0:Make": "Peter Gowland",
-            "IFD0:Model": "Gowland Pocket View (Horseman 6x9 back)",
-            "XMP-AnalogExif:FilmType": 120
-        },
-        "Pocket View": {
-            "IFD0:Make": "Peter Gowland",
-            "IFD0:Model": "Gowland Pocket View",
-            "XMP-AnalogExif:FilmType": "4x5"
-        },
-        "Crown Graphic": {
-            "IFD0:Make": "Graflex",
-            "IFD0:Model": "Pacemaker Crown Graphic",
-            "XMP-AnalogExif:FilmType": "4x5"
-        },
-        "Crown Graphic 6x9": {
-            "IFD0:Make": "Graflex",
-            "IFD0:Model": "Pacemaker Crown Graphic",
-            "XMP-AnalogExif:FilmType": "120"
-        },
-        "Calumet CC-400": {
-            "IFD0:Make": "Calumet",
-            "IFD0:Model": "CC-400",
-            "XMP-AnalogExif:FilmType": "4x5"
-        },
-        "Gowland 8x10": {
-            "IFD0:Make": "Peter Gowland",
-            "IFD0:Model": "Gowland 8x10",
-            "XMP-AnalogExif:FilmType": "8x10"
-        },
-        "Canon F-1": {
-            "IFD0:Make": "Canon",
-            "IFD0:Model": "F-1",
-            "XMP-AnalogExif:FilmType": 135,
-            "XMP:CameraSerialNumber": "155736"
-        },
-        "Fatif 8x10": {
-            "IFD0:Make": "fatif",
-            "IFD0:Model": "fatif DS 20x25",
-            "XMP-AnalogExif:FilmType": "8x10"
-        },
-        "Contax": {
-            "IFD0:Make": "Zeiss Ikon",
-            "IFD0:Model": "Contax IIa",
-            "XMP-AnalogExif:FilmType": 135,
-            "XMP:CameraSerialNumber": "18932"
-        }
-    },
+    "camera": {},
     "lens": {
-        "fixed": {},
-        "R 50mm f/1.8 #30119": {
-            "XMP:LensManufacturer": "Canon",
-            "XMP:LensModel": "Super Canonmatic R",
-            "XMP:LensSerial": 30119,
-            "EXIF:FocalLength": "50.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "50.0 mm",
-            "EXIF:MaxApertureValue": 1.8
-        },
-        "R 50mm f/1.8": {
-            "XMP:LensManufacturer": "Canon",
-            "XMP:LensModel": "Super Canonmatic R",
-            "XMP:LensSerial": 120450,
-            "EXIF:FocalLength": "50.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "50.0 mm",
-            "EXIF:MaxApertureValue": 1.8
-        },
-        "R 58mm f/1.2": {
-            "XMP:LensManufacturer": "Canon",
-            "XMP:LensModel": "Super Canonmatic R",
-            "XMP:LensSerial": 12104,
-            "EXIF:FocalLength": "58.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "58.0 mm",
-            "EXIF:MaxApertureValue": 1.2
-        },
-        "R 35mm f/2.5": {
-            "XMP:LensManufacturer": "Canon",
-            "XMP:LensModel": "Super Canonmatic R",
-            "XMP:LensSerial": 14993,
-            "EXIF:FocalLength": "35.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "35.0 mm",
-            "EXIF:MaxApertureValue": 2.5
-        },
-        "Macro FL 50mm f/3.5": {
-            "XMP:LensManufacturer": "Canon",
-            "XMP:LensModel": "Macro FL",
-            "XMP:LensSerial": 28198,
-            "EXIF:FocalLength": "50.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "50.0 mm",
-            "EXIF:MaxApertureValue": 3.5
-        },
-        "FL 35mm f/2.5": {
-            "XMP:LensManufacturer": "Canon",
-            "XMP:LensModel": "FL",
-            "XMP:LensSerial": 70117,
-            "EXIF:FocalLength": "35.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "35.0 mm",
-            "EXIF:MaxApertureValue": 2.5
-        },
-        "FL 55-135mm f/3.5": {
-            "XMP:LensManufacturer": "Canon",
-            "XMP:LensModel": "FL 55~135mm",
-            "XMP:LensSerial": 24253,
-            "EXIF:MaxApertureValue": 3.5
-        },
-        "FD 50mm f/1.4": {
-            "XMP:LensManufacturer": "Canon",
-            "XMP:LensModel": "FD 50mm f/1.4 SSC",
-            "XMP:LensSerial": 671339,
-            "EXIF:FocalLength": "50.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "50.0 mm",
-            "EXIF:MaxApertureValue": 1.4
-        },
-        "FD 300mm f/4": {
-            "XMP:LensManufacturer": "Canon",
-            "XMP:LensModel": "FD 300mm f/4",
-            "XMP:LensSerial": 15994,
-            "EXIF:FocalLength": "300.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "300.0 mm",
-            "EXIF:MaxApertureValue": 4
-        },
-        "FD 70~150 f/4.5": {
-            "XMP:LensManufacturer": "Canon",
-            "XMP:LensModel": "FD 70~150mm",
-            "XMP:LensSerial": 23555,
-            "EXIF:MaxApertureValue": 4.5
-        },
-        "SMC Pentax 50 mm f/1.7": {
-            "XMP:LensManufacturer": "Asahi Optical Co.",
-            "XMP:LensModel": "SMC Pentax-M",
-            "XMP:LensSerial": 7363819,
-            "EXIF:FocalLength": "50.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "50.0 mm",
-            "EXIF:MaxApertureValue": 1.7
-        },
-        "SMC Pentax 28 mm f/2.8": {
-            "XMP:LensManufacturer": "Asahi Optical Co.",
-            "XMP:LensModel": "SMC Pentax-M",
-            "XMP:LensSerial": 7157466,
-            "EXIF:FocalLength": "28.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "28.0 mm",
-            "EXIF:MaxApertureValue": 2.8
-        },
-        "Caltar II-N 90mm": {
-            "XMP:LensManufacturer": "Calumet",
-            "XMP:LensModel": "Caltar II-N",
-            "XMP:LensSerial": 10682409,
-            "EXIF:FocalLength": "90.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "23 mm",
-            "XMP-AnnotateFilmScans:CropFactor": 0.252,
-            "EXIF:MaxApertureValue": 4.5
-        },
-        "Caltar II-N 90mm 6x9": {
-            "XMP:LensManufacturer": "Calumet",
-            "XMP:LensModel": "Caltar II-N",
-            "XMP:LensSerial": 10682409,
-            "EXIF:FocalLength": "90.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "38.7 mm",
-            "XMP-AnnotateFilmScans:CropFactor": 0.429,
-            "EXIF:MaxApertureValue": 4.5
-        },
-        "135mm Optar": {
-            "XMP:LensManufacturer": "Wollensak",
-            "XMP:LensModel": "Optar",
-            "XMP:LensSerial": 501833,
-            "EXIF:FocalLength": "135.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "34 mm",
-            "XMP-AnnotateFilmScans:CropFactor": 0.252,
-            "EXIF:MaxApertureValue": 4.7
-        },
-        "150mm Rodenstock": {
-            "XMP:LensManufacturer": "Rodenstock",
-            "XMP:LensModel": "Apo-Sironar-N",
-            "XMP:LensSerial": 11206443,
-            "EXIF:FocalLength": "150.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "38 mm",
-            "XMP-AnnotateFilmScans:CropFactor": 0.252,
-            "EXIF:MaxApertureValue": 5.6
-        },
-        "150mm Rodenstock 6x9": {
-            "XMP:LensManufacturer": "Rodenstock",
-            "XMP:LensModel": "Apo-Sironar-N",
-            "XMP:LensSerial": 11206443,
-            "EXIF:FocalLength": "150.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "64 mm",
-            "XMP-AnnotateFilmScans:CropFactor": 0.429,
-            "EXIF:MaxApertureValue": 5.6
-        },
-        "180mm Rodenstock": {
-            "XMP:LensManufacturer": "Rodenstock",
-            "XMP:LensModel": "Sironar-N 180mm f/5.6",
-            "XMP:LensSerial": 10090902,
-            "EXIF:FocalLength": "180.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "45 mm",
-            "XMP-AnnotateFilmScans:CropFactor": 0.252,
-            "EXIF:MaxApertureValue": 5.6
-        },
-        "270mm Tele-Arton": {
-            "XMP:LensManufacturer": "Schneider-Kreuznach",
-            "XMP:LensModel": "Tele-Arton",
-            "XMP:LensSerial": 14486883,
-            "EXIF:FocalLength": "270.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "68 mm",
-            "XMP-AnnotateFilmScans:CropFactor": 0.252,
-            "EXIF:MaxApertureValue": 5.5
-        },
-        "75mm Fujinon": {
-            "XMP:LensManufacturer": "Fuji Photo Optical Company",
-            "XMP:LensModel": "Fujinon-SWD",
-            "XMP:LensSerial": 562861,
-            "EXIF:FocalLength": "75.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "19 mm",
-            "XMP-AnnotateFilmScans:CropFactor": 0.252,
-            "EXIF:MaxApertureValue": 5.6
-        },
-        "210mm Fujinon": {
-            "XMP:LensManufacturer": "Fuji Photo Optical Company",
-            "XMP:LensModel": "Fujinon-W S 1:5.6/210",
-            "XMP:LensSerial": 214998,
-            "EXIF:FocalLength": "210.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "26 mm",
-            "XMP-AnnotateFilmScans:CropFactor": 0.122,
-            "EXIF:MaxApertureValue": 5.6
-        },
-        "159mm Wollensak": {
-            "XMP:LensManufacturer": "Wollensak USA",
-            "XMP:LensModel": "Wollensak 8x10 Series IIIA Extra Wide Angle f/12 6 1/4",
-            "XMP:LensSerial": 14177,
-            "EXIF:FocalLength": "159.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "19 mm",
-            "XMP-AnnotateFilmScans:CropFactor": 0.122,
-            "EXIF:MaxApertureValue": 12
-        },
-        "300mm Fujinon C": {
-            "XMP:LensManufacturer": "Fuji Photo Optical Company",
-            "XMP:LensModel": "Fujinon-C 1:8.5/300",
-            "XMP:LensSerial": 633075,
-            "EXIF:FocalLength": "300.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "37 mm",
-            "XMP-AnnotateFilmScans:CropFactor": 0.122,
-            "EXIF:MaxApertureValue": 8.5
-        },
-        "300mm Fujinon C on 4x5": {
-            "XMP:LensManufacturer": "Fuji Photo Optical Company",
-            "XMP:LensModel": "Fujinon-C 1:8.5/300",
-            "XMP:LensSerial": 633075,
-            "EXIF:FocalLength": "300.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "76 mm",
-            "XMP-AnnotateFilmScans:CropFactor": 0.252,
-            "EXIF:MaxApertureValue": 8.5
-        },
-        "Ektar 14 in": {
-            "XMP:LensManufacturer": "Eastman Kodak Co.",
-            "XMP:LensModel": "Kokak Commercial Ektar 14 in.",
-            "XMP:LensSerial": "EI204",
-            "EXIF:FocalLength": "355.6 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "43 mm",
-            "XMP-AnnotateFilmScans:CropFactor": 0.122,
-            "EXIF:MaxApertureValue": 6.3
-        },
-        "W-Nikkor 35mm": {
-            "XMP:LensManufacturer": "Nippon Kogaku",
-            "XMP:LensModel": "W-Nikkor C 1:2.5 3.5cm",
-            "XMP:LensSerial": 255402,
-            "EXIF:FocalLength": "35.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "35.0 mm",
-            "EXIF:MaxApertureValue": 2.5
-        },
-        "Helios 103": {
-            "XMP:LensManufacturer": "Arsenal",
-            "XMP:LensModel": "Helios 103 1.8/53nm",
-            "XMP:LensSerial": 851177771,
-            "EXIF:FocalLength": "53.0 mm",
-            "ExifIFD:FocalLengthIn35mmFormat": "53.0 mm",
-            "EXIF:MaxApertureValue": 1.8
-        }
+        "fixed": {}
     },
     "film": {
         "CineStill 400": {
@@ -374,11 +13,6 @@
             "XMP-AnalogExif:FilmMaker": "Ilford",
             "XMP-AnalogExif:Film": "Ilford Delta 100",
             "EXIF:ISO": 100
-        },
-        "Delta 100+2": {
-            "XMP-AnalogExif:FilmMaker": "Ilford",
-            "XMP-AnalogExif:Film": "Ilford Delta 100 (N+2)",
-            "EXIF:ISO": 400
         },
         "Delta 400": {
             "XMP-AnalogExif:FilmMaker": "Ilford",
@@ -395,30 +29,10 @@
             "XMP-AnalogExif:Film": "Kodak Tri-X 400",
             "EXIF:ISO": 400
         },
-        "Tri-X 400+1": {
-            "XMP-AnalogExif:FilmMaker": "Kodak",
-            "XMP-AnalogExif:Film": "Kodak Tri-X 400 (+1)",
-            "EXIF:ISO": 800
-        },
-        "Tri-X 400+2": {
-            "XMP-AnalogExif:FilmMaker": "Kodak",
-            "XMP-AnalogExif:Film": "Kodak Tri-X 400 (+2)",
-            "EXIF:ISO": 1600
-        },
-        "Tri-X 400+3": {
-            "XMP-AnalogExif:FilmMaker": "Kodak",
-            "XMP-AnalogExif:Film": "Kodak Tri-X 400 (N+3)",
-            "EXIF:ISO": 3200
-        },
         "Tri-X 320": {
             "XMP-AnalogExif:FilmMaker": "Kodak",
             "XMP-AnalogExif:Film": "Kodak Tri-X 320",
             "EXIF:ISO": 320
-        },
-        "Tri-X 320+2": {
-            "XMP-AnalogExif:FilmMaker": "Kodak",
-            "XMP-AnalogExif:Film": "Kodak Tri-X 320 (N+2)",
-            "EXIF:ISO": 1280
         },
         "Portra 160": {
             "XMP-AnalogExif:FilmMaker": "Kodak",
@@ -429,11 +43,6 @@
             "XMP-AnalogExif:FilmMaker": "Kodak",
             "XMP-AnalogExif:Film": "Kodak Portra 800",
             "EXIF:ISO": 800
-        },
-        "Portra 800+1": {
-            "XMP-AnalogExif:FilmMaker": "Kodak",
-            "XMP-AnalogExif:Film": "Kodak Portra 800 (+1)",
-            "EXIF:ISO": 1600
         },
         "Superia 400": {
             "XMP-AnalogExif:FilmMaker": "Fujifilm",
@@ -505,16 +114,6 @@
             "XMP-AnalogExif:Film": "CineStill BWXX",
             "EXIF:ISO": 250
         },
-        "BWXX @ 260": {
-            "XMP-AnalogExif:FilmMaker": "CineStill",
-            "XMP-AnalogExif:Film": "CineStill BWXX at ISO 260",
-            "EXIF:ISO": 260
-        },
-        "BWXX @ 400": {
-            "XMP-AnalogExif:FilmMaker": "CineStill",
-            "XMP-AnalogExif:Film": "CineStill BWXX at ISO 400",
-            "EXIF:ISO": 400
-        },
         "JCH Streetpan 400": {
             "XMP-AnalogExif:FilmMaker": "Japan Camera Hunter",
             "XMP-AnalogExif:Film": "JCH StreetPan 400",
@@ -537,9 +136,6 @@
         }
     },
     "lab": {
-        "Home": {
-            "XMP-AnalogExif:Lab": "Terry Moore"
-        },
         "Praus": {
             "XMP-AnalogExif:Lab": "Praus Productions",
             "XMP-AnalogExif:LabAddress": "Rochester, NY"
@@ -551,10 +147,6 @@
         "Scotts": {
             "XMP-AnalogExif:Lab": "Scott's Photo by Rowe",
             "XMP-AnalogExif:LabAddress": "Rochester, NY"
-        },
-        "Head's": {
-            "XMP-AnalogExif:Lab": "Head's Camera Shop",
-            "XMP-AnalogExif:LabAddress": "300 E. State Street, Ithaca, NY 14850"
         },
         "Icon": {
             "XMP-AnalogExif:Lab": "The Icon",
@@ -574,36 +166,9 @@
         },
         "B&W": {
             "XMP-AnalogExif:DevelopProcess": "Black & White"
-        },
-        "B&W - 10%": {
-            "XMP-AnalogExif:DevelopProcess": "Black & White, dev time -10%"
-        },
-        "B&W - 20%": {
-            "XMP-AnalogExif:DevelopProcess": "Black & White, dev time -20%"
-        },
-        "B&W + 10%": {
-            "XMP-AnalogExif:DevelopProcess": "Black & White, dev time +10%"
-        },
-        "B&W + 20%": {
-            "XMP-AnalogExif:DevelopProcess": "Black & White, dev time +20%"
-        },
-        "B&W N+2": {
-            "XMP-AnalogExif:DevelopProcess": "Black & White, N+2 development"
-        },
-        "B&W N+3": {
-            "XMP-AnalogExif:DevelopProcess": "Black & White, N+3 development"
-        },
-        "B&W SP-8x10": {
-            "XMP-AnalogExif:DevelopProcess": "Black & White, Stearman Press SP-8x10 Daylight Tray"
         }
     },
-    "author": {
-        "Terrill Moore": {
-            "XMP:Creator": "Terrill Moore",
-            "EXIF:Copyright": "Copyright Terrill Moore",
-            "XMP:Rights": "All rights reserved"
-        }
-    },
+    "author": {},
     "developer": {
         "HC-110 1+31": {
             "XMP-AnalogExif:Developer": "Kodak HC-110 diluted 1+31 (dilution B)"
