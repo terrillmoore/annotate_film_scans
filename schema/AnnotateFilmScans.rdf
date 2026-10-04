@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Name: AnnotateFilmScans.rdf
+
+  Function:
+        RDF schema for the AnnotateFilmScans XMP namespace written by
+        annotate-film-scans. These properties carry film-scan information
+        that isn't covered by EXIF, standard XMP, or the AnalogExif schema
+        (http://analogexif.sourceforge.net/ns/), which annotate-film-scans
+        also uses.
+
+        The namespace URI is an identifier and isn't expected to resolve.
+        This file is published at
+        https://raw.githubusercontent.com/terrillmoore/annotate_film_scans/main/schema/AnnotateFilmScans.rdf
+
+        Recommended prefix: AnnotateFilmScans
+
+  Copyright notice and license:
+        See LICENSE.md
+
+  Author:
+        Terry Moore
+-->
+<!DOCTYPE rdf:RDF [
+  <!ENTITY ns  "https://github.com/terrillmoore/annotate_film_scans/ns/1.0/">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+
+  <rdf:Description rdf:about="&ns;">
+    <rdfs:label xml:lang="en-US">AnnotateFilmScans</rdfs:label>
+    <rdfs:comment xml:lang="en-US">Film-scan metadata written by annotate-film-scans</rdfs:comment>
+    <rdfs:seeAlso rdf:resource="https://raw.githubusercontent.com/terrillmoore/annotate_film_scans/main/schema/AnnotateFilmScans.rdf"/>
+  </rdf:Description>
+
+  <rdf:Property rdf:about="&ns;AnnotateFilmScansVersion">
+    <rdfs:label xml:lang="en-US">annotate-film-scans version</rdfs:label>
+    <rdfs:comment xml:lang="en-US">Version of annotate-film-scans that wrote the metadata</rdfs:comment>
+    <rdfs:range rdf:resource="&xsd;string"/>
+    <rdfs:isDefinedBy rdf:resource="&ns;"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="&ns;CropFactor">
+    <rdfs:label xml:lang="en-US">Crop factor</rdfs:label>
+    <rdfs:comment xml:lang="en-US">Ratio of the 35mm-equivalent focal length to the actual focal length for the film format used (for example, about 0.53 for 6x6)</rdfs:comment>
+    <rdfs:range rdf:resource="&xsd;decimal"/>
+    <rdfs:isDefinedBy rdf:resource="&ns;"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="&ns;DevelopmentNotes">
+    <rdfs:label xml:lang="en-US">Development notes</rdfs:label>
+    <rdfs:comment xml:lang="en-US">Free-form notes about development of the roll or sheet</rdfs:comment>
+    <rdfs:range rdf:resource="&xsd;string"/>
+    <rdfs:isDefinedBy rdf:resource="&ns;"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="&ns;DevelopmentTemperature">
+    <rdfs:label xml:lang="en-US">Development temperature</rdfs:label>
+    <rdfs:comment xml:lang="en-US">Developer temperature, in degrees Celsius</rdfs:comment>
+    <rdfs:range rdf:resource="&xsd;decimal"/>
+    <rdfs:isDefinedBy rdf:resource="&ns;"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="&ns;ImageNote">
+    <rdfs:label xml:lang="en-US">Image note</rdfs:label>
+    <rdfs:comment xml:lang="en-US">Photographer's note about this frame (metering, placement, conditions)</rdfs:comment>
+    <rdfs:range rdf:resource="&xsd;string"/>
+    <rdfs:isDefinedBy rdf:resource="&ns;"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="&ns;Make">
+    <rdfs:label xml:lang="en-US">Film camera make</rdfs:label>
+    <rdfs:comment xml:lang="en-US">Manufacturer of the film camera. Used instead of EXIF Make for raw formats whose Make must remain the digitizing camera's</rdfs:comment>
+    <rdfs:range rdf:resource="&xsd;string"/>
+    <rdfs:isDefinedBy rdf:resource="&ns;"/>
+  </rdf:Property>
+
+  <rdf:Property rdf:about="&ns;Model">
+    <rdfs:label xml:lang="en-US">Film camera model</rdfs:label>
+    <rdfs:comment xml:lang="en-US">Model of the film camera. Used instead of EXIF Model for raw formats whose Model must remain the digitizing camera's</rdfs:comment>
+    <rdfs:range rdf:resource="&xsd;string"/>
+    <rdfs:isDefinedBy rdf:resource="&ns;"/>
+  </rdf:Property>
+
+</rdf:RDF>
