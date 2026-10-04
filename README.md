@@ -6,11 +6,13 @@
 
 - [Introduction](#introduction)
 - [Prerequisite](#prerequisite)
+- [Getting Started](#getting-started)
 - [Intended Work Flow](#intended-work-flow)
-- [Setting up a virtual environment](#setting-up-a-virtual-environment)
+- [Running from a clone](#running-from-a-clone)
 - [Using the Program](#using-the-program)
 - [Reference](#reference)
     - [Command line options](#command-line-options)
+    - [Shot-info file](#shot-info-file)
 - [Settings](#settings)
     - [Where settings live](#where-settings-live)
     - [Setting up your settings](#setting-up-your-settings)
@@ -52,6 +54,68 @@ You'll need:
 
 annotate-film-scans passes its own exiftool configuration file (defining the AnalogExif and AnnotateFilmScans XMP namespaces) to exiftool with `-config`. As a result, a personal `~/.ExifTool_config` is not loaded when annotate-film-scans runs exiftool.
 
+## Getting Started
+
+1. **Install exiftool** (see [Prerequisite](#prerequisite)).
+
+2. **Install annotate-film-scans** from the wheel attached to the [latest release](https://github.com/terrillmoore/annotate_film_scans/releases/latest):
+
+   ```bash
+   uv tool install annotate_film_scans-<version>-py3-none-any.whl
+   annotate-film-scans --version
+   ```
+
+   (To run from a clone instead, see [Running from a clone](#running-from-a-clone).)
+
+3. **Set up your settings.** Create the settings directory and its templates:
+
+   ```bash
+   annotate-film-scans --init-settings
+   ```
+
+   It prints where the directory is (`~/.config/annotate-film-scans` on macOS and Linux). Copy `templates/author.json` and `templates/camera.json` up one level, into the settings directory itself, and edit them: put your name in the author entry (and in `defaults.author`), and describe your camera. Add `lens.json` (and others) the same way if you need them. Then check the result:
+
+   ```bash
+   annotate-film-scans --check-settings
+   ```
+
+   See [Settings](#settings) for details.
+
+4. **Write a shot-info file** next to your scans, say `shots.csv`. One row per frame (or range of frames); blank cells repeat the value from the row above. The header lines between `--` set values for the whole roll:
+
+   ```csv
+   --
+   Camera: Example 35mm SLR
+   Film: Tri-X 400
+   --
+   Frame, Exposure, Aperture, Date,       Time
+   1,     1/125,    f/8,      2026-09-24, 09:49-04:00
+   2,     1/60,     f/5.6
+   3,     1/250,    f/11
+   ```
+
+   Frames 2 and 3 get capture times 30 seconds apart after frame 1 (`--time-delta` or `TimeDelta:` changes the interval). The names after `Camera:` and `Film:` are entries from your settings; `--check-settings` lists them. See [Shot-info file](#shot-info-file) for all the columns.
+
+5. **Check the order of your scans.** By default the program assumes the scan files are in the reverse of shooting order (the last file is frame 1), which is how many labs deliver them. If your files are in shooting order, add `Forward: true` to the header, or use `--forward`.
+
+6. **Do a dry run**, which checks everything without writing:
+
+   ```bash
+   mkdir -p /tmp/tagged
+   annotate-film-scans -n -vv -d /tmp/tagged -s shots.csv *.jpg
+   ```
+
+7. **Run it for real**, and look at the result:
+
+   ```bash
+   annotate-film-scans -d /tmp/tagged -s shots.csv *.jpg
+   exiftool -s -Make -Model -DateTimeOriginal -ExposureTime -FNumber -Film /tmp/tagged/*.jpg
+   ```
+
+   Output files are named `NNN-{original name}`, where `NNN` is the frame number. The originals aren't changed.
+
+8. **Import** the output directory into Lightroom (or move it next to the scans first).
+
 ## Intended Work Flow
 
 1. Get your JPEGs from a given roll of film into a single directory.
@@ -69,22 +133,19 @@ annotate-film-scans passes its own exiftool configuration file (defining the Ana
 7. Use the program, possibly several times.
 8. Move the tagged JPEGs to their final home.
 
-## Setting up a virtual environment
+## Running from a clone
 
-The best way to setup to run the tool (if you've not installed from a `.whl`) is to use the `Makefile`:
+With [`uv`](https://docs.astral.sh/uv/), there's nothing to set up; from the top of the repository:
 
 ```bash
-make clean # <== get rid of any old .venv stuf
-make venv # <== create the venv
+uv run annotate-film-scans {args}
 ```
 
-`make venv` will print out the command you need to use to activate the virtual envirnment; the command differs base on your operating system.
-
-Run that command in a shell/terminal window to get a suitably set up environment.
+`uv run` creates the virtual environment on first use. `make test` runs the tests, and `make build` builds the wheel in `dist`.
 
 ## Using the Program
 
-Let's say that we have a roll of film that came back from the lab with folder name `00046736`, containing a number of JPEGs. And assume that this folder is in a Dropbox folder. This roll was taken on a Minolta Autocord, using Kodak Portra 800 film, so I name the `.csv` file `shots-minolta-portra800.csv`. As you'll see, I organize the Dropbox folder by lab and date, so the full path is `~/Library/CloudStorage/Dropbox/Photos/Scans/TheDarkroom/2023-06-16/00046736/shots-minolta-portra800.csv`.
+Let's say that we have a roll of film that came back from the lab with folder name `00046736`, containing a number of JPEGs. And assume that this folder is in a Dropbox folder. This roll was taken on a Minolta Autocord, using Kodak Portra 800 film, so I name the `.csv` file `shots-minolta-portra800.csv`. (`Autocord` is a camera entry in my own settings; use the names from yours.) As you'll see, I organize the Dropbox folder by lab and date, so the full path is `~/Library/CloudStorage/Dropbox/Photos/Scans/TheDarkroom/2023-06-16/00046736/shots-minolta-portra800.csv`.
 
 In this case, the `.csv` file looked like this:
 
@@ -118,32 +179,30 @@ Frame,  Frame2, Exposure,       Aperture,       Filter, Date,           Time,   
 
 Some things to observe.  I only need to state the camera, film, lab, and process on the first line; the tool keeps these the same unless you change them in a subequent line.
 
-Also, I only need to state the date and time on first shot in a series; the dates and times are carried forward. (This means that the shots are all tagged with the same time, but that doesn't bother me.)
+Also, I only need to state the date and time on the first shot in a series. Later shots without a time are placed after the previous shot, 30 seconds apart by default (set with `--time-delta` or `TimeDelta:` in the header), so they sort in shooting order.
 
 The filter uses a special notation, `-`, to designate a shot with no filter. Otherwise (if left blank) the attributes of the previous shot apply.
 
 Shots 4-6, and 9-10 are explicitly coded as identical.
 
-Shot 11 is skipped, meaning that there's no JPEG.  The program counts through JPEGs and names the output JPEGs `01_`..., `02_`..., etc; it doesn't ever skip JPEGs, but it will skip sequence numbers.
+Shot 11 is skipped, meaning that there's no JPEG.  The program counts through the JPEGs and names each output file after its frame number: `001-`..., `002-`..., and so on. It never skips a JPEG, but it does skip frame numbers.
 
 In this case, the scan was in forward order -- probably because the Minolta arranges the 6x6 images upside down compared to a Rollei or Yashica TLR. I hypothesize that labs always try to get the images in a certain orientation and sequence when scanning.  The tool doesn't know this, so I tell it using the `--forward` switch.
 
 Once the file is ready, do a dry run as follows:
 
 ```bash
-python -m annotate_film_scans -d /tmp/tagged --shot-info-file ~/Library/CloudStorage/Dropbox/Photos/Scans/TheDarkroom/2023-06-16/00046736/shots-minolta-portra800.csv ~/Library/CloudStorage/Dropbox/Photos/Scans/TheDarkroom/2023-06-16/00046736/*.jpg -vv --dry-run
+annotate-film-scans -d /tmp/tagged --shot-info-file ~/Library/CloudStorage/Dropbox/Photos/Scans/TheDarkroom/2023-06-16/00046736/shots-minolta-portra800.csv ~/Library/CloudStorage/Dropbox/Photos/Scans/TheDarkroom/2023-06-16/00046736/*.jpg -vv --dry-run
 ```
 
-Notes:
-1. If you've installed the script from the `.whl` distribution, you can just run `annotate_film_scans`.
-2. If you're running a virtual environment, **always** use `python` rather than `python3`; otherwise you may get the wrong interpreter and strange results.
+(From a clone, use `uv run annotate-film-scans` instead of `annotate-film-scans`.)
 
 I start by saying `--dry-run`; that way the program will run quickly and find any errors in the `.csv` file. I use `-vv` (or even `-vvv`), which allows me to review what the program is going to do.
 
 After I'm satisifed, I run the program again, without `--dry-run`:
 
 ```bash
-python3 -m annotate_film_scans -d /tmp/tagged --shot-info-file ~/Library/CloudStorage/Dropbox/Photos/Scans/TheDarkroom/2023-06-16/00046736/shots-minolta-portra800.csv ~/Library/CloudStorage/Dropbox/Photos/Scans/TheDarkroom/2023-06-16/00046736/*.jpg -vv
+annotate-film-scans -d /tmp/tagged --shot-info-file ~/Library/CloudStorage/Dropbox/Photos/Scans/TheDarkroom/2023-06-16/00046736/shots-minolta-portra800.csv ~/Library/CloudStorage/Dropbox/Photos/Scans/TheDarkroom/2023-06-16/00046736/*.jpg -vv
 ```
 
 Then I move the `/tmp/tagged` directory (and the converted files) to Dropbox as a subdirectory of the scan directory. I do this so I know for sure that I've processed these files.
@@ -201,6 +260,48 @@ Options:
 | <code>&#8209;&#8209;shot&#8209;info&#8209;file</code>&nbsp;_{shot&#8209;info&#8209;csv}_,<br/>`-s` _{shot-info-csv}_ | name of per-shot info file as a `.csv` or `.txt` file. The first row is a header defining the fields. The file may begin with file-wide settings using a YAML-like prefix delimited by lines consisting solely of "<code>&#8209;&#8209;</code>".
 | `--date` _{date-iso-8601}_ | base capture date/time for all images in this run; can be overridden on a shot-by-shot bases in the shot info file
 | `--dry-run`, `-n`     | go through the motions, but don't write files
+
+### Shot-info file
+
+The shot-info file is a CSV file (tabs are treated as spaces, and spaces after commas are ignored). It may begin with header options, then has a line of column names, then one row per frame or range of frames.
+
+#### Header options
+
+If the first line is `--`, the lines up to the next `--` are options for the whole roll, one `Name: value` per line (names are case-insensitive). They override the corresponding command-line options.
+
+| Option | Meaning
+|--------|--------
+| `Forward` | `true` if the scan files are in shooting order (same as `--forward`)
+| `Roll` | roll ID
+| `TimeDelta` | seconds between shots when times are filled in automatically (same as `--time-delta`)
+| `Camera`, `Lens`, `Film`, `Lab`, `Process`, `Developer` | initial entry from your settings
+| `DevTime`, `DevTemp`, `DevNotes` | initial development time, temperature, notes
+
+#### Columns
+
+Column names are case-insensitive, may appear in any order, and all but `Frame` are optional. A blank cell takes the value from the row above (except `Comment`, `Frame2`, and `File`).
+
+| Column | Meaning
+|--------|--------
+| `Frame` | frame number
+| `Frame2` | last frame of a range of identical frames (`Frame`..`Frame2`). If `Frame2` is less than `Frame`, the frames were shot in descending order; times still move forward.
+| `Exposure` | shutter speed, e.g. `1/125`, `2`, or `0.5`; `skip` means there's no scan for this frame (or range); `-` clears it
+| `Aperture` | e.g. `f/8`; `-` clears it
+| `Filter` | filter description; `-` means no filter
+| `Date` | capture date, `YYYY-MM-DD`; needs `Time` in the same row
+| `Time` | capture time, `HH:MM[:SS]` with optional offset (`-04:00` or `-0400`). The first time needs an offset (or one from `--date`); later times without one keep the previous offset. A time without a date keeps the previous date.
+| `Camera`, `Lens`, `Film`, `Lab`, `Process`, `Developer` | entry names from your settings. Changing the camera clears the lens; changing the lens clears the focal length.
+| `FocalLength` | focal length in mm, for zooms or lenses without one in the settings; the 35mm equivalent uses the camera's or lens's `CropFactor`
+| `Roll` | roll ID; `-` clears it
+| `Comment` | note for this frame only; `-` repeats the previous row's comment
+| `File` | which scan file this row starts with (1 = first file, in the order the program uses); later rows continue from there
+| `DevTime` | development time in minutes, `M` or `M:SS`; `?` if not recorded
+| `DevTemp` | development temperature in degrees C, e.g. `20.4`; `?` if not recorded
+| `DevNotes` | development notes
+
+Rows without a `Time` are given the time of the previous row's last frame plus the time delta. Skipped frames take up time the same way, so times stay the same whether or not you scan every frame. If no row has a time, `--date` gives the base date and time.
+
+Scan files are assigned to frames in order, skipping `skip` frames. Unless `--forward` (or `Forward: true`) is given, the files named on the command line are used in reverse order.
 
 ## Settings
 
