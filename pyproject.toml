@@ -40,4 +40,9 @@ annotate-film-scans = "annotate_film_scans.__main__:main"
 [tool.hatch.build.targets.wheel]
 packages = ["annotate_film_scans"]
 
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
 ### end of file ###

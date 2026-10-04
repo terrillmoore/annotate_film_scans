@@ -22,7 +22,7 @@ Run directly:
 uv run annotate-film-scans [options] input_files...
 ```
 
-There is no test suite.
+Tests use pytest (`make test`, or `uv run pytest`) and live in `tests/`.
 
 ## Architecture
 

@@ -70,6 +70,7 @@ help:
 		"" \
 		"* make help      -- prints this message" \
 		"* make build     -- builds the app (in dist) using uv" \
+		"* make test      -- runs the test suite" \
 		"* make venv      -- sets up the virtual env for development (optional)" \
 		"* make clean     -- get rid of build artifacts" \
 		"* make distclean -- like clean, but also removes distribution directory" \
@@ -87,6 +88,9 @@ build:
 	@# deliberately don't add `|| true` at the end because printf and ls failures
 	@# indicate a serious problem.
 	@printf "%s\n" "distribution files are in the dist directory:" && ls dist
+
+test:
+	$(UV) run pytest
 
 #
 # targets for local development:
@@ -115,7 +119,7 @@ venv:	.venv
 	fi
 
 clean:
-	rm -rf .venv *.egg-info */__pycache__
+	rm -rf .venv *.egg-info */__pycache__ .pytest_cache
 
 distclean:	clean
 	rm -rf dist
