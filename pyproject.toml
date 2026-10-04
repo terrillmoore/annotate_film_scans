@@ -27,9 +27,7 @@ requires-python = ">=3.13"
 license = { file = "LICENSE.md" }
 authors = [{ name = "Terry Moore", email = "terrillmoore@yahoo.com" }]
 keywords = ["exif", "film", "photography", "tagging"]
-dependencies = [
-	"jsons >= 1.6.3,== 1.*"
-]
+dependencies = []
 
 [project.urls]
 github = "https://github.com/terrillmoore/annotate_film_scans"

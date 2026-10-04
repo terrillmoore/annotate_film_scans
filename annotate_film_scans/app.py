@@ -20,14 +20,15 @@ from datetime import datetime, timezone
 from importlib.resources import files as importlib_files
 import itertools
 import json
-import jsons
 import logging
 import pathlib
 import re
 import subprocess
+import sys
 from typing import Union
 
 from .constants import Constants
+from . import settings as settings_module
 from .shotinfo import ShotInfoFile
 from .__version__ import __version__
 
@@ -38,34 +39,19 @@ from .__version__ import __version__
 ##############################################################################
 
 class App():
-    def __init__(self):
+    def __init__(self, argv: list[str] | None = None):
         # load the constants
         self.constants = Constants()
+        if argv is None:
+            argv = sys.argv[1:]
 
-        # read the JSON settings file -- this is needed for arguments
-        settings_file = importlib_files("annotate_film_scans").joinpath("settings.json")
-        if not settings_file.is_file():
-            raise self.Error(f"Can't find setup JSON file: {settings_file}")
-
-        settings_text = ""
-        try:
-            settings_text = settings_file.read_text()
-        except:
-            raise self.Error(f"Can't read: {settings_file}")
-
-        self.settings = jsons.loads(settings_text)
-
-        # exiftool needs this to know about our custom XMP namespaces
-        self.exiftool_config = importlib_files("annotate_film_scans").joinpath("exiftool.config")
-        if not self.exiftool_config.is_file():
-            raise self.Error(f"Can't find exiftool config file: {self.exiftool_config}")
-
-        # now parse the args
-        args = self._parse_arguments()
-        self.args = args
+        # The settings options have to be parsed first: the settings
+        # supply the choices and defaults for the main parser.
+        settings_parser = self._settings_arg_parser()
+        pre_args, _ = settings_parser.parse_known_args(argv)
 
         # initialize logging
-        loglevel = logging.ERROR - 10 * args.verbose
+        loglevel = logging.ERROR - 10 * pre_args.verbose
         if loglevel < 0:
             loglevel = 0
 
@@ -75,9 +61,171 @@ class App():
         # verbose: report the version.
         self.log.info("annotate_film_scans v%s", __version__)
 
+        # exiftool needs this to know about our custom XMP namespaces
+        self.exiftool_config = importlib_files("annotate_film_scans").joinpath("exiftool.config")
+        if not self.exiftool_config.is_file():
+            raise self.Error(f"Can't find exiftool config file: {self.exiftool_config}")
+
+        self.settings_args = pre_args
+        if pre_args.settings_dir is not None:
+            self.settings_dir = pre_args.settings_dir.expanduser()
+        else:
+            self.settings_dir = settings_module.user_settings_dir()
+
+        # --init-settings doesn't need (and mustn't require valid) settings
+        if pre_args.init_settings is not None:
+            self.command = self._run_init_settings
+            return
+
+        self.settings = self._load_settings(pre_args)
+
+        if pre_args.check_settings:
+            self.command = self._run_check_settings
+            return
+
+        # now parse the args
+        self.args = self._parse_arguments(settings_parser, argv)
+        self.command = self._run_annotate
+
         self._initialize()
         self.log.info("App is initialized")
         return
+
+    ############################################
+    # settings: options, loading, init & check #
+    ############################################
+    def _settings_arg_parser(self) -> argparse.ArgumentParser:
+        parser = argparse.ArgumentParser(add_help=False, allow_abbrev=False)
+        parser.add_argument(
+            "--verbose", "-v",
+            action='count', default=0,
+            help="increase verbosity, once for each use"
+            )
+        parser.add_argument(
+            "--settings-dir",
+            metavar="{dir}",
+            type=pathlib.Path,
+            help=f"directory holding your settings files (default: ${settings_module.ENV_SETTINGS_DIR} if set, else {settings_module.user_settings_dir()})"
+            )
+        group = parser.add_mutually_exclusive_group()
+        group.add_argument(
+            "--builtin-settings",
+            metavar="{file}",
+            type=pathlib.Path,
+            help="use this file instead of the built-in settings (for testing)"
+            )
+        group.add_argument(
+            "--no-builtin-settings",
+            action="store_true",
+            help="don't load the built-in settings"
+            )
+        parser.add_argument(
+            "--no-user-settings",
+            action="store_true",
+            help="don't load the settings directory"
+            )
+        parser.add_argument(
+            "--init-settings",
+            metavar="{file}",
+            nargs="?",
+            const="",
+            help="create the settings directory with editable templates, and if {file} is given, copy it in as settings.json; then exit"
+            )
+        parser.add_argument(
+            "--check-settings",
+            action="store_true",
+            help="load and check all settings, list each entry and where it came from, then exit"
+            )
+        return parser
+
+    def _builtin_settings_path(self, pre_args) -> pathlib.Path | None:
+        if pre_args.no_builtin_settings:
+            return None
+        if pre_args.builtin_settings is not None:
+            return pre_args.builtin_settings.expanduser()
+        return settings_module.builtin_settings_path()
+
+    def _load_settings(self, pre_args) -> settings_module.Settings:
+        user_dir = None
+        if not pre_args.no_user_settings:
+            user_dir = self.settings_dir
+            if pre_args.settings_dir is not None and not user_dir.is_dir():
+                raise self.Error(f"settings directory not found: {user_dir}")
+
+        try:
+            result = settings_module.load_settings(
+                builtin=self._builtin_settings_path(pre_args),
+                user_dir=user_dir
+                )
+        except settings_module.SettingsError as e:
+            raise self.Error(str(e))
+
+        for path in result.sources:
+            self.log.info("loaded settings: %s", path)
+        for problem in result.check():
+            self._warn(problem)
+        return result
+
+    # warnings the user needs to see whatever the verbosity
+    def _warn(self, message: str) -> None:
+        print(f"annotate-film-scans: warning: {message}", file=sys.stderr)
+
+    def _run_init_settings(self) -> int:
+        source = self.settings_args.init_settings
+        source = pathlib.Path(source).expanduser() if source != "" else None
+        try:
+            created = settings_module.init_settings(
+                self.settings_dir,
+                source=source,
+                templates_dir=settings_module.templates_path()
+                )
+        except settings_module.SettingsError as e:
+            raise self.Error(str(e))
+
+        print(f"settings directory: {self.settings_dir}")
+        for path in created:
+            print(f"  created {path.relative_to(self.settings_dir)}")
+        print("Copy templates up a level (or merge them into settings.json) and edit them;")
+        print("files in templates/ are never loaded.")
+        return 0
+
+    def _run_check_settings(self) -> int:
+        settings = self.settings
+        builtin = self._builtin_settings_path(self.settings_args)
+
+        def label(path: pathlib.Path) -> str:
+            if path == builtin:
+                return "built-in" if self.settings_args.builtin_settings is None else str(path)
+            if path.parent == self.settings_dir:
+                return path.name
+            return str(path)
+
+        print(f"settings directory: {self.settings_dir}")
+        print("loaded:")
+        for path in settings.sources:
+            print(f"  {path}")
+
+        for category in settings_module.CATEGORIES:
+            entries = settings[category]
+            print(f"{category}: ({len(entries)})")
+            if len(entries) == 0:
+                continue
+            width = max(len(name) for name in entries)
+            for name in entries:
+                print(f"  {name:<{width}}  {label(settings.origin(category, name))}")
+
+        print("defaults:")
+        for category, name in settings.defaults.items():
+            print(f"  {category}: {name}")
+
+        problems = settings.check()
+        if len(problems) == 0:
+            print("no problems found")
+            return 0
+        print(f"{len(problems)} problem(s):")
+        for problem in problems:
+            print(f"  {problem}")
+        return 1
 
     def _initialize(self):
         self.log.debug("App.initialize called")
@@ -109,19 +257,16 @@ class App():
     #######################
     # parse the arguments #
     #######################
-    def _parse_arguments(self):
+    def _parse_arguments(self, settings_parser: argparse.ArgumentParser, argv: list[str]):
         constants = self.constants
         settings = self.settings
+        defaults = settings.defaults
         parser = argparse.ArgumentParser(
             prog="annotate_film_scans",
             description="Annotate film scans, coping and numbering appropriately",
+            parents=[settings_parser],
             # do not allow abbreviations -- you might break batch files
             allow_abbrev=False
-            )
-        parser.add_argument(
-            "--verbose", "-v",
-            action='count', default=0,
-            help="increase verbosity, once for each use"
             )
         parser.add_argument(
             "--version",
@@ -142,37 +287,37 @@ class App():
             )
         parser.add_argument(
             "--camera",
-            default=list(settings["camera"])[0],
+            default=defaults.get("camera"),
             choices=settings['camera'],
             help="camera that took image (default: %(default)s)"
             )
         parser.add_argument(
             "--lens",
-            default=list(settings["lens"])[0],
+            default=defaults.get("lens"),
             choices=settings['lens'],
             help="lens used for image (default: %(default)s)"
         )
         parser.add_argument(
             "--film",
-            # default=list(settings["lens"])[0],
+            default=defaults.get("film"),
             choices=settings['film'],
-            help="film used for image"
+            help="film used for image (default: %(default)s)"
         )
         parser.add_argument(
             "--lab",
-            # default=list(settings["lens"])[0],
+            default=defaults.get("lab"),
             choices=settings['lab'],
-            help="lab used for image"
+            help="lab used for image (default: %(default)s)"
         )
         parser.add_argument(
             "--process",
-            # default=list(settings["lens"])[0],
+            default=defaults.get("process"),
             choices=settings['process'],
-            help="process used for image"
+            help="process used for image (default: %(default)s)"
         )
         parser.add_argument(
             "--author",
-            default=list(settings["author"])[0],
+            default=defaults.get("author"),
             choices=settings['author'],
             help="author/rights for image (default: %(default)s)"
         )
@@ -214,6 +359,7 @@ class App():
         parser.add_argument(
             "--developer",
             metavar="{developer_name}",
+            default=defaults.get("developer"),
             help="developer (if known)"
         )
         parser.add_argument(
@@ -236,7 +382,7 @@ class App():
         )
 
         # parse the args, and return
-        args = parser.parse_args()
+        args = parser.parse_args(argv)
 
         # expand the args
         args.input_files = [ pathlib.Path(iArg).expanduser() for iArg in args.input_files ]
@@ -251,6 +397,9 @@ class App():
     # Run the app and return status #
     #################################
     def run(self) -> int:
+        return self.command()
+
+    def _run_annotate(self) -> int:
         def to_int(row: dict, field: str) -> int:
             result = None
             try:
@@ -291,7 +440,10 @@ class App():
                 attributes.update(setting)
 
         # fix author attributes
-        self._fix_author(attributes)
+        if args.author != None:
+            self._fix_author(attributes)
+        else:
+            self._warn("no author set, so no creator or copyright is written; use --author, or set defaults.author in your settings")
 
         # display what we've done.
         self.log.debug("attributes: %s", attributes)

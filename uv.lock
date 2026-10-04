@@ -6,9 +6,6 @@ requires-python = ">=3.13"
 name = "annotate-film-scans"
 version = "3.0.0b14"
 source = { editable = "." }
-dependencies = [
-    { name = "jsons" },
-]
 
 [package.dev-dependencies]
 dev = [
@@ -16,7 +13,6 @@ dev = [
 ]
 
 [package.metadata]
-requires-dist = [{ name = "jsons", specifier = "==1.*,>=1.6.3" }]
 
 [package.metadata.requires-dev]
 dev = [{ name = "pytest", specifier = ">=9.1.1" }]
@@ -37,18 +33,6 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/72/34/14ca021ce8e5dfedc35312d08ba8bf51fdd999c576889fc2c24cb97f4f10/iniconfig-2.3.0.tar.gz", hash = "sha256:c76315c77db068650d49c5b56314774a7804df16fee4402c1f19d6d15d8c4730", size = 20503, upload-time = "2025-10-18T21:55:43.219Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/cb/b1/3846dd7f199d53cb17f49cba7e651e9ce294d8497c8c150530ed11865bb8/iniconfig-2.3.0-py3-none-any.whl", hash = "sha256:f631c04d2c48c52b84d0d0549c99ff3859c98df65b3101406327ecc7d53fbf12", size = 7484, upload-time = "2025-10-18T21:55:41.639Z" },
-]
-
-[[package]]
-name = "jsons"
-version = "1.6.3"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "typish" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/ef/38/c1c4e06725568c21b2cdab96f95450caa257b73aac90f8041af18756f3bf/jsons-1.6.3.tar.gz", hash = "sha256:cd5815c7c6790ae11c70ad9978e0aa850d0d08a643a5105cc604eac8b29a30d7", size = 39884, upload-time = "2022-06-09T19:52:01.861Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/9a/22/e18585ccbf9f8c42f8c26435df0e551a924aae33488227eb686876d0bffd/jsons-1.6.3-py3-none-any.whl", hash = "sha256:f07f8919316f72a3843c7ca6cc6c900513089f10092626934d1bfe4b5cf15401", size = 60701, upload-time = "2022-06-09T19:51:59.266Z" },
 ]
 
 [[package]]
@@ -92,12 +76,4 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/e4/47/b9efed96c114afcfa3c9d3fe98a76a1d14c74a9e266d397cf6eb64be5e01/pytest-9.1.1.tar.gz", hash = "sha256:1088fbde8f2b49d95a549a195707afa7a76a3ce9bcadc26b6d71f0ffda5fe313", size = 1636369, upload-time = "2026-06-19T10:58:32.857Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/24/25/1de2678b631f5a49215c6c96fff41ba892b0a34df68d6d80292b1b48aa7f/pytest-9.1.1-py3-none-any.whl", hash = "sha256:37a86b45efb9a47a61a36449063e8e18d0cab3161329fc099eb21783169c4f0c", size = 386536, upload-time = "2026-06-19T10:58:31.347Z" },
-]
-
-[[package]]
-name = "typish"
-version = "1.9.3"
-source = { registry = "https://pypi.org/simple" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/9d/d6/3f56c9c0c12adf61dfcf4ed5c8ffd2c431db8dd85592067a57e8e1968565/typish-1.9.3-py3-none-any.whl", hash = "sha256:03cfee5e6eb856dbf90244e18f4e4c41044c8790d5779f4e775f63f982e2f896", size = 45063, upload-time = "2021-08-05T20:36:28.702Z" },
 ]
