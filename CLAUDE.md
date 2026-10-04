@@ -26,13 +26,14 @@ Tests use pytest (`make test`, or `uv run pytest`) and live in `tests/`.
 
 ## Architecture
 
-Three source modules in `annotate_film_scans/`:
+Source modules in `annotate_film_scans/`:
 
 - **app.py** -- `App` class: argument parsing, settings loading, orchestration. Calls `exiftool` via `subprocess.run()` to read scanner make/model and to write metadata + copy files. Entry point is `App.main()` called from `__main__.py`.
 - **shotinfo.py** -- `ShotInfoFile` class: parses CSV files with an optional YAML-like header (delimited by `--`) for file-wide options. Handles property inheritance across rows, frame range expansion (`frame`/`frame2`), time propagation via timedelta, and conversion of shot info fields to EXIF/XMP tag dictionaries (`_expand_attrs()`).
+- **settings.py** -- loads the built-in `settings.json`, then `*.json` from the user's settings directory (`$ANNOTATE_FILM_SCANS_CONFIG`; `%APPDATA%\annotate-film-scans` on Windows; `$XDG_CONFIG_HOME` or `~/.config/annotate-film-scans` elsewhere), merging per entry (`null` deletes, `_` keys are comments, `defaults` section). Also `--check-settings` validation and `--init-settings` (copies `templates/`).
 - **constants.py** -- Immutable `Constants` class (uses `__slots__`). Defines shot field names, regex patterns for f-stop/exposure/time/temperature validation, and XMP tag name constants for custom namespaces (XMP-AnalogExif, XMP-AnnotateFilmScans).
 
-**settings.json** holds all known cameras, lenses, films, labs, processes, developers, and authors as dictionaries mapping names to their EXIF/XMP tag values. CLI `--camera`, `--lens`, etc. select entries by name from this file.
+**settings.json** holds the built-in, general-purpose entries (films, commercial labs, C-41/E-6/B&W, developers, the `fixed` lens); personal cameras, lenses, author etc. belong in the user's settings directory. **templates/** holds one example file per category for `--init-settings`. **exiftool.config** defines the XMP-AnalogExif and XMP-AnnotateFilmScans namespaces and is passed to every exiftool call with `-config`; `schema/AnnotateFilmScans.rdf` documents our namespace.
 
 ## Key Conventions
 

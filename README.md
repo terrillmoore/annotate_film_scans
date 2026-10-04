@@ -11,7 +11,10 @@
 - [Using the Program](#using-the-program)
 - [Reference](#reference)
     - [Command line options](#command-line-options)
-- [Things you'll want to change before using the program](#things-youll-want-to-change-before-using-the-program)
+- [Settings](#settings)
+    - [Where settings live](#where-settings-live)
+    - [Setting up your settings](#setting-up-your-settings)
+    - [Settings file format](#settings-file-format)
 - [Building a release](#building-a-release)
 - [Notes on EXIF tags and AnalogExif](#notes-on-exif-tags-and-analogexif)
 - [Meta](#meta)
@@ -32,7 +35,7 @@ I tried various manual approaches, but it was too tedious and error prone (and I
 
 So I wrote `annotate_film_scans`, which can do all of these things. I confess that I did quite a bit of reverse engineering of existing tools, particularly AnalogExif, to find out how things were being tagged. I did not do deep research into the standards; I did just enough work to get something that works for me. It may work for you, but it's current state I anticipate that some aspects of my workflow are hard coded and may need further abstraction.
 
-One thing you'll definitely need to edit (and that I should refactor) is `settings.json`.  This file is incorporated into the program, effectively, if you [build a release](#building-a-release), so it is really a botch -- releases are not a good idea as there's no way to override settings with a local file.
+Your cameras, lenses, author name, and so forth go in your own [settings](#settings) directory; the program only has general-purpose entries (common films, commercial labs, standard processes and developers) built in.
 
 ## Prerequisite
 
@@ -141,12 +144,17 @@ Finally, I import the `tagged` directory into Lightroom.
 ### Command line options
 
 ```
-usage: annotate_film_scans [-h] [--verbose] [--version] [--dir DIR] [--forward] [--camera {Autocord,Canonflex,Canon FTb,Canon FTbQL-N,Baldalux,Leotax,Leotax #1,Leotax #2,Pentax ME Super (Judy),Pocket View 6x9,Pocket View,Crown Graphic,Calumet CC-400,Gowland 8x10}]
-                           [--lens {fixed,R 50mm f/1.8 #30119,R 50mm f/1.8,R 58mm f/1.2,R 35mm f/2.5,Macro FL 50mm f/3.5,FL 35mm f/2.5,FL 55-135mm f/3.5,FD 50mm f/1.4,FD 300mm f/4,FD 70~150 f/4.5,SMC Pentax 50 mm f/1.7,SMC Pentax 28 mm f/2.8,Caltar II-N 90mm,Caltar II-N 90mm 6x9,135mm Optar,150mm Rodenstock,180mm Rodenstock,270mm Tele-Arton,75mm Fujinon,210mm Fujinon,159mm Wollensak,300mm Fujinon C,300mm Fujinon C on 4x5}]
-                           [--film {CineStill 400,Delta 100,Delta 400,Delta 3200,Tri-X 400,Tri-X 320,Portra 160,Portra 800,Portra 800+1,Superia 400,Ektar 100,Kodak Gold 200,Pancro 400,Ektachrome 100,Fomapan 100,Catlabs 100,Rollei Ortho 25,T-Max 100,Arista EDU 400,Portra 400,BWXX,BWXX @ 260,BWXX @ 400}]
-                           [--lab {Praus,The Darkroom,Scotts,Head's,Icon,Gowanus}] [--process {C-41,E-6,B&W,B&W - 10%,B&W - 20%,B&W + 10%,B&W + 20%}] [--author {Terrill Moore}] [--roll ROLL] [--time-delta {time-delta}] [--shot-info-file {shot-info-csv}] [--date {date-iso-8601}] [--dry-run]
+usage: annotate_film_scans [-h] [--verbose] [--settings-dir {dir}] [--builtin-settings {file} | --no-builtin-settings]
+                           [--no-user-settings] [--init-settings [{file}]] [--check-settings] [--version]
+                           [--dir DIR] [--forward] [--camera {...}] [--lens {...}] [--film {...}] [--lab {...}]
+                           [--process {...}] [--author {...}] [--roll ROLL] [--time-delta {time-delta}]
+                           [--shot-info-file {shot-info-csv}] [--date {date-iso-8601}] [--dry-run]
+                           [--developer {developer_name}] [--development_time {devtime}]
+                           [--development_temperature {devtemp}] [--development_notes {notes}]
                            {InputFile} [{InputFile} ...]
 ```
+
+The choices for `--camera`, `--lens`, `--film`, `--lab`, `--process`, and `--author` are the entries in your settings; `annotate-film-scans --check-settings` lists them. Defaults come from the `defaults` section of the settings.
 
 Annotate film scans, coping and numbering appropriately
 
@@ -162,28 +170,86 @@ Options:
 |-----------------------|------------
 |  `-h`, `--help`       | show this help message and exit
 |  `--verbose`, <br/>`-v` |        increase verbosity, once for each use
+|  `--settings-dir` _{dir}_ | directory holding your settings files (default: see [Where settings live](#where-settings-live))
+|  `--builtin-settings` _{file}_ | use this file instead of the built-in settings (for testing)
+|  `--no-builtin-settings` | don't load the built-in settings
+|  `--no-user-settings` | don't load the settings directory
+|  `--init-settings` [_{file}_] | create the settings directory with editable templates, and if _{file}_ is given, copy it in as `settings.json`; then exit
+|  `--check-settings`   | load and check all settings, list each entry and where it came from, then exit
 |  `--version`          |   Print version and exit
 |  `--dir` _DIR_,<br/>`-d` _DIR_ |     where to put data files (default: `tmp`)
 |  <code>&#8209;&#8209;forward</code>, `-f`      |  number files in ascending order, rather than reversing; many scans are in reverse order compared to the film
-|  `--camera` _CAMERA_  | camera that took image(s). The posibilities come from `settings.json`, and are currently one of: `Autocord`, `Canonflex`, `Canon FTb`, `Canon FTbQL-N`, `Baldalux`, `Leotax`, `Leotax #1`, `Leotax #2`, `Pentax ME Super (Judy)`, `Pocket View 6x9`, `Pocket View`, `Crown Graphic`, `Calumet CC-400`, `Gowland 8x10`
-| `--lens` _LENS_       | lens used for image (default: `fixed`). The posibilities come from `settings.json` and are currently: `fixed`, `R 50mm f/1.8 #30119`, `R 50mm f/1.8`, `R 58mm f/1.2`, `R 35mm f/2.5`, `Macro FL 50mm f/3.5`, `FL 35mm f/2.5`, `FL 55-135mm f/3.5`, `FD 50mm f/1.4`, `FD 300mm f/4`, `FD 70~150 f/4.5`, `SMC Pentax 50 mm f/1.7`, `SMC Pentax 28 mm f/2.8`, `Caltar II-N 90mm`, `Caltar II-N 90mm 6x9`, `135mm Optar`, `150mm Rodenstock`, `180mm Rodenstock`, `270mm Tele-Arton`, `75mm Fujinon`, `210mm Fujinon`, `159mm Wollensak`, `300mm Fujinon C`, `300mm Fujinon C on 4x5`
-| `--film` _FILM_       | film used for image. The possibilities come from `settings.json` and are currently: `CineStill 400`, `Delta 100`, `Delta 400`, `Delta 3200`, `Tri-X 400`, `Tri-X 320`, `Portra 160`, `Portra 800`, `Portra 800+1`, `Superia 400`, `Ektar 100`, `Kodak Gold 200`, `Pancro 400`, `Ektachrome 100`, `Fomapan 100`, `Catlabs 100`, `Rollei Ortho 25`, `T-Max 100`, `Arista EDU 400`, `Portra 400`, `BWXX`, `BWXX @ 260`, `BWXX @ 400`
-| `--lab` _LAB_         | lab used for processing image. he possibilities come from `settings.json` and are currently: `Praus`, `The Darkroom`, `Scotts`, `Head's`, `Icon`, `Gowanus`
-| `--process` _PROCESS_   | process used for image. The possibilities come from `settings.json` and are currently: `C-41`, `E-6`, `B&W`, `B&W - 10%`, `B&W - 20%`, `B&W + 10%`, `B&W + 20%`
-| `--author` _NAME_     | author/rights for image (default: `Terrill Moore`)
+|  `--camera` _CAMERA_  | camera that took image(s): a `camera` entry from your settings
+| `--lens` _LENS_       | lens used for image: a `lens` entry from your settings (built-in default: `fixed`)
+| `--film` _FILM_       | film used for image: a `film` entry from your settings
+| `--lab` _LAB_         | lab used for processing image: a `lab` entry from your settings
+| `--process` _PROCESS_   | process used for image: a `process` entry from your settings
+| `--author` _NAME_     | author/rights for image: an `author` entry from your settings. With no author, no creator or copyright is written.
 | `--roll` _ROLL_       | Roll ID
 | <code>&#8209;&#8209;time&#8209;delta</code>&nbsp;_{time&#8209;delta}_,<br/>`-T` _{time-delta}_ | Assumed interval between shots in frame sequences (in seconds) (default 30)
 | <code>&#8209;&#8209;shot&#8209;info&#8209;file</code>&nbsp;_{shot&#8209;info&#8209;csv}_,<br/>`-s` _{shot-info-csv}_ | name of per-shot info file as a `.csv` or `.txt` file. The first row is a header defining the fields. The file may begin with file-wide settings using a YAML-like prefix delimited by lines consisting solely of "<code>&#8209;&#8209;</code>".
 | `--date` _{date-iso-8601}_ | base capture date/time for all images in this run; can be overridden on a shot-by-shot bases in the shot info file
 | `--dry-run`, `-n`     | go through the motions, but don't write files
 
-## Things you'll want to change before using the program
+## Settings
 
-The default author of all the scans is set to `Terrill Moore` -- you'll really want to fix this (see future directions). This is is `settings.json`.
+Cameras, lenses, films, labs, processes, developers, and authors are named entries in the settings, each giving the EXIF/XMP tags to write when that entry is used. The program loads its built-in settings, then every `*.json` file at the top level of your settings directory, in sorted order.
 
-The serial number of the camera bodies is set in `settings.json`. Ditto.
+### Where settings live
 
-You'll need to add the films and labs you use in `settings.json`.
+| System | Settings directory
+|--------|-------------------
+| Linux, macOS | `$XDG_CONFIG_HOME/annotate-film-scans`, or `~/.config/annotate-film-scans` if `XDG_CONFIG_HOME` isn't set
+| Windows | `%APPDATA%\annotate-film-scans`
+
+Set `ANNOTATE_FILM_SCANS_CONFIG` to use a different directory, or use `--settings-dir` for a single run. The settings directory can be a git repository (or a symlink to one), so you can keep your settings under version control and share them between machines.
+
+### Setting up your settings
+
+```bash
+annotate-film-scans --init-settings
+```
+
+creates the settings directory and a `templates` subdirectory with one example file per category. Files in `templates` are never loaded: copy the ones you need up a level (or merge them into a single `settings.json`), replace the example entries with your own, and then run
+
+```bash
+annotate-film-scans --check-settings
+```
+
+to see every entry, which file it came from, and any problems. If you already have a settings file, `annotate-film-scans --init-settings myfile.json` also copies it in as `settings.json`. `--init-settings` never overwrites existing files.
+
+### Settings file format
+
+Each file is a JSON object whose keys are categories (`camera`, `lens`, `film`, `lab`, `process`, `developer`, `author`) and an optional `defaults`:
+
+```json
+{
+    "camera": {
+        "My F-1": {
+            "IFD0:Make": "Canon",
+            "IFD0:Model": "F-1",
+            "XMP-AnalogExif:FilmType": "135",
+            "XMP:CameraSerialNumber": "123456"
+        }
+    },
+    "author": {
+        "Me": {
+            "XMP:Creator": "My Name",
+            "XMP:Rights": "All rights reserved"
+        }
+    },
+    "defaults": {
+        "author": "Me"
+    }
+}
+```
+
+- Tag names use exiftool's `Group:Tag` notation.
+- An entry with the same name as an earlier one (built-in or from an earlier file) replaces it entirely.
+- An entry whose value is `null` removes the earlier entry of that name; likewise for a default.
+- `defaults` names the entry to use for a category when it isn't given on the command line or in the shot-info file.
+- Keys starting with `_` are comments, at any level.
+- `author` entries must set `XMP:Creator` and `XMP:Rights`.
 
 ## Building a release
 
@@ -199,9 +265,11 @@ The distribution files show up in the `dist` subdirectory at the top of the repo
 
 This section is very brief jotted notes from looking at source code.
 
-The schema used by AnalogExif:
+The schema used by AnalogExif is described at https://analogexif.sourceforge.net/help/analogexif-xmp.php; its namespace is `http://analogexif.sourceforge.net/ns/`.
 
-http://sites.google.com/site/c41bytes/analogexif/ns
+Information that AnalogExif doesn't cover goes in the `AnnotateFilmScans` namespace, `https://github.com/terrillmoore/annotate_film_scans/ns/1.0/`, described by [`schema/AnnotateFilmScans.rdf`](schema/AnnotateFilmScans.rdf).
+
+exiftool doesn't know either namespace by itself; the program passes it `annotate_film_scans/exiftool.config` with `-config`.
 
 Special tags:
 
@@ -228,10 +296,8 @@ Terry Moore
 ### Future Directions
 
 * Guess the location of the JPEGs from the location of the shot info file.
-* Allow the user to specify the serial numbers of their own lenses and cameras without editing `settings.json`.
 * Add keywording and subject input, especially if we can validate.
 * Add json equivalent to the `.csv` input, so we can use JSON Schemas to pre-validate input in VS Code.
-* Add an option to output the settings in a file you can edit locally.
 * Add an option to generate a template for the CSV file.
 
 ### Prerequisites
