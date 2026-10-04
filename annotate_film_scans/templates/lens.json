@@ -1,0 +1,14 @@
+{
+    "_comment": "Template for annotate-film-scans settings. Copy this file up one level (into the settings directory itself) or merge its contents into settings.json, then replace the example entries. Files in templates/ are never loaded. Entry names are what you use on the command line (--camera etc.) and in shot-info files. An entry with the same name as a built-in one replaces it; an entry set to null removes it. Keys starting with '_' are comments. Run 'annotate-film-scans --check-settings' after editing.",
+    "lens": {
+        "_comment": "Tags written for an interchangeable lens. Leave out the focal-length tags for zooms and give FocalLength per shot instead.",
+        "Example 50mm": {
+            "XMP:LensManufacturer": "Canon",
+            "XMP:LensModel": "FD 50mm f/1.4",
+            "XMP:LensSerial": "123456",
+            "EXIF:FocalLength": "50.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "50.0 mm",
+            "EXIF:MaxApertureValue": 1.4
+        }
+    }
+}

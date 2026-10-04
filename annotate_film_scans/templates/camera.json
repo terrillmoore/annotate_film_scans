@@ -1,0 +1,26 @@
+{
+    "_comment": "Template for annotate-film-scans settings. Copy this file up one level (into the settings directory itself) or merge its contents into settings.json, then replace the example entries. Files in templates/ are never loaded. Entry names are what you use on the command line (--camera etc.) and in shot-info files. An entry with the same name as a built-in one replaces it; an entry set to null removes it. Keys starting with '_' are comments. Run 'annotate-film-scans --check-settings' after editing.",
+    "camera": {
+        "_comment": "Tags written for the film camera. FilmType is the format: 135, 120, 4x5, 8x10, ...",
+        "Example 35mm SLR": {
+            "IFD0:Make": "Canon",
+            "IFD0:Model": "F-1",
+            "XMP-AnalogExif:FilmType": "135",
+            "XMP:CameraSerialNumber": "123456"
+        },
+        "Example 6x6 TLR": {
+            "_comment": "For fixed-lens cameras, put the lens tags here too. CropFactor converts the focal length to its 35mm equivalent for the FocalLength column.",
+            "IFD0:Make": "Minolta",
+            "IFD0:Model": "Autocord",
+            "XMP-AnalogExif:FilmType": "120",
+            "XMP:CameraSerialNumber": "123456",
+            "XMP:LensManufacturer": "Chiyoko",
+            "XMP:LensModel": "Rokkor",
+            "XMP:LensSerial": "123456",
+            "EXIF:FocalLength": "75.0 mm",
+            "ExifIFD:FocalLengthIn35mmFormat": "40 mm",
+            "EXIF:MaxApertureValue": 3.5,
+            "XMP-AnnotateFilmScans:CropFactor": 0.53
+        }
+    }
+}

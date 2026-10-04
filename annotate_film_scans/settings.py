@@ -252,6 +252,8 @@ def init_settings(
 
     copies = [ (t, settings_dir / "templates" / t.name)
                for t in sorted(templates_dir.glob("*.json")) ]
+    if len(copies) == 0:
+        raise SettingsError(f"no templates found in {templates_dir}")
     if source is not None:
         copies.append((source, settings_dir / "settings.json"))
 

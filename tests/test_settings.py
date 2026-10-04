@@ -248,6 +248,10 @@ class TestInit:
         assert json.loads((d / "settings.json").read_text()) == { "camera": { "Keep": CAMERA_A } }
         assert not (d / "templates").exists()
 
+    def test_no_templates_is_error(self, tmp_path):
+        with pytest.raises(S.SettingsError, match="templates"):
+            S.init_settings(tmp_path / "cfg", source=None, templates_dir=tmp_path / "none")
+
     def test_existing_template_is_error(self, tmp_path):
         t = self.make_templates(tmp_path)
         d = tmp_path / "cfg"
@@ -266,7 +270,9 @@ class TestPackaged:
     def test_templates_load_and_check(self, tmp_path):
         # every template must be valid as-is when copied up into the
         # settings directory
-        for t in sorted(S.templates_path().glob("*.json")):
+        templates = sorted(S.templates_path().glob("*.json"))
+        assert len(templates) == len(S.CATEGORIES)
+        for t in templates:
             u = tmp_path / t.stem
             write_json(u / t.name, json.loads(t.read_text()))
             s = S.load_settings(builtin=None, user_dir=u)

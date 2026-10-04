@@ -1,0 +1,16 @@
+{
+    "_comment": "Template for annotate-film-scans settings. Copy this file up one level (into the settings directory itself) or merge its contents into settings.json, then replace the example entries. Files in templates/ are never loaded. Entry names are what you use on the command line (--camera etc.) and in shot-info files. An entry with the same name as a built-in one replaces it; an entry set to null removes it. Keys starting with '_' are comments. Run 'annotate-film-scans --check-settings' after editing.",
+    "film": {
+        "_comment": "ISO is the exposure index you shot at.",
+        "Example Film 400": {
+            "XMP-AnalogExif:FilmMaker": "Kodak",
+            "XMP-AnalogExif:Film": "Kodak Tri-X 400",
+            "EXIF:ISO": 400
+        },
+        "Example Film 400 at 800": {
+            "XMP-AnalogExif:FilmMaker": "Kodak",
+            "XMP-AnalogExif:Film": "Kodak Tri-X 400 (+1)",
+            "EXIF:ISO": 800
+        }
+    }
+}
