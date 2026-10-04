@@ -11,7 +11,7 @@
             "EXIF:FocalLength": "75.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "40 mm",
             "EXIF:MaxApertureValue": 3.5,
-            "XMP-AnalogExif:CropFactor": 0.53
+            "XMP-AnnotateFilmScans:CropFactor": 0.53
         },
         "Canonflex": {
             "IFD0:Make": "Canon",
@@ -41,7 +41,7 @@
             "EXIF:FocalLength": "105.00 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "45 mm",
             "EXIF:MaxApertureValue": 4.5,
-            "XMP-AnalogExif:CropFactor": 0.43
+            "XMP-AnnotateFilmScans:CropFactor": 0.43
         },
         "Leotax": {
             "IFD0:Make": "Showa Optical Works, Ltd.",
@@ -54,7 +54,7 @@
             "EXIF:FocalLength": "75.00 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "43 mm",
             "EXIF:MaxApertureValue": 3.5,
-            "XMP-AnalogExif:CropFactor": 0.57
+            "XMP-AnnotateFilmScans:CropFactor": 0.57
         },
         "Leotax #1": {
             "IFD0:Make": "Showa Optical Works, Ltd.",
@@ -67,7 +67,7 @@
             "EXIF:FocalLength": "75.00 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "43 mm",
             "EXIF:MaxApertureValue": 3.5,
-            "XMP-AnalogExif:CropFactor": 0.57
+            "XMP-AnnotateFilmScans:CropFactor": 0.57
         },
       "Leotax #2": {
             "IFD0:Make": "Showa Optical Works, Ltd.",
@@ -80,7 +80,7 @@
             "EXIF:FocalLength": "75.00 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "43 mm",
             "EXIF:MaxApertureValue": 3.5,
-            "XMP-AnalogExif:CropFactor": 0.57
+            "XMP-AnnotateFilmScans:CropFactor": 0.57
         },
         "Pentax ME Super (Judy)": {
             "IFD0:Make": "Asahi Optical Co.",
@@ -236,7 +236,7 @@
             "XMP:LensSerial": 10682409,
             "EXIF:FocalLength": "90.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "23 mm",
-            "XMP-AnalogExif:CropFactor": 0.252,
+            "XMP-AnnotateFilmScans:CropFactor": 0.252,
             "EXIF:MaxApertureValue": 4.5
         },
         "Caltar II-N 90mm 6x9": {
@@ -245,7 +245,7 @@
             "XMP:LensSerial": 10682409,
             "EXIF:FocalLength": "90.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "38.7 mm",
-            "XMP-AnalogExif:CropFactor": 0.429,
+            "XMP-AnnotateFilmScans:CropFactor": 0.429,
             "EXIF:MaxApertureValue": 4.5
         },
         "135mm Optar": {
@@ -254,7 +254,7 @@
             "XMP:LensSerial": 501833,
             "EXIF:FocalLength": "135.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "34 mm",
-            "XMP-AnalogExif:CropFactor": 0.252,
+            "XMP-AnnotateFilmScans:CropFactor": 0.252,
             "EXIF:MaxApertureValue": 4.7
         },
         "150mm Rodenstock": {
@@ -263,7 +263,7 @@
             "XMP:LensSerial": 11206443,
             "EXIF:FocalLength": "150.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "38 mm",
-            "XMP-AnalogExif:CropFactor": 0.252,
+            "XMP-AnnotateFilmScans:CropFactor": 0.252,
             "EXIF:MaxApertureValue": 5.6
         },
         "150mm Rodenstock 6x9": {
@@ -272,7 +272,7 @@
             "XMP:LensSerial": 11206443,
             "EXIF:FocalLength": "150.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "64 mm",
-            "XMP-AnalogExif:CropFactor": 0.429,
+            "XMP-AnnotateFilmScans:CropFactor": 0.429,
             "EXIF:MaxApertureValue": 5.6
         },
         "180mm Rodenstock": {
@@ -281,7 +281,7 @@
             "XMP:LensSerial": 10090902,
             "EXIF:FocalLength": "180.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "45 mm",
-            "XMP-AnalogExif:CropFactor": 0.252,
+            "XMP-AnnotateFilmScans:CropFactor": 0.252,
             "EXIF:MaxApertureValue": 5.6
         },
         "270mm Tele-Arton": {
@@ -290,7 +290,7 @@
             "XMP:LensSerial": 14486883,
             "EXIF:FocalLength": "270.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "68 mm",
-            "XMP-AnalogExif:CropFactor": 0.252,
+            "XMP-AnnotateFilmScans:CropFactor": 0.252,
             "EXIF:MaxApertureValue": 5.5
         },
         "75mm Fujinon": {
@@ -299,7 +299,7 @@
             "XMP:LensSerial": 562861,
             "EXIF:FocalLength": "75.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "19 mm",
-            "XMP-AnalogExif:CropFactor": 0.252,
+            "XMP-AnnotateFilmScans:CropFactor": 0.252,
             "EXIF:MaxApertureValue": 5.6
         },
         "210mm Fujinon": {
@@ -308,7 +308,7 @@
             "XMP:LensSerial": 214998,
             "EXIF:FocalLength": "210.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "26 mm",
-            "XMP-AnalogExif:CropFactor": 0.122,
+            "XMP-AnnotateFilmScans:CropFactor": 0.122,
             "EXIF:MaxApertureValue": 5.6
         },
         "159mm Wollensak": {
@@ -317,7 +317,7 @@
             "XMP:LensSerial": 14177,
             "EXIF:FocalLength": "159.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "19 mm",
-            "XMP-AnalogExif:CropFactor": 0.122,
+            "XMP-AnnotateFilmScans:CropFactor": 0.122,
             "EXIF:MaxApertureValue": 12
         },
         "300mm Fujinon C": {
@@ -326,7 +326,7 @@
             "XMP:LensSerial": 633075,
             "EXIF:FocalLength": "300.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "37 mm",
-            "XMP-AnalogExif:CropFactor": 0.122,
+            "XMP-AnnotateFilmScans:CropFactor": 0.122,
             "EXIF:MaxApertureValue": 8.5
         },
         "300mm Fujinon C on 4x5": {
@@ -335,7 +335,7 @@
             "XMP:LensSerial": 633075,
             "EXIF:FocalLength": "300.0 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "76 mm",
-            "XMP-AnalogExif:CropFactor": 0.252,
+            "XMP-AnnotateFilmScans:CropFactor": 0.252,
             "EXIF:MaxApertureValue": 8.5
         },
         "Ektar 14 in": {
@@ -344,7 +344,7 @@
             "XMP:LensSerial": "EI204",
             "EXIF:FocalLength": "355.6 mm",
             "ExifIFD:FocalLengthIn35mmFormat": "43 mm",
-            "XMP-AnalogExif:CropFactor": 0.122,
+            "XMP-AnnotateFilmScans:CropFactor": 0.122,
             "EXIF:MaxApertureValue": 6.3
         },
         "W-Nikkor 35mm": {
