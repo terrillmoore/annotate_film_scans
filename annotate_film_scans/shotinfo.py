@@ -141,6 +141,9 @@ class ShotInfoFile:
             seen_fields[canonical_field] = len(result)
             result.append(canonical_field)
 
+        if not "frame" in seen_fields:
+            raise self.Error("CSV header must include a Frame column")
+
         self.app.log.debug("_read_first_line: result: %s", [ result ])
         return result
 
@@ -152,7 +155,9 @@ class ShotInfoFile:
         thisline = filereader.line_num + 1
         for row in filereader:
             self.app.log.debug("_read_next_line: row %d: %s", thisline, row)
-            row_result = dict()
+            # columns not in the file are treated as present but empty,
+            # so later code needn't check for each one.
+            row_result = { field: None for field in self.shot_fields }
             for column in itertools.zip_longest(headers, row):
                 name = column[0]
                 if name == None:
