@@ -39,7 +39,18 @@ Your cameras, lenses, author name, and so forth go in your own [settings](#setti
 
 ## Prerequisite
 
-You'll need to have `exiftool` installed on your system. On Linux, `apt-get install exiftool` will work; on macOS, you can use Brew. On Windows, you may need to resort to google search to find a suitable `.exe`. I believe that `scoop.sh` includes a version in its library. (Happy to accept contributions clarifying this.)
+You'll need:
+
+- Python 3.13 or later, and [`uv`](https://docs.astral.sh/uv/) (which can install Python for you).
+- `exiftool`, installed separately and on your `PATH`:
+
+  | System | Command
+  |--------|--------
+  | macOS | `brew install exiftool`, or the `.pkg` installer from [exiftool.org](https://exiftool.org/install.html)
+  | Debian, Ubuntu | `sudo apt install libimage-exiftool-perl` (distribution versions can lag well behind; check `exiftool -ver`)
+  | Windows | `scoop install exiftool`, or the Windows executable from [exiftool.org](https://exiftool.org/install.html) (rename `exiftool(-k).exe` to `exiftool.exe` and put it, with its `exiftool_files` folder, on your `PATH`)
+
+annotate-film-scans passes its own exiftool configuration file (defining the AnalogExif and AnnotateFilmScans XMP namespaces) to exiftool with `-config`. As a result, a personal `~/.ExifTool_config` is not loaded when annotate-film-scans runs exiftool.
 
 ## Intended Work Flow
 
@@ -302,7 +313,9 @@ Terry Moore
 
 ### Prerequisites
 
-V2.6.1 was tested on macOS 14.6.1 arm64 (as reported by `sw_vers`) with python3 v3.12.4 and `exiftool` version 12.62 (as reported by `exiftool -ver`).
+V3.0.0 was tested on macOS 26.5.2 arm64 (as reported by `sw_vers`) with Python 3.14.2 (under `uv`) and `exiftool` 13.55 (as reported by `exiftool -ver`).
+
+V3 has not been run end to end on Linux or Windows. The settings-directory logic for those systems is covered by unit tests (`make test`) only.
 
 ### License
 
